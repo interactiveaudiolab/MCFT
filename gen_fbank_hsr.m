@@ -10,7 +10,7 @@ function H_out=gen_fbank_hsr(sv,rv,nfft_s,nfft_r,params,X)
 % nfft_s: number of scale fft points 
 % nfft_r: number of rate fft points
 % params: structure array containing filter parameters including:
-%        1.ripple_freq 2.time_const 3.frame_per_sec 
+%        1.ripple_freq 2.frame_per_sec 3.time_const 
 % X: (optional) Nf by Nt matrix containing a 2d complex signal. 
 %     If X is not provided, the function will return the original
 %     set of filters.   
@@ -20,6 +20,9 @@ function H_out=gen_fbank_hsr(sv,rv,nfft_s,nfft_r,params,X)
 % 
 % Note: the first and last filters in s and r ranges are assumed
 %       to be lowpass and highpass respectively
+%
+% Author: Fatemeh Pishdadian (fpishdadian@u.northwesterin.edu)
+
 
 %% Input check
 tune_filter=0;
