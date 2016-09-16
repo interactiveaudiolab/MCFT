@@ -26,9 +26,12 @@ function x_hat=inv_mcft(Z,cqt_params,H)
 
 %% MCFT to CQT
 
+disp('Reconstructing the CQT...');
 X_hat=mcft_to_cqt(Z,H); % reconstructed CQT of the signal
 
 %% CQT to time-domain signal
+
+disp('Reconstructing the time-domain signal...');
 
 Nf=cqt_params.Nf;
 Nt=cqt_params.Nt;

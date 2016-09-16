@@ -3,6 +3,8 @@
  % (MCFT) of an audio signal, and then convert the 4d-representation back
  % to time domain. 
  
+addpath([cd(cd('..')),'/mcft']); 
+ 
  %% Load the audio signal (trombone sample from the Philharmonia Orchestra
  % dataset):
  
@@ -51,8 +53,17 @@ tvec=(0:length(x)-1)/fs;
 figure
 subplot(211)
 plot(tvec,x)
+axis tight
+ylabel('\bf x(t)')
+xlabel('\bf time (sec)')
+title('\bf original signal')
+
 subplot(212)
 plot(tvec,x_hat)
+axis tight
+ylabel('\bf xrec(t)')
+xlabel('\bf time (sec)')
+title('\bf reconstructed signal')
 
 
 

@@ -1,7 +1,9 @@
 %% Example(1):
  % In this example, we generate and plot upward and downward STRFs 
  % with a scale of 1 cycle per octave and rate of 4 Hz.
-  
+
+addpath([cd(cd('..')),'/mcft']); 
+   
 S=1; R=4;
 
 % parameters
