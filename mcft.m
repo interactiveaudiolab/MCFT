@@ -34,7 +34,7 @@ function [Z,cqt_params_out,H]=mcft(x,cqt_params_in,filt2d_params)
 %                 (required for reconstruction)
 % H: 4d matrix containing the scale-rate filter bank
 %
-% Author: Fatemeh Pishdadian (fpishdadian@u.northwesterin.edu)
+% Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
 
 %% Input check
 
@@ -59,14 +59,16 @@ fres=cqt_params_in.fres;
 Xcq = cqt(x,fres, fs, fmin, fmax, 'rasterize', 'full','gamma',0);
 X=Xcq.c;
 
+[Nf,Nt]=size(X); % number of frequency channels and time frames
 cqt_params_out=Xcq;
 cqt_params_out=rmfield(cqt_params_out,'c');
+cqt_params_out.Nf=Nf;
+cqt_params_out.Nt=Nt;
 
 %% Parameters of spectro-temporal filters:
 
 x_dur=length(x)/fs; % duration of the signal (in sec)
 
-[Nf,Nt]=size(X); % number of frequency channels and time frames
 nfft_s=Nf; % number of fft points along the scale axis
 nfft_r=Nt; % number of fft points along the rate axis 
 
@@ -95,10 +97,12 @@ H_params=struct('ripple_freq',SRF,'frame_per_sec',FPS,'time_const',beta);
     
 %% Spectro-temporal filter bank
 
- H=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params,X); 
+disp('Computing the filterbank...');
+H=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params,X); 
 
 %% CQT to MCFT
 
+disp('Computing the transform...');
 Z=cqt_to_mcft(X,H);
 
 end

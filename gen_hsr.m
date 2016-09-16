@@ -29,7 +29,7 @@ function [hsr,Hsr]=gen_hsr(S,R,S_params,R_params,filt_type)
 % hsr: impulse response of the 2D filter (in time-frequency domain)
 % Hsr: 2D-Fourier transform of the filter impulse response 
 %
-% Author: Fatemeh Pishdadian (fpishdadian@u.northwesterin.edu)
+% Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
 
 %% extract filter parameters
 

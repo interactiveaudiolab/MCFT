@@ -21,7 +21,7 @@ function H_out=gen_fbank_hsr(sv,rv,nfft_s,nfft_r,params,X)
 % Note: the first and last filters in s and r ranges are assumed
 %       to be lowpass and highpass respectively
 %
-% Author: Fatemeh Pishdadian (fpishdadian@u.northwesterin.edu)
+% Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
 
 
 %% Input check
@@ -70,9 +70,9 @@ for i = 1:Ns
     
     for j=1:Nr
     
-         if abs(rv_full(j))==rv(1)
+         if rv(j)==rv(1)
            R_params.type='lowpass';
-         elseif abs(rv_full(j))==rv(end)
+         elseif rv(j)==rv(end)
            R_params.type='highpass';
          else
            R_params.type='bandpass';

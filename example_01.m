@@ -1,6 +1,6 @@
 %% Example(1):
- % Generate and plot upward and downward STRFs with a scale of
- % 1 cycle per octave and a rate of 4 Hz 
+ % In this example, we generate and plot upward and downward STRFs 
+ % with a scale of 1 cycle per octave and rate of 4 Hz.
   
 S=1; R=4;
 

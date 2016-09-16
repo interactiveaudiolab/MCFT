@@ -12,7 +12,7 @@ function X_hat=mcft_to_cqt(Z,H)
 % X_hat: 2d matrix containing the reconstructed time-frequency
 %        representation 
 %
-% Author: Fatemeh Pishdadian (fpishdadian@u.northwesterin.edu)
+% Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
 
 
 %% Dimensions

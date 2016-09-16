@@ -13,7 +13,7 @@ function  mcft_out=cqt_to_mcft(X,H)
 % Ouput: 
 % Z: 4d matrix containing MCFT coefficients
 %
-% Author: Fatemeh Pishdadian (fpishdadian@u.northwesterin.edu)
+% Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
 
 %% Dimensions
 

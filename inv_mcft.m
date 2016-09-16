@@ -22,7 +22,7 @@ function x_hat=inv_mcft(Z,cqt_params,H)
 % Ouput:
 % x_hat: vector containing the reconstructed time-domain signal
 %
-% Author: Fatemeh Pishdadian (fpishdadian@u.northwesterin.edu)
+% Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
 
 %% MCFT to CQT
 
@@ -30,8 +30,13 @@ X_hat=mcft_to_cqt(Z,H); % reconstructed CQT of the signal
 
 %% CQT to time-domain signal
 
+Nf=cqt_params.Nf;
+Nt=cqt_params.Nt;
+cqt_params=rmfield(cqt_params,'Nf');
+cqt_params=rmfield(cqt_params,'Nt');
+
 Xcq=cqt_params;
-Xcq.c=X_hat;
+Xcq.c=X_hat(1:Nf,1:Nt);
 x_hat=icqt(Xcq);
 
 
