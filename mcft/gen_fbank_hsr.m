@@ -92,6 +92,10 @@ for i = 1:Ns
          hsr_down_tuned=hsr_down.*h_factor;
          Hsr_down=fft2(hsr_down_tuned);
          H_out(i,Nr+j,:,:)=Hsr_down;
+         
+         %rv(j)
+         %Nr-j+1
+         %Nr+j
                  
     end
 end

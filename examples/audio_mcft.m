@@ -44,9 +44,9 @@ x_hat=inv_mcft(Z,cqt_params_out,H);
 
 %% Compare the reconstructed signal to the original signal
 
-% Error rate
+% Error to signal ratio
 Err=20*log10(norm(x_hat-x)/norm(x_hat));
-disp(['reconstruction error = ' num2str(Err) ' dB']);
+disp(['error to signal ratio = ' num2str(Err) ' dB']);
 
 % plot the original and reconstructed signals
 tvec=(0:length(x)-1)/fs;
@@ -64,6 +64,7 @@ axis tight
 ylabel('\bf xrec(t)')
 xlabel('\bf time (sec)')
 title('\bf reconstructed signal')
+
 
 
 
