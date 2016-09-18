@@ -1,2 +1,3 @@
 # MCFT
-Source code for Multi-resolution Common Fate Transform. 
+This toolbox is a MATLAB implementation of the Multi-resolution Common Fate Transform. 
+
