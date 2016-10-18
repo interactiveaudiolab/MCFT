@@ -77,7 +77,7 @@ FPS=floor(Nt/x_dur); % sampling rate of the temporal filter (in frames per sec)
 
 % set filter scales and rates if not provided
 if set_filt_params   
-   [SV,RV]=filt_default_centers(SRF,FPS)
+   [SV,RV]=filt_default_centers(SRF,FPS);
     beta=1; % time constant of the temporal filter
 end
     
@@ -87,7 +87,7 @@ H_params=struct('ripple_freq',SRF,'frame_per_sec',FPS,'time_const',beta);
 %% Spectro-temporal filter bank
 
 disp('Computing the filterbank...');
-H=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params,X); 
+[~,H]=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params,X); 
 
 %% CQT to MCFT
 

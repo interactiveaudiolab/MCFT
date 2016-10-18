@@ -1,4 +1,4 @@
-function H_out=gen_fbank_hsr(sv,rv,nfft_s,nfft_r,params,X)
+function [h_out,H_out]=gen_fbank_hsr(sv,rv,nfft_s,nfft_r,params,X)
 
 % This function generates a scale-rate domain bank of up-/down-ward,
 % filters. The filterbank will be tuned to the passband of a target 
@@ -16,6 +16,7 @@ function H_out=gen_fbank_hsr(sv,rv,nfft_s,nfft_r,params,X)
 %     set of filters.   
 % 
 % Output: 
+% h_out: Ns*(2*Nr)*Nf*Nt matix containing the STRFs
 % H_out: Ns*(2*Nr)*Nf*Nt matrix containing the filterbank
 % 
 % Note: the first and last filters in s and r ranges are assumed
@@ -56,6 +57,7 @@ else
    h_factor=1; 
 end
 
+h_out = zeros(Ns, 2*Nr, nfft_s, nfft_r);
 H_out = zeros(Ns, 2*Nr, nfft_s, nfft_r);
 for i = 1:Ns
     
@@ -84,19 +86,18 @@ for i = 1:Ns
          % upward
          [hsr_up,~]=gen_hsr(sv(i),rv(j),S_params,R_params,'up');
          hsr_up_tuned=hsr_up.*h_factor;
+         h_out(i,Nr-j+1,:,:)=hsr_up_tuned;
          Hsr_up=fft2(hsr_up_tuned);
          H_out(i,Nr-j+1,:,:)=Hsr_up;
          
          % downward
          [hsr_down,~]=gen_hsr(sv(i),rv(j),S_params,R_params,'down');
          hsr_down_tuned=hsr_down.*h_factor;
+         h_out(i,Nr+j,:,:)=hsr_down_tuned;
          Hsr_down=fft2(hsr_down_tuned);
          H_out(i,Nr+j,:,:)=Hsr_down;
          
-         %rv(j)
-         %Nr-j+1
-         %Nr+j
-                 
+                
     end
 end
 
