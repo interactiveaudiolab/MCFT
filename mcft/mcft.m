@@ -1,4 +1,4 @@
-function [Z,cqt_params_out,H]=mcft(x,cqt_params_in,filt2d_params)
+function [mcft_out,cqt_params_out,H]=mcft(x,cqt_params_in,filt2d_params)
 
 % This function receives a time domian audio signal and returns its 
 % Multi-resolution Common Fate Transform (MCFT). 
@@ -24,12 +24,12 @@ function [Z,cqt_params_out,H]=mcft(x,cqt_params_in,filt2d_params)
 %        fres: frequency resolution (# of bins per octave)
 % filt2d_params (optional): structure array containing parameters of 
 %        2d (spectro-temporal) filters: 
-%        S_vec: vector containing filter centers (along scale axis)
-%        R_vec: vector containing filter centers (along rate axis)
+%        scale_ctrs: vector containing filter centers (along scale axis)
+%        rate_ctrs: vector containing filter centers (along rate axis)
 %        time_const: time constant of the temporal filter
 %
 % Outputs:
-% Z: 4d matrix containing MCFT coefficients
+% mcft_out: 4d matrix containing MCFT coefficients
 % cqt_params_out: structure array containing all CQT properties 
 %                 (required for reconstruction)
 % H: 4d matrix containing the scale-rate filter bank
@@ -39,60 +39,60 @@ function [Z,cqt_params_out,H]=mcft(x,cqt_params_in,filt2d_params)
 %% Input check
 
 if nargin<3
-    set_filt_params=1;
+    set_filt_params = 1;
 else
-    set_filt_params=0;
-    SV=filt2d_params.S_vec;
-    RV=filt2d_params.R_vec;
-    beta=filt2d_params.time_const;
+    set_filt_params = 0;
+    scale_ctrs = filt2d_params.scale_ctrs;
+    rate_ctrs = filt2d_params.rate_ctrs;
+    beta = filt2d_params.time_const;
 end
 
 %% CQT parameters:
 
-fs=cqt_params_in.fs;
-fmin=cqt_params_in.fmin;
-fmax=cqt_params_in.fmax;
-fres=cqt_params_in.fres;
+fs = cqt_params_in.fs;   % sample rate of the time signal
+fmin = cqt_params_in.fmin; % min frequency of the cqt filter bank 
+fmax = cqt_params_in.fmax; % max frequency of the cqt filter bank
+fres = cqt_params_in.fres; % number of filters per octave
 
 %% Time-domain signal to CQT
 
 Xcq = cqt(x,fres, fs, fmin, fmax, 'rasterize', 'full','gamma',0);
-X=Xcq.c;
+X = Xcq.c;
 
-[Nf,Nt]=size(X); % number of frequency channels and time frames
-cqt_params_out=Xcq;
-cqt_params_out=rmfield(cqt_params_out,'c');
-cqt_params_out.Nf=Nf;
-cqt_params_out.Nt=Nt;
+[Nf,Nt] = size(X); % number of frequency channels and time frames
+cqt_params_out = Xcq;
+cqt_params_out = rmfield(cqt_params_out,'c');
+cqt_params_out.Nf = Nf;
+cqt_params_out.Nt = Nt;
 
 %% Parameters of spectro-temporal filters:
 
-x_dur=length(x)/fs; % duration of the signal (in sec)
+x_dur = length(x)/fs; % duration of the signal (in sec)
 
-nfft_s=Nf; % number of fft points along the scale axis
-nfft_r=Nt; % number of fft points along the rate axis 
+nfft_s = Nf; % min number of fft points along the scale axis 
+nfft_r = Nt; % min number of fft points along the rate axis 
 
-SRF=fres; % sampling rate of the spectral filter (in samples per octave)
-FPS=floor(Nt/x_dur); % sampling rate of the temporal filter (in frames per sec)
+samprate_spec=fres; % sampling rate of the spectral filter (in samples per octave)
+samprate_temp=floor(Nt/x_dur); % sampling rate of the temporal filter (in frames per sec)
 
 % set filter scales and rates if not provided
 if set_filt_params   
-   [SV,RV]=filt_default_centers(SRF,FPS);
+   [scale_ctrs,rate_ctrs]=filt_default_centers(nfft_s,nfft_r,samprate_spec,samprate_temp);
     beta=1; % time constant of the temporal filter
 end
     
 % concatenate filter parameters into one structure array
-H_params=struct('ripple_freq',SRF,'frame_per_sec',FPS,'time_const',beta);
+H_params=struct('samprate_spec',samprate_spec,'samprate_temp',samprate_temp,'time_const',beta);
     
 %% Spectro-temporal filter bank
 
 disp('Computing the filterbank...');
-[~,H]=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params,X); 
+[~,H]=gen_fbank_hsr(scale_ctrs,rate_ctrs,nfft_s,nfft_r,H_params,X); 
 
 %% CQT to MCFT
 
 disp('Computing the transform...');
-Z=cqt_to_mcft(X,H);
+mcft_out=cqt_to_mcft(X,H);
 
 end
 

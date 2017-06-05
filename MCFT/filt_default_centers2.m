@@ -1,10 +1,8 @@
-function [S_vec,R_vec]=filt_default_centers2(nfft_s,nfft_r,SRF,FPS)
+function [S_vec,R_vec]=filt_default_centers2(SRF,FPS)
 
 % This function computes the default set of filter centers
 %
 % Inputs:
-% nfft_s: number of fft points on the scale axis
-% nfft_r: number of fft points on the rate axis
 % SRF: sampling rate of the spectral filter (in samples per octave)
 % FPS: sampling rate of the temporal filter (in frames per sec)
 %
@@ -15,17 +13,14 @@ function [S_vec,R_vec]=filt_default_centers2(nfft_s,nfft_r,SRF,FPS)
 % Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
 
 %% set filter scales
-    smin=SRF/nfft_s; % center of the low-pass filter
-    log2_sbandmax=ceil(log2(nfft_s/2)-1); % center of the highest band-pass filter
-    shigh=(smin*2^log2_sbandmax + SRF/2)/2; 
-    shigh=smin*floor(shigh/smin);   % center of the high-pass filter
-    S_vec=[smin*2.^(-1:log2_sbandmax),shigh];
+    log2_slow=-3; % center of the low-pass filter
+    log2_sbandmax=nextpow2(SRF/2)-1; % center of the highest band-pass filter
+    log2_shigh=log2((2^log2_sbandmax + SRF/2)/2); % center of the high-pass filter
+    S_vec=2.^[(log2_slow:1:log2_sbandmax),log2_shigh]; 
     
 %% set filter rates
-    rmin=FPS/nfft_r; % center of the low-pass filter
-    log2_rbandmax=ceil(log2(nfft_r/2)-1); % center of the highest band-pass filter
-    rhigh=(rmin*2^log2_rbandmax + FPS/2)/2; 
-    rhigh=rmin*floor(rhigh/rmin);   % center of the high-pass filter
-    R_vec=[rmin*2.^(-1:0.5:log2_rbandmax),rhigh];
- 
+    log2_rlow=-3; % center of the low-pass filter
+    log2_rbandmax=nextpow2(FPS/2)-1; % center of the highest band-pass filter
+    log2_rhigh=log2((2^log2_rbandmax + FPS/2)/2); % center of the high-pass filter
+    R_vec=2.^[(log2_rlow:0.5:log2_rbandmax),log2_rhigh];
 end

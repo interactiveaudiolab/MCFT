@@ -261,8 +261,8 @@ function cqt_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % generate plots
-fmin = 27.5*2^(16/12); %C2
-fmax = 27.5*2^(76/12); %C7
+fmin = 27.5*2^(0/12); %C2
+fmax = 27.5*2^(87/12); %C7
 fres = 24; % bins per octave
 fs=handles.fs;
 dur_x=length(handles.sig)/fs;
@@ -272,8 +272,20 @@ X=Xcq.c;
 [LF,LT]=size(X);
 handles.LF=LF;
 handles.LT=LT;
+
+% time and frequency vectors
 fvec=Xcq.fbas; 
 tvec=linspace(0,dur_x,LT);
+
+% unwrap and frequency normalize the phase
+fmat=repmat(fvec,1,LT);
+Xph=unwrap(angle(X),[],2)./fmat;
+X=abs(X).*exp(1j*Xph);
+
+% adjust X dimensions (to even values)
+LF=LF+mod(LF,2);
+LT=LT+mod(LT,2);
+X=ifft2(fft2(X,LF,LT));
 
 Xmag=abs(X);
 Xmag=Xmag/max(Xmag(:)); % normalize for plotting
@@ -440,13 +452,12 @@ function handles=filt_output(handles)
   FPS=handles.FPS;
   beta=1;
   
-  [SV,RV]=filt_default_centers2(LF,LT,SRF,FPS);
-  %[SV,RV]=filt_default_centers(SRF,FPS);
+  [SV,RV]=filt_default_centers(LF,LT,SRF,FPS);
   
   handles.SV=SV;
   handles.RV=RV;
 
-  H_params=struct('ripple_freq',SRF,'frame_per_sec',FPS,'time_const',beta);
+  H_params=struct('samprate_spec',SRF,'samprate_temp',FPS,'time_const',beta);
 
   % filter input status
   X=handles.sig_cqt;
@@ -458,19 +469,12 @@ function handles=filt_output(handles)
       [h,H]=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params); 
       X_input=abs(X);
   elseif input_status==2
-      [h,H]=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params,X); 
+      [h,H]=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params); %,X); 
       X_input=X;
   end    
   
-  h=h(:,:,1:size(X,1),1:size(X,2));
-  handles.h=h;
-  Hsr=zeros(size(h));
-  for i=1:length(SV)
-      for j=1:2*length(RV)
-          Hsr(i,j,:,:)=fftshift(fft2(squeeze(h(i,j,:,:))));
-      end
-  end
-  handles.H=Hsr;
+  handles.h=h;  
+  handles.H=H;
 
   % compute the filter-bank output
   Z=cqt_to_mcft(X_input,H);
@@ -485,7 +489,6 @@ function handles=filt_output(handles)
   end
   handles.Zsr=Zsr;
           
-  
   % activate the 2D filtering button
   set(handles.filt_2d,'Value',0)
   
@@ -558,7 +561,7 @@ function handles=plot_filt_output(handles)
   title('Filter Magnitude in F-T','fontsize',12)
   
   axes(handles.H_plot)
-  mesh(handles.rvec,handles.svec,mag_H)
+  mesh(handles.rvec,handles.svec,fftshift(mag_H))
   %set(gca,'ydir','normal');
   axis tight
   ylabel('Scale(cyc/oct)')
