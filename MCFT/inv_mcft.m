@@ -1,4 +1,4 @@
-function x_hat=inv_mcft(Z,cqt_params,H)
+function x_hat=inv_mcft(mcft_in,cqt_params,H)
 
 % This function reconstructs a time-domain signal given its 
 % Multi-resolution Common Fate Transform (MCFT). 
@@ -16,7 +16,10 @@ function x_hat=inv_mcft(Z,cqt_params,H)
 % Semantic Audio. Audio Engineering Society, 2014. 
 %
 % Inputs: 
-% Z: 4d matrix containing MCFT coefficients
+% mcft_in: 4d matrix containing MCFT coefficients
+% cqt_params: structure array containing cqt parameters including:
+%             Nf: number of frequency bins
+%             Nt: number of time frames
 % H: 4d matrix containing the scale-rate filter bank
 %
 % Ouput:
@@ -27,7 +30,7 @@ function x_hat=inv_mcft(Z,cqt_params,H)
 %% MCFT to CQT
 
 disp('Reconstructing the CQT...');
-X_hat=mcft_to_cqt(Z,H); % reconstructed CQT of the signal
+X_hat=mcft_to_cqt(mcft_in,H); % reconstructed CQT of the signal
 
 %% CQT to time-domain signal
 
