@@ -469,7 +469,7 @@ function handles=filt_output(handles)
       [h,H]=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params); 
       X_input=abs(X);
   elseif input_status==2
-      [h,H]=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params); %,X); 
+      [h,H]=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params); %,X); %don't need to modulate filters
       X_input=X;
   end    
   
@@ -547,7 +547,7 @@ function handles=plot_filt_output(handles)
   c_H=[min(magnorm_H(:)),max(magnorm_H(:))];
   
   h_plot=fftshift(squeeze(h_norm(S_idx,R_idx,:,:)),1);
-  mag_H=squeeze(magnorm_H(S_idx,R_idx,:,:));
+  mag_H=fftshift(squeeze(magnorm_H(S_idx,R_idx,:,:)));
   
   axes(handles.h_plot)
   imagesc(handles.tvec,handles.fvec,h_plot)
@@ -561,7 +561,7 @@ function handles=plot_filt_output(handles)
   title('Filter Magnitude in F-T','fontsize',12)
   
   axes(handles.H_plot)
-  mesh(handles.rvec,handles.svec,fftshift(mag_H))
+  mesh(handles.rvec,handles.svec,mag_H)
   %set(gca,'ydir','normal');
   axis tight
   ylabel('Scale(cyc/oct)')
@@ -581,13 +581,7 @@ function handles=plot_filt_output(handles)
   % color bar range
   c_ft=[min(magnorm_Z(:)),max(magnorm_Z(:))];
   c_sr=[min(magnorm_Zsr(:)),max(magnorm_Zsr(:))];
-  %c_ft=20*log10([min(magnorm_Z(:)),max(magnorm_Z(:))]+eps);
-  %c_sr=20*log10([min(magnorm_Zsr(:)),max(magnorm_Zsr(:))]+eps);
     
-  % plot the output for selected parameters
-  %magnorm_Z=20*log10(magnorm_Z);
-  %magnorm_Zsr=20*log10(magnorm_Zsr);
-
   magZ_ft=squeeze(magnorm_Z(S_idx,R_idx,:,:));
   magZ_sr=squeeze(magnorm_Zsr(S_idx,R_idx,:,:));
   

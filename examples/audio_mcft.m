@@ -34,7 +34,7 @@ title('Constant-Q Treansform of the audio signal')
 
 %% Compute the MCFT of the audio signal
 
-cqt_params_in=struct('fs',fs,'fmin',fmin,'fmax',fmax,'fres',fres);
+cqt_params_in=struct('fs',fs,'fmin',fmin,'fmax',fmax,'fres',fres,'gamma',0);
 
 [Z,cqt_params_out,H]=mcft(x,cqt_params_in);
 
@@ -45,7 +45,7 @@ x_hat=inv_mcft(Z,cqt_params_out,H);
 %% Compare the reconstructed signal to the original signal
 
 % Error to signal ratio
-Err=20*log10(norm(x_hat-x)/norm(x_hat));
+Err=20*log10(norm(x_hat-x)/norm(x));
 disp(['Error to signal ratio = ' num2str(Err) ' dB']);
 
 % plot the original and reconstructed signals
@@ -66,8 +66,28 @@ xlabel('\bf time (sec)')
 title('\bf reconstructed signal')
 
 
+%% Visualize the MCFT
 
+[Ns,Nr,Nf,Nt]=size(Z);
+Z_mag = abs(Z);
+H_mag = abs(H);
 
+for i=1:Ns
+    for j=1:Nr
+        Z_temp = squeeze(Z_mag(i,j,:,:));
+        H_temp = fftshift(squeeze(H_mag(i,j,:,:)));
+        subplot(121)        
+        imagesc(Z_temp);
+        set(gca,'ydir','normal')
+        colorbar
+        caxis([0,max(Z_mag(:))])
+        title(['S#:',num2str(i),' R#:',num2str(j)])
+        subplot(122)
+        imagesc(H_temp);
+        set(gca,'ydir','normal')
+        pause
+    end
+end
 
 
 

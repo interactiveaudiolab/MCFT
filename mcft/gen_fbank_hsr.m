@@ -52,11 +52,8 @@ rate_params=struct('time_const',beta,'hrlen',nfft_r,'samprate_temp',samprate_tem
 %% Generate the filterbank
 
 % Filter tuning factor (can be thought as a pre-filtering stage)
-if tune_filter
+if tune_filter 
    Xft=ifft2(fft2(comp_specgram,nfft_s,nfft_r)); % for dimension adjustment
-%    [Nf,Nt]=size(comp_specgram);
-%    Xft=zeros(nfft_s,nfft_r);
-%    Xft(1:Nf,1:Nt)=comp_specgram;
    h_factor=exp(1j.*angle(Xft));
 else
    h_factor=1; 
