@@ -32,6 +32,7 @@ function x_hat=inv_mcft(mcft_in,cqt_params,H)
 disp('Reconstructing the CQT...');
 X_hat=mcft_to_cqt(mcft_in,H); % reconstructed CQT of the signal
 
+
 %% CQT to time-domain signal
 
 disp('Reconstructing the time-domain signal...');
@@ -42,6 +43,18 @@ cqt_params=rmfield(cqt_params,'Nf');
 cqt_params=rmfield(cqt_params,'Nt');
 
 Xcq=cqt_params;
+
+% see observation note in the mcft function
+%%%% phase normalization method %%%%
+% % reconstruct the phase
+% freq_vec=Xcq.fbas;
+% fmat=repmat(freq_vec,1,Nt);
+% X_hat = X_hat(1:Nf,1:Nt);
+% Xph=unwrap(angle(X_hat),[],2).*fmat;
+%%% the following line is interesting and worth exploring
+% X_hat=abs(X_hat).*exp(1j*angle(X_hat)./(abs(X_hat)+eps)); %Xph);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Xcq.c=X_hat(1:Nf,1:Nt);
 x_hat=icqt(Xcq);
 

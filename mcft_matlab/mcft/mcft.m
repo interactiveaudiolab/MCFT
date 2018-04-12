@@ -47,24 +47,43 @@ else
     beta = filt2d_params.time_const;
 end
 
+
 %% CQT parameters:
 
 fs = cqt_params_in.fs;   % sample rate of the time signal
 fmin = cqt_params_in.fmin; % min frequency of the cqt filter bank 
 fmax = cqt_params_in.fmax; % max frequency of the cqt filter bank
 fres = cqt_params_in.fres; % number of filters per octave
+gamma = cqt_params_in.gamma; % linear-Q factor
 
 %% Time-domain signal to CQT
 
-Xcq = cqt(x,fres, fs, fmin, fmax, 'rasterize', 'full','gamma',0);
+Xcq = cqt(x,fres, fs, fmin, fmax, 'rasterize', 'full','gamma',gamma);
 X = Xcq.c;
-
 [Nf,Nt] = size(X); % number of frequency channels and time frames
+
+% observation: this part is invertible for just one
+% signal (without any manipulation) but fails in separation
+% reason: phase is not linear over harmonics in cqt
+% it's actually periodic (over time) with different period
+% for each overtone, when unwrap it over time you can
+% clearly see lines with different slopes
+% needs more work!
+%%%% phase normalization method %%%%
+% % unwrap and frequency normalize the phase
+% freq_vec=Xcq.fbas;
+% fmat=repmat(freq_vec,1,Nt);
+% Xph=unwrap(angle(X),[],2)./fmat;
+%%% the following line is interesting and worth exploring
+% X=abs(X).*exp(1j*abs(X).*angle(X)); %Xph);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 cqt_params_out = Xcq;
 cqt_params_out = rmfield(cqt_params_out,'c');
 cqt_params_out.Nf = Nf;
 cqt_params_out.Nt = Nt;
 
+ 
 %% Parameters of spectro-temporal filters:
 
 x_dur = length(x)/fs; % duration of the signal (in sec)
@@ -84,9 +103,12 @@ end
 % concatenate filter parameters into one structure array
 H_params=struct('samprate_spec',samprate_spec,'samprate_temp',samprate_temp,'time_const',beta);
     
+
 %% Spectro-temporal filter bank
 
 disp('Computing the filterbank...');
+%%% the following line is interesting and worth exploring
+% aa = abs(X).*exp(1j*abs(X).*angle(X));
 [~,H]=gen_fbank_hsr(scale_ctrs,rate_ctrs,nfft_s,nfft_r,H_params,X); 
 
 %% CQT to MCFT
