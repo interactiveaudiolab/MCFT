@@ -4,16 +4,26 @@ import numpy as np
 import librosa
 
 
-def load_matlab_cqt(path_to_cqt):
+def load_matlab_cqt(path_to_matlab_cqt):
     # Calls a matlab function in python that returns MATLAB's implementation of the CQT
-    return
+    with open(path_to_matlab_cqt, 'rb') as f:
+        reader = csv.reader(f, delimiter=',')
+        rows = []
+        for i, row in enumerate(reader):
+            rows.append(map(complex,row))
+
+    m_cqt = np.zeros((len(rows),len(rows[0])), dtype=complex)
+    for i in range(len(rows)):
+        m_cqt[i,:] = rows[i]
+
+    return m_cqt
 
 
-def run_python_cqt(path_to_audio, sample_rate):
+def run_python_cqt(path_to_audio):
     # Calls the python version of the CQT to compare to the MATLAB
     # TODO: Write our own CQT to replace the use of the librosa one
-    audio, sr = librosa.core.load(path_to_audio, sr=sample_rate)
-    p_cqt = librosa.core.cqt(audio, sr=sample_rate)
+    audio, sr = librosa.core.load(path_to_audio)
+    p_cqt = librosa.core.cqt(audio, sr=sr)
     return audio, p_cqt
 
 
@@ -27,11 +37,10 @@ def main():
     # Load in command line arguments for audio file and its sample rate
     path_to_audio = sys.argv[1]
     path_to_matlab_cqt = sys.argv[2]
-    sample_rate = int(sys.argv[3])
 
     # Compute both implementations of the CQT
-    m_cqt = np.zeros((84, 80000)) # run_matlab_cqt(path_to_audio)
-    audio, p_cqt = run_python_cqt(path_to_audio, sample_rate)
+    m_cqt = load_matlab_cqt(path_to_matlab_cqt)
+    audio, p_cqt = run_python_cqt(path_to_audio)
 
     # Find the total error between the two CQTs
     window = min(p_cqt.shape[1], m_cqt.shape[1])
