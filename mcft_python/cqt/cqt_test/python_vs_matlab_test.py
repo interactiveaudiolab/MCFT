@@ -1,7 +1,7 @@
 import sys
 import numpy as np 
 import librosa
-# import matlab.engine
+import matlab.engine
 
 
 def run_matlab_cqt(path_to_audio):
