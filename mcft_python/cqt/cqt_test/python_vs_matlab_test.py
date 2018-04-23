@@ -1,14 +1,12 @@
 import sys
+import csv
 import numpy as np 
 import librosa
-import matlab.engine
 
 
-def run_matlab_cqt(path_to_audio):
+def load_matlab_cqt(path_to_cqt):
     # Calls a matlab function in python that returns MATLAB's implementation of the CQT
-    eng = matlab.engine.start_engine()
-    m_cqt = eng.cqt(path_to_audio)
-    return m_cqt
+    return
 
 
 def run_python_cqt(path_to_audio, sample_rate):
@@ -28,7 +26,8 @@ def reconstruction_error(original, reconstructed):
 def main():
     # Load in command line arguments for audio file and its sample rate
     path_to_audio = sys.argv[1]
-    sample_rate = int(sys.argv[2])
+    path_to_matlab_cqt = sys.argv[2]
+    sample_rate = int(sys.argv[3])
 
     # Compute both implementations of the CQT
     m_cqt = np.zeros((84, 80000)) # run_matlab_cqt(path_to_audio)
