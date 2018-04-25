@@ -14,3 +14,6 @@ max_freq = 4186;
 bins = 24;
 Xcq = cqt(signal,bins,sample_rate,min_freq,max_freq);
 csvwrite([output_filename,'.dat'], Xcq.c);
+reconstructed_audio = icqt(Xcq);
+audiowrite('matlab_reconstructed_audio.wav',reconstructed_audio, sample_rate);
+error = norm(signal - reconstructed_audio)/norm(signal)
