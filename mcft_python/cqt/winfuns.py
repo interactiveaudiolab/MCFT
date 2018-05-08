@@ -126,7 +126,7 @@ def winfuns(window_name, sample_positions=None, window_len=None):
        Url: http://nsg.sourceforge.net/doc/windows/winfuns.php
     '''
     if sample_positions is not None:
-        pass
+        pass  # TODO: should probably make a check that input is a numpy array
     elif window_len != None:
         if window_len % 2:
             sample_positions = np.linspace(-.5+1/(2*window_len),.5-1/(2*window_len),window_len)
@@ -149,8 +149,8 @@ def winfuns(window_name, sample_positions=None, window_len=None):
     elif window_name in ['hamming','nuttall01','Hamming','Nuttall01']:
         g = .54 + .46*np.cos(2*np.pi*sample_positions);
         
-    elif window_name in ['square','rec','Square','Rec']:
-        g = double(abs(sample_positions) < .5);
+    elif window_name in ['square','rec','Square','Rec','boxcar','Boxcar']:
+        g = np.asarray([int(abs(i) < .5) for i in sample_positions], dtype=np.float64);
         
     elif window_name in ['tri','triangular','bartlett','Tri','Triangular','Bartlett']:
         g = 1-2*abs(sample_positions);
@@ -206,10 +206,21 @@ def winfuns(window_name, sample_positions=None, window_len=None):
     return g
 
 
-x = winfuns('gauss',sample_positions=np.linspace(-.5,.5,100))
-y = winfuns('gauss',window_len=100)
 
-plt.plot(np.linspace(-.5,.5,100),x,'b-',label='with sample_positions')
-plt.plot(np.linspace(-.5,.5,100),y,'r--',label='with window length')
+py1 = winfuns('hann',sample_positions=np.arange(-1,1.1,.1))
+py2 = winfuns('rec',sample_positions=np.arange(-1,1.2,.2))
+py3 = winfuns('gauss',sample_positions=np.arange(-.5,.55,.05))
+
+m1 = np.asarray([0,0,0,0,0,0,0.095492,0.34549,0.65451,0.90451,1,0.90451,0.65451,0.34549,0.095492,0,0,0,0,0,0])
+m2 = np.asarray([0,0,0,1,1,1,1,1,0,0,0])
+m3 = np.asarray([0,0.026121,0.056135,0.11025,0.1979,0.32465,0.48675,0.66698,0.83527,0.956,1,0.956,0.83527,0.66698,0.48675,0.32465,0.1979,0.11025,0.056135,0.026121,0])
+
+error = (np.sum(abs(py1-m1)) + np.sum(abs(py2-m2)) + np.sum(abs(py3-m3)))/(len(m1)+len(m2)+len(m3))
+
+plt.plot(np.arange(-1,1.1,.1),py1,'b-',np.arange(-1,1.1,.1),m1,'r:')
+plt.plot(np.arange(-1,1.2,.2),py2,'b-',np.arange(-1,1.2,.2),m2,'r:')
+plt.plot(np.arange(-.5,.55,.05),py3,'b-',np.arange(-.5,.55,.05),m3,'r:')
 plt.legend()
 plt.show()
+
+print error
