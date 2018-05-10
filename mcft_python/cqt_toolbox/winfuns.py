@@ -110,20 +110,6 @@ def winfuns(window_name, sample_positions=None, window_len=None):
                         toolbox.
 
        See also:  nsgcqwin, nsgwvltwin, nsgerbwin
-
-       References:
-         Wikipedia. Window function - wikipedia article.
-         http://en.wikipedia.org/wiki/Window_function.
-         
-         A. Nuttall. Some windows with very good sidelobe behavior. IEEE Trans.
-         Acoust. Speech Signal Process., 29(1):84-91, 1981.
-         
-         F. Harris. On the use of windows for harmonic analysis with the
-         discrete Fourier transform. Proceedings of the IEEE, 66(1):51 - 83,
-         January 1978.
-         
-
-       Url: http://nsg.sourceforge.net/doc/windows/winfuns.php
     '''
     if sample_positions is not None:
         pass  # TODO: should probably make a check that input is a numpy array
@@ -206,7 +192,7 @@ def winfuns(window_name, sample_positions=None, window_len=None):
     return g
 
 
-
+'''
 py1 = winfuns('hann',sample_positions=np.arange(-1,1.1,.1))
 py2 = winfuns('rec',sample_positions=np.arange(-1,1.2,.2))
 py3 = winfuns('gauss',sample_positions=np.arange(-.5,.55,.05))
@@ -224,3 +210,4 @@ plt.legend()
 plt.show()
 
 print error
+'''

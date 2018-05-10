@@ -1,5 +1,5 @@
 import numpy as np
-import cqt_toolbox.winfuns as wfuns
+from cqt_toolbox.winfuns import winfuns as wfuns
 
 def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',gamma=0):
 	'''
@@ -60,22 +60,6 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 	                   bandwidths). See reference for more information.
 	
 	   See also: nsgtf_real, winfuns
-	
-	   References:
-	     C. Schörkhuber, A. Klapuri, N. Holighaus, and M. Dörfler. A Matlab 
-	     Toolbox for Efficient Perfect Reconstruction log-f Time-Frequecy 
-	     Transforms.
-	
-	     G. A. Velasco, N. Holighaus, M. DÃ¶rfler, and T. Grill. Constructing an
-	     invertible constant-Q transform with non-stationary Gabor frames.
-	     Proceedings of DAFX11, Paris, 2011.
-	     
-	     N. Holighaus, M. DÃ¶rfler, G. Velasco, and T. Grill. A framework for
-	     invertible, real-time constant-q transforms. Audio, Speech, and
-	     Language Processing, IEEE Transactions on, 21(4):775-785, April 2013.
-	     
-	
-	   Url: http://nsg.sourceforge.net/doc/generators/nsgcqwin.php
 	'''
 	nyquist = sr/2.
 	if fmax > nyquist:
@@ -88,18 +72,18 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 	Q = 2**(1/bins) - 2**(-1/bins)
 	cqtbw = Q*fbas + gamma
 
-	nonzeroIndices = np.nonzero([int(fbas[i]+cqtbw[i]/2>nyquist) for i in range(fbas.shape[0])])
+	nonzeroIndices = np.nonzero([int(fbas[i]+cqtbw[i]/2>nyquist) for i in range(len(fbas))])
 	if nonzeroIndices[0].size > 0:
 		fbas = fbas[:nonzeroIndices[0][0]]
 		cqtbw = cqtbw[:nonzeroIndices[0]]
 
-	nonzeroIndices = np.nonzero([int(fbas[i]-cqtbw[i]/2<0) for i in range(fbas.shape[0])])
+	nonzeroIndices = np.nonzero([int(fbas[i]-cqtbw[i]/2<0) for i in range(len(fbas))])
 	if nonzeroIndices[0].size > 0:
 		fbas = fbas[nonzeroIndices[0][-1]:]
 		cqtbw = cqtbw[nonzeroIndices[0][-1]:]
 		print "fmin set to ", None, " Hz!" # Computation 
 
-	Lfbas = fbas.shape[0]
+	Lfbas = len(fbas)
 	fbas = np.concatenate(([0],fbas,[nyquist],sr-np.flip(fbas,0)))
 	bw = np.concatenate((2*fmin, cqtbw, fbas[Lfbas+2]-fbas[Lfbas], np.flip(cqtbw,0)))
 	bw /= fftres
@@ -124,5 +108,25 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 			M[i] = bw[i]
 
 	if fractional:
-		wfunc = np.vectorize(wfuns)
-		g = wfunc()
+		g = []
+		for i in range(len(M)):
+			samples = np.concatenate((range(int(np.ceil(M[i]/2)+1)),range(int(-1*np.ceil(M[i]/2)),0)))
+			samples -= corr_shift[i]
+			samples /= bw[i]
+			win = wfuns(winfun, sample_positions=samples)
+			win /= np.sqrt(bw[i])
+			g.append(win)
+	else:
+		g = []
+		for i in range(len(bw)):
+			g.append(wfuns(winfun,window_len=bw[i]))
+
+	M = bwfac*np.ceil(M/bwfac)
+
+	for i in [0,Lfbas+1]:
+		if M[i] > M[i+1]:
+			g[i] = np.ones(M[i])
+			g[i][np.floor(M[i]/2)-np.floor(M[i+1]/2):np.floor(M[i]/2)+np.ceil(M[i+1]/2)] = wfuns('hann',window_len=M[i+1])
+			g[i] /= np.sqrt(M[i])
+
+	return g, shift, M
