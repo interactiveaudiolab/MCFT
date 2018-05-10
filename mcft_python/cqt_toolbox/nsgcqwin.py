@@ -1,4 +1,5 @@
-import numpy as np 
+import numpy as np
+import cqt_toolbox.winfuns as wfuns
 
 def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',gamma=0):
 	'''
@@ -123,4 +124,5 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 			M[i] = bw[i]
 
 	if fractional:
-		
+		wfunc = np.vectorize(wfuns)
+		g = wfunc()
