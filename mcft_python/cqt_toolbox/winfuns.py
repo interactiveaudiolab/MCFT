@@ -141,43 +141,43 @@ def winfuns(window_name, sample_positions=None, window_len=None):
     # numpy handles vectors as opposed to MATLAB
 
     if window_name in ['Hann','hann','nuttall10','Nuttall10']:
-        g = .5 + .5*np.cos(2*np.pi*sample_positions);
+        g = .5 + .5*np.cos(2*np.pi*sample_positions)
         
     elif window_name in ['Cosine','cosine','cos','Cos','sqrthann','Sqrthann']:
-        g = np.cos(np.pi*sample_positions);
+        g = np.cos(np.pi*sample_positions)
         
     elif window_name in ['hamming','nuttall01','Hamming','Nuttall01']:
-        g = .54 + .46*np.cos(2*np.pi*sample_positions);
+        g = .54 + .46*np.cos(2*np.pi*sample_positions)
         
     elif window_name in ['square','rec','Square','Rec','boxcar','Boxcar']:
-        g = np.asarray([int(abs(i) < .5) for i in sample_positions], dtype=np.float64);
+        g = np.asarray([int(abs(i) < .5) for i in sample_positions], dtype=np.float64)
         
     elif window_name in ['tri','triangular','bartlett','Tri','Triangular','Bartlett']:
-        g = 1-2*abs(sample_positions);
+        g = 1-2*abs(sample_positions)
         
     elif window_name in ['blackman','Blackman']:
-        g = .42 + .5*np.cos(2*np.pi*sample_positions) + .08*np.cos(4*np.pi*sample_positions);
+        g = .42 + .5*np.cos(2*np.pi*sample_positions) + .08*np.cos(4*np.pi*sample_positions)
         
     elif window_name in ['blackharr','Blackharr']:
         g = .35875 + .48829*np.cos(2*np.pi*sample_positions) + .14128*np.cos(4*np.pi*sample_positions) + \
-            .01168*np.cos(6*np.pi*sample_positions);
+            .01168*np.cos(6*np.pi*sample_positions)
         
     elif window_name in ['modblackharr','Modblackharr']:
         g = .35872 + .48832*np.cos(2*np.pi*sample_positions) + .14128*np.cos(4*np.pi*sample_positions) + \
-            .01168*np.cos(6*np.pi*sample_positions);
+            .01168*np.cos(6*np.pi*sample_positions)
         
     elif window_name in ['nuttall','nuttall12','Nuttall','Nuttall12']:
         g = .355768 + .487396*np.cos(2*np.pi*sample_positions) + .144232*np.cos(4*np.pi*sample_positions) + \
             .012604*np.cos(6*np.pi*sample_positions)
         
     elif window_name in ['nuttall20','Nuttall20']:
-        g = 3/8 + 4/8*np.cos(2*np.pi*sample_positions) + 1/8*np.cos(4*np.pi*sample_positions);
+        g = 3/8 + 4/8*np.cos(2*np.pi*sample_positions) + 1/8*np.cos(4*np.pi*sample_positions)
         
     elif window_name in ['nuttall11','Nuttall11']:
-        g = .40897 + .5*np.cos(2*np.pi*sample_positions) + .09103*np.cos(4*np.pi*sample_positions);
+        g = .40897 + .5*np.cos(2*np.pi*sample_positions) + .09103*np.cos(4*np.pi*sample_positions)
         
     elif window_name in ['nuttall02','Nuttall02']:
-        g = .4243801 + .4973406*np.cos(2*np.pi*sample_positions) + .0782793*np.cos(4*np.pi*sample_positions);
+        g = .4243801 + .4973406*np.cos(2*np.pi*sample_positions) + .0782793*np.cos(4*np.pi*sample_positions)
         
     elif window_name in ['nuttall30','Nuttall30']:
         g = 10/32 + 15/32*np.cos(2*np.pi*sample_positions) + 6/32*np.cos(4*np.pi*sample_positions) + \

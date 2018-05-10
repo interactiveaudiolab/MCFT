@@ -82,19 +82,45 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 
 	fftres = sr/Ls
 	b = np.floor(bins * np.log2(fmax/fmin))
-	fbas = None ### Vector construction
+	fbas = fmin * 2**(np.asarray(range(0,b+1))/bins) 
 
 	Q = 2**(1/bins) - 2**(-1/bins)
-	cqtbw = Q*fbas + gamma  ### More here after the semicolon
+	cqtbw = Q*fbas + gamma
 
 	nonzeroIndices = np.nonzero([int(fbas[i]+cqtbw[i]/2>nyquist) for i in range(fbas.shape[0])])
 	if nonzeroIndices[0].size > 0:
 		fbas = fbas[:nonzeroIndices[0][0]]
 		cqtbw = cqtbw[:nonzeroIndices[0]]
 
-	nonzeroIndices = np.nonzero([int(fbas[i]-cqtbw[i]/2<0)])
+	nonzeroIndices = np.nonzero([int(fbas[i]-cqtbw[i]/2<0) for i in range(fbas.shape[0])])
 	if nonzeroIndices[0].size > 0:
 		fbas = fbas[nonzeroIndices[0][-1]:]
 		cqtbw = cqtbw[nonzeroIndices[0][-1]:]
+		print "fmin set to ", None, " Hz!" # Computation 
 
 	Lfbas = fbas.shape[0]
+	fbas = np.concatenate(([0],fbas,[nyquist],sr-np.flip(fbas,0)))
+	bw = np.concatenate((2*fmin, cqtbw, fbas[Lfbas+2]-fbas[Lfbas], np.flip(cqtbw,0)))
+	bw /= fftres
+	fbas /= fftres
+
+	posit = np.zeros(fbas.size)
+	posit[:Lfbas+2] = np.floor(fbas[:Lfbas+2])
+	posit[Lfbas+2:] = np.ceil(fbas[Lfbas+2:])
+
+	shift = np.concatenate((-1*posit[-1] % Lfbas, np.diff(posit)))
+
+	if fractional:
+		corr_shift = fbas-posit
+		M = np.ceil(bw+1)
+	else:
+		bw = np.round(bw)
+		M = bw
+
+	for i in range(2*(Lfbas+1)):
+		if bw[i] < min_win:
+			bw[i] = min_win
+			M[i] = bw[i]
+
+	if fractional:
+		
