@@ -1,3 +1,5 @@
+from __future__ import print, division
+
 import numpy as np
 from cqt_toolbox.winfuns import winfuns as wfuns
 
@@ -61,7 +63,7 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 	
 	   See also: nsgtf_real, winfuns
 	'''
-	nyquist = sr/2.
+	nyquist = sr/2
 	if fmax > nyquist:
 		fmax = nyquist
 
@@ -81,7 +83,7 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 	if nonzeroIndices[0].size > 0:
 		fbas = fbas[nonzeroIndices[0][-1]:]
 		cqtbw = cqtbw[nonzeroIndices[0][-1]:]
-		print "fmin set to ", None, " Hz!" # Computation 
+		print("fmin set to ", None, " Hz!") # TODO: Computation 
 
 	Lfbas = len(fbas)
 	fbas = np.concatenate(([0],fbas,[nyquist],sr-np.flip(fbas,0)))

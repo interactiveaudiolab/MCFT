@@ -1,3 +1,5 @@
+from __future__ import print, division
+
 import numpy as np 
 
 
@@ -42,6 +44,7 @@ def nsgtf_real(f,g,shift,M=None,phasemode):
 	%
 	%   See also:  nsigtf_real, nsdual, nstight
 	'''
+	CH = f.shape[0]
 	N = len(shift)
 	if M is None:
 		M = np.zeros(N)
@@ -68,5 +71,31 @@ def nsgtf_real(f,g,shift,M=None,phasemode):
 	c = []
 
 	for i in range(nonzeroIndex):
-		idx = np.concatenate((range(int(np.ceil(Lg[i]/2)),int(Lg[i])),range(int(np.ceil(Lg[i]/2)))))
+		idx = np.concatenate((np.arange(np.ceil(Lg[i]/2)+1,Lg[i]+1),np.arange(np.ceil(Lg[i]/2))))
+		win_range = ((posit[i] + np.arange(-1*np.floor(Lg[i]/2),np.ceil(Lg[i]/2))) % Ls+fill) + 1
 		
+		if M[i] < Lg[i]:
+			col = np.ceil(Lg[i]/M[i])
+			temp = np.zeros((col*M[i], CH))
+			temp[np.arange((temp.shape[0]-np.floor(Lg[i]/2)+1),temp.shape[0]+1,1),:] = f[win_range,:] * g[i][idx]
+			temp = np.reshape(temp,(M[i],col,CH))
+
+			c[i] = np.squeeze(np.fft.ifft(np.sum(temp, axis=1)))
+
+		else:
+			temp = np.zeros((M[i],CH))
+			temp[np.arange((temp.shape[0]-np.floor(Lg[i]/2)+1),temp.shape[0]+1,1),:] = f[win_range,:] * g[i][idx]
+
+			if phasemode == 'global':
+				fsNewBins = M[i]
+				fkBins = posit[i]
+				displace = fkBins - np.floor(fkBins/fsNewBins) * fsNewBins
+				temp = np.roll(temp, displace)
+
+			c[i] = np.fft.ifft(temp)
+
+	if np.max(M) == np.min(M):
+		# Cell2mat line, wat
+		c = np.reshape(c, (M[0],N,CH))
+
+	return c, Ls
