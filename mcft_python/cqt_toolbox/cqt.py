@@ -104,23 +104,24 @@ def cqt(x, B, fs, fmin, fmax,
 	M[total_bins+2:] = M[total_bins:0:-1]
 
 	if normalize in ['sine','Sine','SINE','sin']:
-		normFacVec = 2 * M[:total_bins+3]/len(x)
+		normFacVec = 2 * M[:total_bins+2]/len(x)
 	elif normalize in ['impulse','Impulse','IMPULSE','imp']:
 		win_lengths = np.zeros(len(g))
 		for i in range(len(g)):
 			win_lengths[i] = len(g[i])
-		normFacVec = 2 * M[:total_bins+3]/win_lengths
+		normFacVec = 2 * M[:total_bins+2]/win_lengths
 	elif normalize in ['none','None','NONE','no']:
 		normFacVec = np.ones(total_bins+2)
 	else:
 		print("Unknown normalization method")
 
 	normFacVec = np.concatenate((normFacVec,normFacVec[len(normFacVec)-2:0:-1]))
-	import pdb; pdb.set_trace()
 
 	for i in range(len(normFacVec)):
 		g[i] *= normFacVec[i]
 
+	if len(x.shape) < 2:
+		x.shape = (len(x),1)
 	c = nsgtf_real(x,g,shift,phasemode,M)
 
 	# Assume rasterize is full always
