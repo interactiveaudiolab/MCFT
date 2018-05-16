@@ -1,7 +1,7 @@
-from __future__ import print, division
+from __future__ import print_function, division
 
 import numpy as np
-from cqt_toolbox.winfuns import winfuns as wfuns
+from winfuns import winfuns as wfuns
 
 def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',gamma=0):
 	'''
@@ -69,7 +69,7 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 
 	fftres = sr/Ls
 	b = np.floor(bins * np.log2(fmax/fmin))
-	fbas = fmin * 2**(np.asarray(range(0,b+1))/bins) 
+	fbas = fmin * 2**(np.asarray(np.arange(b+1))/bins) 
 
 	Q = 2**(1/bins) - 2**(-1/bins)
 	cqtbw = Q*fbas + gamma
@@ -87,7 +87,7 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 
 	Lfbas = len(fbas)
 	fbas = np.concatenate(([0],fbas,[nyquist],sr-np.flip(fbas,0)))
-	bw = np.concatenate((2*fmin, cqtbw, fbas[Lfbas+2]-fbas[Lfbas], np.flip(cqtbw,0)))
+	bw = np.concatenate(([2*fmin],cqtbw,[fbas[Lfbas+2]-fbas[Lfbas]],np.flip(cqtbw,0)))
 	bw /= fftres
 	fbas /= fftres
 
@@ -95,7 +95,7 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 	posit[:Lfbas+2] = np.floor(fbas[:Lfbas+2])
 	posit[Lfbas+2:] = np.ceil(fbas[Lfbas+2:])
 
-	shift = np.concatenate((-1*posit[-1] % Lfbas, np.diff(posit)))
+	shift = np.concatenate(([-1*posit[-1] % Lfbas], np.diff(posit)))
 
 	if fractional:
 		corr_shift = fbas-posit
@@ -131,4 +131,4 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 			g[i][np.floor(M[i]/2)-np.floor(M[i+1]/2):np.floor(M[i]/2)+np.ceil(M[i+1]/2)] = wfuns('hann',window_len=M[i+1])
 			g[i] /= np.sqrt(M[i])
 
-	return g, shift, M
+	return (g, shift, M)

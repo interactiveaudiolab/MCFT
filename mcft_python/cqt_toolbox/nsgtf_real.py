@@ -1,9 +1,9 @@
-from __future__ import print, division
+from __future__ import print_function, division
 
 import numpy as np 
 
 
-def nsgtf_real(f,g,shift,M=None,phasemode):
+def nsgtf_real(f,g,shift,phasemode,M=None):
 	'''
 	%NSGTF_REAL  Nonstationary Gabor filterbank for real signals
 	%   Usage: [c,Ls] = nsgtf_real(f,g,shift,M, phasemode)
@@ -51,7 +51,7 @@ def nsgtf_real(f,g,shift,M=None,phasemode):
 		for i in range(N):
 			M[i] = len(g[i])
 
-	if M.size = 1:
+	if M.size == 1:
 		M = M[0]*np.ones(N)
 
 	f = np.fft.fft(f)
@@ -95,7 +95,7 @@ def nsgtf_real(f,g,shift,M=None,phasemode):
 			c[i] = np.fft.ifft(temp)
 
 	if np.max(M) == np.min(M):
-		# Cell2mat line, wat
+		c = np.asarray(c)
 		c = np.reshape(c, (M[0],N,CH))
 
 	return c, Ls
