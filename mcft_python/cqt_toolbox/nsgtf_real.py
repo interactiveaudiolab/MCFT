@@ -57,8 +57,9 @@ def nsgtf_real(f,g,shift,phasemode,M=None):
 	if M.size == 1:
 		M = M[0]*np.ones(N)
 	
+	import pdb; pdb.set_trace()
 	f = np.fft.fft(f,axis=0)
-	
+
 	posit = np.cumsum(shift)-shift[0]
 
 	fill = np.sum(shift)-Ls
@@ -75,8 +76,8 @@ def nsgtf_real(f,g,shift,phasemode,M=None):
 	
 	for i in range(N+1):
 		idx = np.concatenate((np.arange(np.ceil(Lg[i]/2),Lg[i]),np.arange(np.ceil(Lg[i]/2))))
-		win_range = ((posit[i] + np.arange(-1*np.floor(Lg[i]/2),np.ceil(Lg[i]/2))) % Ls+fill) + 1
-		idx,win_range = (idx.astype(np.int32), idx.astype(np.int32))
+		win_range = ((posit[i] + np.arange(-1*np.floor(Lg[i]/2),np.ceil(Lg[i]/2))) % Ls+fill)
+		idx,win_range = (idx.astype(np.int32), win_range.astype(np.int32))
 
 		if M[i] < Lg[i]:
 			col = np.ceil(Lg[i]/M[i])
@@ -88,11 +89,12 @@ def nsgtf_real(f,g,shift,phasemode,M=None):
 			temp[np.concatenate((slice_one,slice_two)),:] = f[win_range,:] * g[i][idx]
 
 			temp = np.reshape(temp,(M[i],col,CH))
+			import pdb; pdb.set_trace()
 			c.append(np.squeeze(np.fft.ifft(np.sum(temp, axis=1))))
 
 		else:
 			temp = np.zeros((int(M[i]),CH))
-
+			# import pdb; pdb.set_trace()
 			slice_one = np.arange((temp.shape[0]-np.floor(Lg[i]/2)),temp.shape[0],dtype=np.int32)
 			slice_two = np.arange(np.ceil(Lg[i]/2),dtype=np.int32)
 			temp[np.concatenate((slice_one,slice_two)),:] = f[win_range,:] * np.reshape(g[i][idx],(len(g[i]),1))
@@ -102,7 +104,7 @@ def nsgtf_real(f,g,shift,phasemode,M=None):
 				fkBins = posit[i]
 				displace = fkBins - np.floor(fkBins/fsNewBins) * fsNewBins
 				temp = np.roll(temp, int(displace))
-
+			# import pdb; pdb.set_trace()
 			c.append(np.fft.ifft(temp))
 
 	if np.max(M) == np.min(M):
