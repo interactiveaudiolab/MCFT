@@ -7,7 +7,7 @@ from nsgtf_real import  nsgtf_real
 
 
 def cqt(x, B, fs, fmin, fmax,
-			rasterize='full', phasemode='global', format='sparse',
+			rasterize='full', phasemode='global', outputFormat='sparse',
 			gamma=0, normalize='sine', win_fun='hann'):
 	'''
 	%CQT  Constant-Q/Variable-Q transform
@@ -94,14 +94,13 @@ def cqt(x, B, fs, fmin, fmax,
 	'''
 
 	g,shift,M = nsgcqwin(fmin,fmax,B,fs,len(x), winfun=win_fun, gamma=gamma)
-	import pdb; pdb.set_trace()
 
 	total_bins = int(len(M)/2 -1)
 	fbas = fs * np.cumsum(shift[1:]) / len(x)
-	fbas = fbas[:total_bins+1]
+	fbas = fbas[:total_bins]
 
 	# Assumes rasterize is full always
-	M[1:total_bins+2] = M[total_bins+1]
+	M[1:total_bins+1] = M[total_bins]
 	M[total_bins+2:] = M[total_bins:0:-1]
 
 	if normalize in ['sine','Sine','SINE','sin']:
@@ -123,13 +122,13 @@ def cqt(x, B, fs, fmin, fmax,
 
 	if len(x.shape) < 2:
 		x.shape = (len(x),1)
+
 	c,Ls = nsgtf_real(x,g,shift,phasemode,M)
 
 	# Assume rasterize is full always
-	import pdb; pdb.set_trace()
 	cDC = c[0]
 	cNyq = c[total_bins+1]
-	c = c[1:total_bins+1]
+	c = np.squeeze(np.asarray(c[1:total_bins+1]))
 
 	results = {'c':c,'g':g,'shift':shift,'M':M,'xlen':len(x),
 		'phasemode':phasemode,'rast':rasterize,'fmin':fmin,'fmax':fmax,

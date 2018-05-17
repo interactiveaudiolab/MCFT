@@ -56,9 +56,9 @@ def nsgtf_real(f,g,shift,phasemode,M=None):
 
 	if M.size == 1:
 		M = M[0]*np.ones(N)
-		
-	f = np.fft.fft(f)
-
+	
+	f = np.fft.fft(f,axis=0)
+	
 	posit = np.cumsum(shift)-shift[0]
 
 	fill = np.sum(shift)-Ls
@@ -73,7 +73,7 @@ def nsgtf_real(f,g,shift,phasemode,M=None):
 	N = np.nonzero(N)[0][-1]
 	c = []
 	
-	for i in range(N):
+	for i in range(N+1):
 		idx = np.concatenate((np.arange(np.ceil(Lg[i]/2),Lg[i]),np.arange(np.ceil(Lg[i]/2))))
 		win_range = ((posit[i] + np.arange(-1*np.floor(Lg[i]/2),np.ceil(Lg[i]/2))) % Ls+fill) + 1
 		idx,win_range = (idx.astype(np.int32), idx.astype(np.int32))

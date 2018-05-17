@@ -116,10 +116,15 @@ def winfuns(window_name, sample_positions=None, window_len=None):
     if sample_positions is not None:
         pass  # TODO: should probably make a check that input is a numpy array
     elif window_len != None:
-        if window_len % 2:
-            sample_positions = np.linspace(-.5+1/(2*window_len),.5-1/(2*window_len),window_len)
+        step = 1/window_len
+        if window_len % 2 == 0:
+            first_half = np.linspace(0,.5-step,int(window_len*.5))
+            second_half = np.linspace(-.5,-step,int(window_len*.5))
+            sample_positions = np.concatenate((first_half,second_half))
         else: 
-            sample_positions = np.linspace(-.5,.5-1/window_len,window_len)
+            first_half = np.linspace(0,.5-.5*step,int(window_len*.5)+1)
+            second_half = np.linspace(-.5+.5*step,-step,int(window_len*.5))
+            sample_positions = np.concatenate((first_half,second_half))
     else:
         print("Error: invalid arguements to window function generator.")
         return None

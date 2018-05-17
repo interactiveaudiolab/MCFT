@@ -1,6 +1,7 @@
 from __future__ import division
 from cqt import cqt
 import numpy as np
+import matplotlib.pyplot as plt
 
 # generate the signal    
 samp_rate = 16000 # sample rate
@@ -16,11 +17,11 @@ mod_amp.shape = (len(mod_amp),1)
 
 # harmonic signal without frequency modulation
 x1 = np.cos(2*np.pi*harmonic_freqs*time_vec)
-x1 = np.sum(x1,axis=1)
+x1 = np.sum(x1,axis=0)
 
 # harmonic signal with frequency modulation
 x2 = np.cos(2*np.pi*harmonic_freqs*time_vec+mod_amp*np.cos(2*np.pi*mod_freq*time_vec))
-x2 = np.sum(x2,axis=1)
+x2 = np.sum(x2,axis=0)
 x = x1+x2
 
 
@@ -32,4 +33,13 @@ gamma = 100
 
 
 Xcq = cqt(x, fres, samp_rate, fmin, fmax,gamma=gamma)
-Xcqt = Xcq.c
+Xcqt = Xcq['c']
+
+import pdb; pdb.set_trace()
+
+Nf,Nt = Xcqt.shape
+#fvec = Xcq['fbas']
+#tvec = np.linspace(0,time_vec[-1],Nt)
+
+plt.imshow(Xcqt.astype(np.float64), cmap='hot')
+plt.show()

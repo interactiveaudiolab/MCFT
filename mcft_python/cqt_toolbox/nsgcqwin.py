@@ -87,6 +87,7 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 
 	Lfbas = len(fbas)
 	fbas = np.concatenate(([0],fbas,[nyquist],sr-np.flip(fbas,0)))
+
 	bw = np.concatenate(([2*fmin],cqtbw,[fbas[Lfbas+2]-fbas[Lfbas]],np.flip(cqtbw,0)))
 	bw /= fftres
 	fbas /= fftres
@@ -95,7 +96,7 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 	posit[:Lfbas+2] = np.floor(fbas[:Lfbas+2])
 	posit[Lfbas+2:] = np.ceil(fbas[Lfbas+2:])
 
-	shift = np.concatenate(([-1*posit[-1] % Lfbas], np.diff(posit)))
+	shift = np.concatenate(([-1*posit[-1] % Ls], np.diff(posit))) 
 
 	if fractional:
 		corr_shift = fbas-posit
@@ -124,11 +125,13 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 			g.append(wfuns(winfun,window_len=bw[i]))
 
 	M = bwfac*np.ceil(M/bwfac)
-
+	
 	for i in [0,Lfbas+1]:
 		if M[i] > M[i+1]:
-			g[i] = np.ones(M[i])
-			g[i][np.floor(M[i]/2)-np.floor(M[i+1]/2):np.floor(M[i]/2)+np.ceil(M[i+1]/2)] = wfuns('hann',window_len=M[i+1])
+			g[i] = np.ones(int(M[i]))
+			start = int(np.floor(M[i]/2)-np.floor(M[i+1]/2))
+			end = int(np.floor(M[i]/2)+np.ceil(M[i+1]/2))
+			g[i][start:end] = wfuns('hann',window_len=M[i+1])
 			g[i] /= np.sqrt(M[i])
-
+	
 	return (g, shift, M)
