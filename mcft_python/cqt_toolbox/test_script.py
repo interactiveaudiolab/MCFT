@@ -2,6 +2,8 @@ from __future__ import division
 from cqt import cqt
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.io import loadmat
+import librosa
 
 # generate the signal    
 samp_rate = 16000 # sample rate
@@ -31,15 +33,35 @@ fmax = 27.5*2**(87/12)
 fres = 48 # bins per octave
 gamma = 100
 
+pysignal = np.cos(2*np.pi*440*time_vec)
+audio,sr = librosa.core.load('chirps.wav')\
 
-Xcq = cqt(x, fres, samp_rate, fmin, fmax,gamma=gamma)
+Xcq = cqt(audio, fres, samp_rate, fmin, fmax,gamma=gamma)
 Xcqt = Xcq['c']
 
-import pdb; pdb.set_trace()
+matlab = loadmat('matchirps.mat')
+mcqt = matlab['Xcqt']
 
-Nf,Nt = Xcqt.shape
-#fvec = Xcq['fbas']
-#tvec = np.linspace(0,time_vec[-1],Nt)
+imag_diff = np.sum(np.imag(Xcqt) - np.imag(mcqt))
+real_diff = np.sum(np.real(Xcqt) - np.real(mcqt))
+print(imag_diff,real_diff)
 
-plt.imshow(Xcqt.astype(np.float64), cmap='hot')
+Nf,Nt=Xcqt.shape;
+
+freq_vec_plot=Xcq['fbas']
+time_vec_plot=np.linspace(0,time_vec[:,-1],Nt);
+
+plt.pcolormesh(abs(Xcqt))
 plt.show()
+
+'''
+fig = plt.figure()
+ax1 = fig.add_subplot(211)
+ax2 = fig.add_subplot(212)
+
+ax1.pcolormesh(time_vec_plot,freq_vec_plot,Xcqt,label='Python CQT')
+ax1.set_title("Python CQT")
+ax2.pcolormesh(time_vec_plot,freq_vec_plot,mcqt,label='MATLAB CQT')
+ax2.set_title("MATLAB CQT")
+plt.show()
+'''

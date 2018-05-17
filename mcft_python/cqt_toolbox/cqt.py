@@ -14,7 +14,7 @@ def cqt(x, B, fs, fmin, fmax,
 	%   Usage:  Xcq = cqt(x, B, fs, fmin, fmax, varargin)
 	%
 	%   Input parameters:
-	%         x         : input signal
+	%         x         : input signal   ### X MUST BE A COLUMN VEC
 	%         B         : number of bins per octave
 	%         fs        : sampling frequency
 	%         fmin      : lowest frequency to be analyzed
@@ -92,7 +92,6 @@ def cqt(x, B, fs, fmin, fmax,
 	%
 	%   See also:  nsgtf_real, winfuns
 	'''
-
 	g,shift,M = nsgcqwin(fmin,fmax,B,fs,len(x), winfun=win_fun, gamma=gamma)
 
 	total_bins = int(len(M)/2 -1)

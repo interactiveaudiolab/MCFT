@@ -87,7 +87,7 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 
 	Lfbas = len(fbas)
 	fbas = np.concatenate(([0],fbas,[nyquist],sr-np.flip(fbas,0)))
-
+	
 	bw = np.concatenate(([2*fmin],cqtbw,[fbas[Lfbas+2]-fbas[Lfbas]],np.flip(cqtbw,0)))
 	bw /= fftres
 	fbas /= fftres
@@ -97,7 +97,7 @@ def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',g
 	posit[Lfbas+2:] = np.ceil(fbas[Lfbas+2:])
 
 	shift = np.concatenate(([-1*posit[-1] % Ls], np.diff(posit))) 
-
+	
 	if fractional:
 		corr_shift = fbas-posit
 		M = np.ceil(bw+1)
