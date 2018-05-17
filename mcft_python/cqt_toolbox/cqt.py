@@ -94,6 +94,7 @@ def cqt(x, B, fs, fmin, fmax,
 	'''
 
 	g,shift,M = nsgcqwin(fmin,fmax,B,fs,len(x), winfun=win_fun, gamma=gamma)
+	import pdb; pdb.set_trace()
 
 	total_bins = int(len(M)/2 -1)
 	fbas = fs * np.cumsum(shift[1:]) / len(x)
@@ -122,9 +123,10 @@ def cqt(x, B, fs, fmin, fmax,
 
 	if len(x.shape) < 2:
 		x.shape = (len(x),1)
-	c = nsgtf_real(x,g,shift,phasemode,M)
+	c,Ls = nsgtf_real(x,g,shift,phasemode,M)
 
 	# Assume rasterize is full always
+	import pdb; pdb.set_trace()
 	cDC = c[0]
 	cNyq = c[total_bins+1]
 	c = c[1:total_bins+1]

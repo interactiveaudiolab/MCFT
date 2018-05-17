@@ -1,5 +1,7 @@
 from __future__ import print_function, division
 
+import copy
+
 import numpy as np 
 
 
@@ -45,6 +47,7 @@ def nsgtf_real(f,g,shift,phasemode,M=None):
 	%   See also:  nsigtf_real, nsdual, nstight
 	'''
 	Ls,CH = f.shape
+
 	N = len(shift)
 	if M is None:
 		M = np.zeros(N)
@@ -67,35 +70,43 @@ def nsgtf_real(f,g,shift,phasemode,M=None):
 		Lg[i] = len(g[i])
 
 	N = [posit[i] - np.floor(Lg[i]/2) <= (Ls+fill)/2 for i in range(len(posit))]
-	nonzeroIndex = np.nonzero(N)[0][-1]
+	N = np.nonzero(N)[0][-1]
 	c = []
-
-	for i in range(nonzeroIndex):
-		idx = np.concatenate((np.arange(np.ceil(Lg[i]/2)+1,Lg[i]+1),np.arange(np.ceil(Lg[i]/2))))
+	
+	for i in range(N):
+		idx = np.concatenate((np.arange(np.ceil(Lg[i]/2),Lg[i]),np.arange(np.ceil(Lg[i]/2))))
 		win_range = ((posit[i] + np.arange(-1*np.floor(Lg[i]/2),np.ceil(Lg[i]/2))) % Ls+fill) + 1
 		idx,win_range = (idx.astype(np.int32), idx.astype(np.int32))
 
 		if M[i] < Lg[i]:
 			col = np.ceil(Lg[i]/M[i])
 			temp = np.zeros((col*M[i], CH))
-			temp[np.arange((temp.shape[0]-np.floor(Lg[i]/2)+1),temp.shape[0]+1,1),:] = f[win_range,:] * g[i][idx]
+
+			slice_one = np.arange((temp.shape[0]-np.floor(Lg[i]/2)),temp.shape[0],dtype=np.int32)
+			slice_two = np.arange(np.ceil(Lg[i]/2),dtype=np.int32)
+			import pdb; pdb.set_trace()
+			temp[np.concatenate((slice_one,slice_two)),:] = f[win_range,:] * g[i][idx]
+
 			temp = np.reshape(temp,(M[i],col,CH))
-			c[i] = np.squeeze(np.fft.ifft(np.sum(temp, axis=1)))
+			c.append(np.squeeze(np.fft.ifft(np.sum(temp, axis=1))))
 
 		else:
 			temp = np.zeros((int(M[i]),CH))
-			temp[np.arange((temp.shape[0]-np.floor(Lg[i]/2)+1),temp.shape[0]+1,dtype=np.int32),:] = f[win_range,:] * g[i][idx]
+
+			slice_one = np.arange((temp.shape[0]-np.floor(Lg[i]/2)),temp.shape[0],dtype=np.int32)
+			slice_two = np.arange(np.ceil(Lg[i]/2),dtype=np.int32)
+			temp[np.concatenate((slice_one,slice_two)),:] = f[win_range,:] * np.reshape(g[i][idx],(len(g[i]),1))
 
 			if phasemode == 'global':
 				fsNewBins = M[i]
 				fkBins = posit[i]
 				displace = fkBins - np.floor(fkBins/fsNewBins) * fsNewBins
-				temp = np.roll(temp, displace)
+				temp = np.roll(temp, int(displace))
 
-			c[i] = np.fft.ifft(temp)
+			c.append(np.fft.ifft(temp))
 
 	if np.max(M) == np.min(M):
 		c = np.asarray(c)
-		c = np.reshape(c, (M[0],N,CH))
+		c = np.reshape(c, (int(M[0]),int(N),int(CH)))
 
 	return c, Ls
