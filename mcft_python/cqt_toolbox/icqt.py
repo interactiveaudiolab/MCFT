@@ -22,14 +22,14 @@ def icqt(Xcq):
 	   See also:  cqt, nsigtf_real, winfuns
 	'''
 	Xcq['gd'] = nsdual(Xcq['g'],Xcq['shift'],Xcq['M'])
-	import pdb; pdb.set_trace()
 
 	# We currently assume rasterize is always full
 	c = [x for x in Xcq['c']]
 	c.insert(0,Xcq['cDC'])
 	c.append(Xcq['cNyq'])
-
-	x = nsigtf_real(c,Xcq['gd'][0],Xcq['shift'],Xcq['xlen'],Xcq['phasemode'])
+	
+	x = nsigtf_real(c,Xcq['gd'],Xcq['shift'],Xcq['xlen'],Xcq['phasemode'])
+	
 	gd = Xcq['gd'][0]
 
 	return x, gd

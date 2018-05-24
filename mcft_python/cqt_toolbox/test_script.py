@@ -8,6 +8,8 @@ from scipy.io import loadmat
 from cqt import cqt
 from icqt import icqt
 
+#### TODO: Add python3 type hints to function definitions
+
 # generate the signal    
 samp_rate = 16000 # sample rate
 time_vec = np.arange(0,1,1/samp_rate) # time vector
@@ -27,19 +29,27 @@ audio,sr = librosa.core.load('chirps.wav')
 Xcq = cqt(audio, fres, samp_rate, fmin, fmax,gamma=gamma)
 Xcqt = Xcq['c']
 
-re_audio, fbank = icqt(Xcq)
+# # # # #
+# # This is for computing the icqt and reconstructing the audio
+# re_audio, fbank = icqt(Xcq)
+# import pdb; pdb.set_trace()
+# librosa.output.write_wav('reconstruction.wav',re_audio,sr)
+# # # # #
 
 # # # # # 
-# # This is used for visualizing the CQT
-# imag_diff = np.sum(np.imag(Xcqt) - np.imag(mcqt))
-# real_diff = np.sum(np.real(Xcqt) - np.real(mcqt))
-# print(imag_diff,real_diff)
+# This is used for visualizing the CQT
+matlab = loadmat('matcqt')
+mcqt = matlab['Xcqt']
 
-# Nf,Nt=Xcqt.shape;
+imag_diff = np.sum(abs(np.imag(Xcqt) - np.imag(mcqt)))
+real_diff = np.sum(abs(np.real(Xcqt) - np.real(mcqt)))
+print(imag_diff,real_diff)
 
-# freq_vec_plot=Xcq['fbas']
-# time_vec_plot=np.linspace(0,time_vec[:,-1],Nt);
+Nf,Nt=Xcqt.shape;
 
-# plt.pcolormesh(abs(Xcqt))
-# plt.show()
+freq_vec_plot=Xcq['fbas']
+time_vec_plot=np.linspace(0,time_vec[:,-1],Nt);
+
+plt.pcolormesh(abs(Xcqt))
+plt.show()
 # # # # #

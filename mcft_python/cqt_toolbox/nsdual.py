@@ -2,6 +2,8 @@ from __future__ import print_function,division
 
 import numpy as np
 
+from scipy.io import loadmat
+
 
 def nsdual(g,shift,M=None):
 	'''
@@ -62,11 +64,16 @@ def nsdual(g,shift,M=None):
 	for i in range(N-1):
 		Lg = len(g[i])
 		win_range.append(((posit[i] + np.arange(-1*np.floor(Lg/2),np.ceil(Lg/2))) % Ls).astype(np.int32))
-		# import pdb; pdb.set_trace()
+		#import pdb; pdb.set_trace()
 		diag[win_range[i]] = diag[win_range[i]] + (np.fft.fftshift(g[i])**2)*M[i]
 
+	mat = loadmat('diag.mat')
+	matdiag = mat['diagonal']
+	diff = np.sum(abs(diag-matdiag))
+
+	import pdb; pdb.set_trace()
 	gd = g
 	for i in range(N-1):
 		gd[i] = np.fft.ifftshift(np.fft.fftshift(gd[i])/diag[win_range[i]])
-
+	
 	return gd

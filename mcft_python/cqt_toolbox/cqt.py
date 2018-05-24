@@ -125,8 +125,8 @@ def cqt(x, B, fs, fmin, fmax,
 	c,Ls = nsgtf_real(x,g,shift,phasemode,M)
 
 	# Assume rasterize is full always
-	cDC = c[0]
-	cNyq = c[total_bins+1]
+	cDC = np.squeeze(c[0])
+	cNyq = np.squeeze(c[total_bins+1])
 	c = np.squeeze(np.asarray(c[1:total_bins+1]))
 
 	results = {'c':c,'g':g,'shift':shift,'M':M,'xlen':len(x),
