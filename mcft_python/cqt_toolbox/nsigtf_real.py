@@ -62,7 +62,7 @@ def nsigtf_real(c,g,shift,Ls,phasemode):
 
 	fr = np.zeros((int(NN),int(CH)),dtype=np.complex128)
 
-	for i in range(N-1):
+	for i in range(N):
 		Lg = len(g[i])
 
 
@@ -81,7 +81,6 @@ def nsigtf_real(c,g,shift,Ls,phasemode):
 		idx1 = np.concatenate((first_half,second_half))
 		temp = temp[np.mod(idx1,len(temp)).astype(np.int32)]
 		idx2 = np.concatenate((np.arange(Lg-np.floor(Lg/2),Lg),np.arange(np.ceil(Lg/2)))).astype(np.int32)
-		#import pdb; pdb.set_trace()
 		fr[win_range,:] += (temp * g[i][idx2]).reshape(len(temp),1)
 
 	nyqBin = int(np.floor(Ls/2))

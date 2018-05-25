@@ -30,26 +30,26 @@ Xcq = cqt(audio, fres, samp_rate, fmin, fmax,gamma=gamma)
 Xcqt = Xcq['c']
 
 # # # # #
-# # This is for computing the icqt and reconstructing the audio
-# re_audio, fbank = icqt(Xcq)
-# import pdb; pdb.set_trace()
-# librosa.output.write_wav('reconstruction.wav',re_audio,sr)
+# This is for computing the icqt and reconstructing the audio
+re_audio, fbank = icqt(Xcq)
+librosa.output.write_wav('reconstruction.wav',re_audio,sr)
 # # # # #
 
 # # # # # 
-# This is used for visualizing the CQT
-matlab = loadmat('matcqt')
-mcqt = matlab['Xcqt']
+# # This is used for visualizing the CQT
+# matlab = loadmat('matcqt')
+# mcqt = matlab['Xcqt']
 
-imag_diff = np.sum(abs(np.imag(Xcqt) - np.imag(mcqt)))
-real_diff = np.sum(abs(np.real(Xcqt) - np.real(mcqt)))
-print(imag_diff,real_diff)
+# imag_diff = np.sum(abs(np.imag(Xcqt) - np.imag(mcqt)))
+# real_diff = np.sum(abs(np.real(Xcqt) - np.real(mcqt)))
+# print(imag_diff,' absolute difference in imaginary components')
+# print(real_diff,' absolute difference in real components')
 
-Nf,Nt=Xcqt.shape;
+# Nf,Nt=Xcqt.shape;
 
-freq_vec_plot=Xcq['fbas']
-time_vec_plot=np.linspace(0,time_vec[:,-1],Nt);
+# freq_vec_plot=Xcq['fbas']
+# time_vec_plot=np.linspace(0,time_vec[:,-1],Nt);
 
-plt.pcolormesh(abs(Xcqt))
-plt.show()
+# plt.pcolormesh(abs(Xcqt))
+# plt.show()
 # # # # #

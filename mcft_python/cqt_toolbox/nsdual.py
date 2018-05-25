@@ -61,19 +61,13 @@ def nsdual(g,shift,M=None):
 	diag = np.zeros(int(Ls))
 	win_range = []
 
-	for i in range(N-1):
+	for i in range(N):
 		Lg = len(g[i])
 		win_range.append(((posit[i] + np.arange(-1*np.floor(Lg/2),np.ceil(Lg/2))) % Ls).astype(np.int32))
-		#import pdb; pdb.set_trace()
-		diag[win_range[i]] = diag[win_range[i]] + (np.fft.fftshift(g[i])**2)*M[i]
+		diag[win_range[i]] += (np.fft.fftshift(g[i])**2)*M[i]
 
-	mat = loadmat('diag.mat')
-	matdiag = mat['diagonal']
-	diff = np.sum(abs(diag-matdiag))
-
-	import pdb; pdb.set_trace()
 	gd = g
-	for i in range(N-1):
+	for i in range(N):
 		gd[i] = np.fft.ifftshift(np.fft.fftshift(gd[i])/diag[win_range[i]])
 	
 	return gd
