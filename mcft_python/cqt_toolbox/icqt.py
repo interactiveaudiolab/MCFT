@@ -5,8 +5,6 @@ import numpy as np
 from nsdual import nsdual
 from nsigtf_real import  nsigtf_real
 
-from scipy.io import loadmat
-import matplotlib.pyplot as plt
 
 def icqt(Xcq):
 	'''
@@ -29,12 +27,9 @@ def icqt(Xcq):
 	c = [x for x in Xcq['c']]
 	c.insert(0,Xcq['cDC'])
 	c.append(Xcq['cNyq'])
-
-	matlab = loadmat('inputs.mat')
-	import pdb; pdb.set_trace()
 	
 	x = nsigtf_real(c,Xcq['gd'],Xcq['shift'],Xcq['xlen'],Xcq['phasemode'])
 	
-	gd = Xcq['gd'][0]
-
+	gd = Xcq['gd']
+	
 	return x, gd

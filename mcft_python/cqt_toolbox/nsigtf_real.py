@@ -64,8 +64,6 @@ def nsigtf_real(c,g,shift,Ls,phasemode):
 
 	for i in range(N):
 		Lg = len(g[i])
-
-
 		win_range = ((posit[i] + np.arange(-1*np.floor(Lg/2),np.ceil(Lg/2))) % NN).astype(np.int32)
 
 		temp = np.fft.fft(c[i],axis=0)*len(c[i])
@@ -74,7 +72,7 @@ def nsigtf_real(c,g,shift,Ls,phasemode):
 			fsNewBins = len(c[i])
 			fkBins = posit[i]
 			displace = fkBins - np.floor(fkBins/fsNewBins) * fsNewBins
-			temp = np.roll(temp, int(displace))
+			temp = np.roll(temp, -1*int(displace))
 
 		first_half = np.arange(len(temp)-np.floor(Lg/2),len(temp))
 		second_half = np.arange(np.ceil(Lg/2))

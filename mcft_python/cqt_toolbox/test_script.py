@@ -33,6 +33,8 @@ Xcqt = Xcq['c']
 # This is for computing the icqt and reconstructing the audio
 re_audio, fbank = icqt(Xcq)
 librosa.output.write_wav('reconstruction.wav',re_audio,sr)
+re_error = np.sum(abs(audio-re_audio))
+# print(re_error)
 # # # # #
 
 # # # # # 
