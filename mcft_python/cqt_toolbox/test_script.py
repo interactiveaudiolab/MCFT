@@ -29,14 +29,6 @@ audio,sr = librosa.core.load('chirps.wav')
 Xcq = cqt(audio, fres, samp_rate, fmin, fmax,gamma=gamma)
 Xcqt = Xcq['c']
 
-# # # # #
-# This is for computing the icqt and reconstructing the audio
-re_audio, fbank = icqt(Xcq)
-librosa.output.write_wav('reconstruction.wav',re_audio,sr)
-re_error = np.sum(abs(audio-re_audio))
-# print(re_error)
-# # # # #
-
 # # # # # 
 # This is used for visualizing the CQT
 matlab = loadmat('matcqt')
@@ -54,4 +46,12 @@ time_vec_plot=np.linspace(0,time_vec[:,-1],Nt);
 
 plt.pcolormesh(abs(Xcqt))
 plt.show()
+# # # # #
+
+# # # # #
+# This is for computing the icqt and reconstructing the audio
+re_audio, fbank = icqt(Xcq)
+librosa.output.write_wav('reconstruction.wav',re_audio,sr)
+re_error = np.sum(abs(audio-re_audio))
+print(re_error)
 # # # # #
