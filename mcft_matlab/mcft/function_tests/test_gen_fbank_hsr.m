@@ -4,8 +4,7 @@ clc; clear; close all
 
 %% signal
 
-input_path='/Users/fatemeh/Dropbox/MyDocuments/R&D/09_Fall2017/mcft_follow_up/mcft_code/data_generation/vibrato_test/Mix/';
-load([input_path,'unison_mix_D4.mat'],'all_sources','all_mixtures','all_names');
+load('unison_mix_D4.mat','all_sources','all_mixtures','all_names');
 
 num_samp=size(all_sources,1);
 
