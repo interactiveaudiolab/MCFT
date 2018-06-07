@@ -3,7 +3,7 @@ from __future__ import print_function,division
 import numpy as np
 
 
-def nsdual(g,shift,M=None):
+def gen_inv_filterbank(g,shift,M=None):
 	'''
 	NSDUAL  Canonical dual NSG frame (for painless systems)
 	   Usage: gd = nsdual(g,shift,M)

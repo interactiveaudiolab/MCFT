@@ -3,7 +3,7 @@ from __future__ import print_function, division
 import numpy as np
 from winfuns import winfuns as wfuns
 
-def nsgcqwin(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',gamma=0):
+def gen_filterbank(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',gamma=0):
 	'''
 	NSGCQWIN  Constant-Q/Variable-Q dictionary generator
 	   Usage:  [g,shift,M] = nsgcqwin(fmin,fmax,bins,sr,Ls,varargin)

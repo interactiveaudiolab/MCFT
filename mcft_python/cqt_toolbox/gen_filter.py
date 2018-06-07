@@ -3,7 +3,7 @@ from __future__ import print_function, division
 import numpy as np
 import matplotlib.pyplot as plt
 
-def winfuns(window_name, sample_positions=None, window_len=None):
+def gen_filter(window_name, sample_positions=None, window_len=None):
     '''
     WINFUNS  Window function generator  
        Usage:  g = winfuns(name,x)
@@ -197,24 +197,3 @@ def winfuns(window_name, sample_positions=None, window_len=None):
     mask = [int(abs(i) < .5) for i in sample_positions]
     g *= mask
     return g
-
-
-'''
-py1 = winfuns('hann',sample_positions=np.arange(-1,1.1,.1))
-py2 = winfuns('rec',sample_positions=np.arange(-1,1.2,.2))
-py3 = winfuns('gauss',sample_positions=np.arange(-.5,.55,.05))
-
-m1 = np.asarray([0,0,0,0,0,0,0.095492,0.34549,0.65451,0.90451,1,0.90451,0.65451,0.34549,0.095492,0,0,0,0,0,0])
-m2 = np.asarray([0,0,0,1,1,1,1,1,0,0,0])
-m3 = np.asarray([0,0.026121,0.056135,0.11025,0.1979,0.32465,0.48675,0.66698,0.83527,0.956,1,0.956,0.83527,0.66698,0.48675,0.32465,0.1979,0.11025,0.056135,0.026121,0])
-
-error = (np.sum(abs(py1-m1)) + np.sum(abs(py2-m2)) + np.sum(abs(py3-m3)))/(len(m1)+len(m2)+len(m3))
-
-plt.plot(np.arange(-1,1.1,.1),py1,'b-',np.arange(-1,1.1,.1),m1,'r:')
-plt.plot(np.arange(-1,1.2,.2),py2,'b-',np.arange(-1,1.2,.2),m2,'r:')
-plt.plot(np.arange(-.5,.55,.05),py3,'b-',np.arange(-.5,.55,.05),m3,'r:')
-plt.legend()
-plt.show()
-
-print error
-'''

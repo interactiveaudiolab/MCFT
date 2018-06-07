@@ -6,7 +6,7 @@ import csv
 import numpy as np 
 
 
-def nsgtf_real(f,g,shift,phasemode,M=None):
+def apply_filterbank(f,g,shift,phasemode,M=None):
 	'''
 	%NSGTF_REAL  Nonstationary Gabor filterbank for real signals
 	%   Usage: [c,Ls] = nsgtf_real(f,g,shift,M, phasemode)

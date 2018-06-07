@@ -2,8 +2,8 @@ from __future__ import print_function, division
 
 import numpy as np
 
-from nsgcqwin import nsgcqwin
-from nsgtf_real import  nsgtf_real
+from gen_filterbank import gen_filterbank
+from apply_filterbank import apply_filterbank
 
 
 def cqt(x, B, fs, fmin, fmax,
@@ -92,7 +92,7 @@ def cqt(x, B, fs, fmin, fmax,
 	%
 	%   See also:  nsgtf_real, winfuns
 	'''
-	g,shift,M = nsgcqwin(fmin,fmax,B,fs,len(x), winfun=win_fun, gamma=gamma)
+	g,shift,M = gen_filterbank(fmin,fmax,B,fs,len(x), winfun=win_fun, gamma=gamma)
 
 	total_bins = int(len(M)/2 -1)
 	fbas = fs * np.cumsum(shift[1:]) / len(x)
@@ -122,7 +122,7 @@ def cqt(x, B, fs, fmin, fmax,
 	if len(x.shape) < 2:
 		x.shape = (len(x),1)
 
-	c,Ls = nsgtf_real(x,g,shift,phasemode,M)
+	c,Ls = apply_filterbank(x,g,shift,phasemode,M)
 
 	# Assume rasterize is full always
 	cDC = np.squeeze(c[0])

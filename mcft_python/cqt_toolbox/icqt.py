@@ -2,8 +2,8 @@ from __future__ import print_function,division
 
 import numpy as np
 
-from nsdual import nsdual
-from nsigtf_real import  nsigtf_real
+from gen_inv_filterbank import gen_inv_filterbank
+from apply_inv_filterbank import  apply_inv_filterbank
 
 
 def icqt(Xcq):
@@ -21,14 +21,14 @@ def icqt(Xcq):
 	
 	   See also:  cqt, nsigtf_real, winfuns
 	'''
-	Xcq['gd'] = nsdual(Xcq['g'],Xcq['shift'],Xcq['M'])
+	Xcq['gd'] = gen_inv_filterbank(Xcq['g'],Xcq['shift'],Xcq['M'])
 
 	# We currently assume rasterize is always full
 	c = [x for x in Xcq['c']]
 	c.insert(0,Xcq['cDC'])
 	c.append(Xcq['cNyq'])
 	
-	x = nsigtf_real(c,Xcq['gd'],Xcq['shift'],Xcq['xlen'],Xcq['phasemode'])
+	x = apply_inv_filterbank(c,Xcq['gd'],Xcq['shift'],Xcq['xlen'],Xcq['phasemode'])
 	
 	gd = Xcq['gd']
 	
