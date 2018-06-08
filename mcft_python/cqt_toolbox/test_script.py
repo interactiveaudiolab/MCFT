@@ -28,25 +28,33 @@ signal2 = np.cos(2*np.pi*261.626*time_vec) + np.cos(2*np.pi*391.995*time_vec)
 signal3, sr3 = librosa.core.load('chirps.wav')
 signal4, sr4 = librosa.core.load('trombone.wav')
 
+
+# signal3, sr3 = librosa.core.load('40sec.wav')
+# size = int(signal3.size)
+# signal1 = signal3[:int(size/4)]
+# signal2 = signal3[:int(size/2)]
+# sr1 = sr3
+# sr2 = sr3
+
 # Set start time for benchmarking
 start = time.clock()
 
 # Compute cqts of all four signals
 Xcq1 = cqt(signal1, fres, samp_rate, fmin, fmax,gamma=gamma)
 Xcqt1 = Xcq1['c']
-#print(time.clock())
+time1 = time.clock()
 
 Xcq2 = cqt(signal2, fres, samp_rate, fmin, fmax,gamma=gamma)
 Xcqt2 = Xcq2['c']
-#print(time.clock())
+time2 = time.clock() - time1
 
 Xcq3 = cqt(signal3, fres, sr3, fmin, fmax,gamma=gamma)
 Xcqt3 = Xcq3['c']
-#print(time.clock())
+time3 = time.clock() - time2 - time1
+print(time1,time2,time3)
 
 Xcq4 = cqt(signal4, fres, sr4, fmin, fmax,gamma=gamma)
 Xcqt4 = Xcq4['c']
-#print(time.clock())
 
 # Check how long cqt computation took
 cqt_time = time.clock()

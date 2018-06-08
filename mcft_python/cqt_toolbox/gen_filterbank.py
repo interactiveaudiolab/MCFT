@@ -1,7 +1,7 @@
 from __future__ import print_function, division
 
 import numpy as np
-from winfuns import winfuns as wfuns
+from gen_filter import gen_filter as gfilt
 
 def gen_filterbank(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='hann',gamma=0):
 	'''
@@ -116,13 +116,13 @@ def gen_filterbank(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='h
 			samples = np.concatenate((range(int(np.ceil(M[i]/2)+1)),range(int(-1*np.ceil(M[i]/2)),0)))
 			samples -= corr_shift[i]
 			samples /= bw[i]
-			win = wfuns(winfun, sample_positions=samples)
+			win = gfilt(winfun, sample_positions=samples)
 			win /= np.sqrt(bw[i])
 			g.append(win)
 	else:
 		g = []
 		for i in range(len(bw)):
-			g.append(wfuns(winfun,window_len=bw[i]))
+			g.append(gfilt(winfun,window_len=bw[i]))
 
 	M = bwfac*np.ceil(M/bwfac)
 	
@@ -131,7 +131,7 @@ def gen_filterbank(fmin,fmax,bins,sr,Ls,min_win=4,bwfac=1,fractional=0,winfun='h
 			g[i] = np.ones(int(M[i]))
 			start = int(np.floor(M[i]/2)-np.floor(M[i+1]/2))
 			end = int(np.floor(M[i]/2)+np.ceil(M[i+1]/2))
-			g[i][start:end] = wfuns('hann',window_len=M[i+1])
+			g[i][start:end] = gfilt('hann',window_len=M[i+1])
 			g[i] /= np.sqrt(M[i])
 	
 	return (g, shift, M)

@@ -4,6 +4,7 @@ import numpy as np
 
 
 def apply_inv_filterbank(c,g,shift,Ls,phasemode):
+	# type: (list, list, numpy.ndarray, long, str) -> numpy.ndarray
 	'''
 	 NSIGTF_REAL  Nonstationary Gabor filterbank synthesis for real signals
 	   Usage: fr = nsigtf_real(c,g,shift,M,Ls)

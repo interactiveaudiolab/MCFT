@@ -9,6 +9,7 @@ from apply_filterbank import apply_filterbank
 def cqt(x, B, fs, fmin, fmax,
 			rasterize='full', phasemode='global', outputFormat='sparse',
 			gamma=0, normalize='sine', win_fun='hann'):
+	# type: (numpy.ndarray, int, int, float, float, str, str, str, int, str, str) -> dict
 	'''
 	%CQT  Constant-Q/Variable-Q transform
 	%   Usage:  Xcq = cqt(x, B, fs, fmin, fmax, varargin)
@@ -123,7 +124,7 @@ def cqt(x, B, fs, fmin, fmax,
 		x.shape = (len(x),1)
 
 	c,Ls = apply_filterbank(x,g,shift,phasemode,M)
-
+	
 	# Assume rasterize is full always
 	cDC = np.squeeze(c[0])
 	cNyq = np.squeeze(c[total_bins+1])
