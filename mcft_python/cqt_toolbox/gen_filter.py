@@ -4,22 +4,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def gen_filter(window_name, sample_positions=None, sample_num=None):
+def gen_filter(window_name, sample_positions=None, num_samples=None):
     # type: (str, numpy.ndarray, float) -> numpy.ndarray
     '''
     Input parameters: 
           window_name          : String containing the window name
-          sample_positions     : Ndarray of sampling positions, optional
-          sample_num           : Number of samples in the window, optional
+          **sample_positions   : Ndarray of sampling positions
+          **num_samples        : Number of samples in the window
+          
     Output parameters:
           g                    : Ndarray filter in specified window shape
+
+    **optional args
     
     This function is used to generate an individual filter in the shape of the
     specified window. The filter can either be sampled over the specified 
     vector of points if sample_positions is NOT None. Before returning the
     filter it is masked to force everything outside of -.5 and .5 to zero. If 
-    sample_positions is None, then sample_num must be provided. In this case, 
-    the filter returned ranges from -.5 to .5 with sample_num of points. 
+    sample_positions is None, then num_samples must be provided. In this case, 
+    the filter returned ranges from -.5 to .5 with num_samples of points. 
 
     The following windows are available: 
 
@@ -101,24 +104,35 @@ def gen_filter(window_name, sample_positions=None, sample_num=None):
                  implementation and serves no other purpose in this 
                  toolbox. 
 
+    References:
+      Wikipedia. Window function - wikipedia article.
+      http://en.wikipedia.org/wiki/Window_function.
+      
+      A. Nuttall. Some windows with very good sidelobe behavior. IEEE Trans.
+      Acoust. Speech Signal Process., 29(1):84-91, 1981.
+      
+      F. Harris. On the use of windows for harmonic analysis with the
+      discrete Fourier transform. Proceedings of the IEEE, 66(1):51 - 83,
+      January 1978.
+
     See also:  gen_filterbank, gen_inv_filterbank
     '''
 
-    # Input argument checking -- either sample_positions or sample_num must be provided
+    # Input argument checking -- either sample_positions or num_samples must be provided
     if sample_positions is not None:
         pass
-    elif sample_num != None:
-        step = 1/sample_num
+    elif num_samples != None:
+        step = 1/num_samples
         # Two cases if the num of samples is even or odd
-        if sample_num % 2 == 0:
-            # For even N the sampling interval is [-.5,.5-1/N]
-            first_half = np.linspace(0,.5-step,int(sample_num*.5))
-            second_half = np.linspace(-.5,-step,int(sample_num*.5))
+        if num_samples % 2 == 0:
+            # For even N the sampling interval is [0,.5-1/N] + [-.5,0)
+            first_half = np.linspace(0,.5-step,int(num_samples*.5))
+            second_half = np.linspace(-.5,-step,int(num_samples*.5))
             sample_positions = np.concatenate((first_half,second_half))
         else: 
-            # For odd N the sampling interval is [-.5+1/(2N),.5-1/(2N)]
-            first_half = np.linspace(0,.5-.5*step,int(sample_num*.5)+1)
-            second_half = np.linspace(-.5+.5*step,-step,int(sample_num*.5))
+            # For odd N the sampling interval is [0,.5-1/(2N)] + [-.5+1/(2N),0) 
+            first_half = np.linspace(0,.5-.5*step,int(num_samples*.5)+1)
+            second_half = np.linspace(-.5+.5*step,-step,int(num_samples*.5))
             sample_positions = np.concatenate((first_half,second_half))
     else:
         print("Error: invalid arguements to window function generator.")
@@ -128,67 +142,67 @@ def gen_filter(window_name, sample_positions=None, sample_num=None):
     # Switch case for possible window names, forcing everything to lowercase
     window_name = window_name.lower()
     if window_name in ['hann','nuttall10']:
-        g = .5 + .5*np.cos(2*np.pi*sample_positions)
+        filter_ = .5 + .5*np.cos(2*np.pi*sample_positions)
         
     elif window_name in ['cosine','cos','sqrthann']:
-        g = np.cos(np.pi*sample_positions)
+        filter_ = np.cos(np.pi*sample_positions)
         
     elif window_name in ['hamming','nuttall01']:
-        g = .54 + .46*np.cos(2*np.pi*sample_positions)
+        filter_ = .54 + .46*np.cos(2*np.pi*sample_positions)
         
     elif window_name in ['square','rec','boxcar']:
-        g = np.asarray([int(abs(i) < .5) for i in sample_positions], dtype=np.float64)
+        filter_ = np.asarray([int(abs(i) < .5) for i in sample_positions], dtype=np.float64)
         
     elif window_name in ['tri','triangular','bartlett']:
-        g = 1-2*abs(sample_positions)
+        filter_ = 1-2*abs(sample_positions)
         
     elif window_name in ['blackman']:
-        g = .42 + .5*np.cos(2*np.pi*sample_positions) + .08*np.cos(4*np.pi*sample_positions)
+        filter_ = .42 + .5*np.cos(2*np.pi*sample_positions) + .08*np.cos(4*np.pi*sample_positions)
         
     elif window_name in ['blackharr']:
-        g = .35875 + .48829*np.cos(2*np.pi*sample_positions) + .14128*np.cos(4*np.pi*sample_positions) + \
+        filter_ = .35875 + .48829*np.cos(2*np.pi*sample_positions) + .14128*np.cos(4*np.pi*sample_positions) + \
             .01168*np.cos(6*np.pi*sample_positions)
         
     elif window_name in ['modblackharr']:
-        g = .35872 + .48832*np.cos(2*np.pi*sample_positions) + .14128*np.cos(4*np.pi*sample_positions) + \
+        filter_ = .35872 + .48832*np.cos(2*np.pi*sample_positions) + .14128*np.cos(4*np.pi*sample_positions) + \
             .01168*np.cos(6*np.pi*sample_positions)
         
     elif window_name in ['nuttall','nuttall12']:
-        g = .355768 + .487396*np.cos(2*np.pi*sample_positions) + .144232*np.cos(4*np.pi*sample_positions) + \
+        filter_ = .355768 + .487396*np.cos(2*np.pi*sample_positions) + .144232*np.cos(4*np.pi*sample_positions) + \
             .012604*np.cos(6*np.pi*sample_positions)
         
     elif window_name in ['nuttall20']:
-        g = 3/8 + 4/8*np.cos(2*np.pi*sample_positions) + 1/8*np.cos(4*np.pi*sample_positions)
+        filter_ = 3/8 + 4/8*np.cos(2*np.pi*sample_positions) + 1/8*np.cos(4*np.pi*sample_positions)
         
     elif window_name in ['nuttall11']:
-        g = .40897 + .5*np.cos(2*np.pi*sample_positions) + .09103*np.cos(4*np.pi*sample_positions)
+        filter_ = .40897 + .5*np.cos(2*np.pi*sample_positions) + .09103*np.cos(4*np.pi*sample_positions)
         
     elif window_name in ['nuttall02']:
-        g = .4243801 + .4973406*np.cos(2*np.pi*sample_positions) + .0782793*np.cos(4*np.pi*sample_positions)
+        filter_ = .4243801 + .4973406*np.cos(2*np.pi*sample_positions) + .0782793*np.cos(4*np.pi*sample_positions)
         
     elif window_name in ['nuttall30']:
-        g = 10/32 + 15/32*np.cos(2*np.pi*sample_positions) + 6/32*np.cos(4*np.pi*sample_positions) + \
+        filter_ = 10/32 + 15/32*np.cos(2*np.pi*sample_positions) + 6/32*np.cos(4*np.pi*sample_positions) + \
             1/32*np.cos(6*np.pi*sample_positions)
         
     elif window_name in ['nuttall21']:
-        g = .338946 + .481973*np.cos(2*np.pi*sample_positions) + .161054*np.cos(4*np.pi*sample_positions) + \
+        filter_ = .338946 + .481973*np.cos(2*np.pi*sample_positions) + .161054*np.cos(4*np.pi*sample_positions) + \
             .018027*np.cos(6*np.pi*sample_positions)
         
     elif window_name in ['nuttall03']:
-        g = .3635819 + .4891775*np.cos(2*np.pi*sample_positions) + .1365995*np.cos(4*np.pi*sample_positions) + \
+        filter_ = .3635819 + .4891775*np.cos(2*np.pi*sample_positions) + .1365995*np.cos(4*np.pi*sample_positions) + \
             .0106411*np.cos(6*np.pi*sample_positions)
         
     elif window_name in ['gauss','truncgauss']:
-        g = np.exp(-18*sample_positions**2)
+        filter_ = np.exp(-18*sample_positions**2)
         
     elif window_name in ['wp2inp']:
-        g = np.exp(np.exp(-2*sample_positions)*25.*(1+2*sample_positions))
-        g = g/np.max(g)
+        filter_ = np.exp(np.exp(-2*sample_positions)*25.*(1+2*sample_positions))
+        filter_ = filter_/np.max(filter_)
     else:
         print("Error: unknown window function name ", window_name, " provided.")
         return None
 
     # List comprehension makes a mask to force values outside -.5 and .5 to zero
     mask = [int(abs(i) < .5) for i in sample_positions]
-    g *= mask
-    return g
+    filter_ *= mask
+    return filter_

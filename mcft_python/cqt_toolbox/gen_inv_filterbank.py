@@ -3,69 +3,77 @@ from __future__ import print_function,division
 import numpy as np
 
 
-def gen_inv_filterbank(g,shift,M=None):
-	'''
-	NSDUAL  Canonical dual NSG frame (for painless systems)
-	   Usage: gd = nsdual(g,shift,M)
-	
-	   Input parameters:
-	         g         : Cell array of window functions/filters
-	         shift     : Vector of time/frequency shifts
-	         M         : Number of frequency channels (vector/scalar)
-	   Output parameters:
-	         gd        : Dual window functions 
-	
-	   Given a non-stationary Gabor frame specified by the windows g, shift 
-	   parameters shift, and channel numbers M, NSDUAL computes the
-	   canonical dual frame windows/filters gd by inverting the diagonal of 
-	   the frame operator and applying the inverse to g. More explicitly,
-	
-	      gd{n} = g{n} / ( sum M(l) |g{l}|^2 ), 
-	                        l  
-	
-	   If g, shift, M specify a painless frame, i.e. 
-	   SUPP(G{N})  <= M(n)~forall~n and 
-	
-	      A <= sum ( M(n) |g{n}|^2 ) <= B, for some 0 < A <= B < infty
-	            n  
-	
-	   the computation will result in the canonical dual frame. If  g, 
-	   shift, M specify a frame, but the first condition is violated, the 
-	   result can be interpreted as a first approximation of the corresponding 
-	   canonical dual frame.
-	 
-	   Note, the time shifts corresponding to the dual window sequence is the
-	   same as the original shift sequence and as such already given.
-	
-	   If g, shift, M is a painless frame, the output can be used for 
-	   perfect reconstruction of a signal using the inverse nonstationary 
-	   Gabor transform NSIGT.
-	 
-	   See also:  nsgt, nsigt, nsgt_real, nsigt_real, nsgtf, nsigtf
-	'''
-	# Argument handling
-	if M is None:
-		M = np.zeros(len(shift))
-		for i in range(len(shift)):
-			M[i] = len(g[i])
+def gen_inv_filterbank(filter_bank,shift,bw_bins=None):
+    # type: (list, numpy.ndarray, numpy.ndarray) -> list
+    '''
+    Input parameters:
+          filter_bank       : List of filters
+          shift             : Ndarray of time/frequency shifts
+          bw_bins           : Number/Vector of frequency channels
+    Output parameters:
+          inv_filter_ban    : Canonical dual frame filters
 
-	if M.size == 1:
-		M = M[0]*np.ones(len(shift))
+    gen_inv_filterbank uses the forward filterbank and shift vector to compute
+    the canonical dual frame windows/filters by inverting the diagonal of the 
+    frame operator and applying the inverse to the forward filters. More explicitly, 
 
-	N = len(shift)
-	posit = np.cumsum(shift)
-	Ls = posit[N-1]
-	posit -= shift[0]
-	diag = np.zeros(int(Ls))
-	win_range = []
+       gd{n} = g{n} / ( sum M(l) |g{l}|^2 ), 
+                         l   
 
-	for i in range(N):
-		Lg = len(g[i])
-		win_range.append(((posit[i] + np.arange(-1*np.floor(Lg/2),np.ceil(Lg/2))) % Ls).astype(np.int32))
-		diag[win_range[i]] += (np.fft.fftshift(g[i])**2)*M[i]
+    If filterbank, shift, and bw_bins specify a painless frame, i.e. 
 
-	gd = g
-	for i in range(N):
-		gd[i] = np.fft.ifftshift(np.fft.fftshift(gd[i])/diag[win_range[i]])
-	
-	return gd
+        SUPP(G{N})  <= M(n)~forall~n
+
+    and
+
+        A <= sum ( M(n) |g{n}|^2 ) <= B, for some 0 < A <= B < infty
+              n   
+
+    the computation will result in the canonical dual frame. If filterbank, 
+    shift,and bw_bins specify a frame, but the first condition is violated,
+    the result can be interpreted as a first approximation of the 
+    corresponding canonical dual frame.
+  
+    Note, the time shifts corresponding to the dual window sequence is the
+    same as the original shift sequence and as such already given. 
+
+    If filterbank, shift, and bw_bins is a painless frame, the output can 
+    be used for perfect reconstruction of a signal using the inverse 
+    nonstationary Gabor transform in apply_inv_filterbank.
+
+    References:
+      P. Balazs, M. DAJrfler, F. Jaillet, N. Holighaus, and G. A. Velasco.
+      Theory, implementation and applications of nonstationary Gabor Frames.
+      J. Comput. Appl. Math., 236(6):1481-1496, 2011.
+  
+    See also:  apply_inv_filterbank, icqt
+    '''
+    # Argument handling
+    if bw_bins is None:
+        bw_bins = np.zeros(len(shift))
+        for i in range(len(shift)):
+            bw_bins[i] = len(filter_bank[i])
+
+    if bw_bins.size == 1:
+        bw_bins = bw_bins[0]*np.ones(len(shift))
+
+    # Initialize variables
+    num_filters = len(shift)
+    ctr_freqs = np.cumsum(shift)
+    sig_len = ctr_freqs[num_filters-1]
+    ctr_freqs -= shift[0]
+    diag = np.zeros(int(sig_len))
+    filter_range = []
+
+    # Create the diagonal of the frame operator
+    for i in range(num_filters):
+        filter_len = len(filter_bank[i])
+        filter_range.append(((ctr_freqs[i] + np.arange(-1*np.floor(filter_len/2),np.ceil(filter_len/2))) % sig_len).astype(np.int32))
+        diag[filter_range[i]] += (np.fft.fftshift(filter_bank[i])**2)*bw_bins[i]
+
+    # Compute the inverse filters and store them
+    inv_filter_bank = filter_bank
+    for i in range(num_filters):
+        inv_filter_bank[i] = np.fft.ifftshift(np.fft.fftshift(inv_filter_bank[i])/diag[filter_range[i]])
+    
+    return inv_filter_bank

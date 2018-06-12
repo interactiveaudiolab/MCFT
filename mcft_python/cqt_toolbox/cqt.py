@@ -6,132 +6,115 @@ from gen_filterbank import gen_filterbank
 from apply_filterbank import apply_filterbank
 
 
-def cqt(x, B, fs, fmin, fmax,
-			rasterize='full', phasemode='global', outputFormat='sparse',
-			gamma=0, normalize='sine', win_fun='hann'):
-	# type: (numpy.ndarray, int, int, float, float, str, str, str, int, str, str) -> dict
-	'''
-	%CQT  Constant-Q/Variable-Q transform
-	%   Usage:  Xcq = cqt(x, B, fs, fmin, fmax, varargin)
-	%
-	%   Input parameters:
-	%         x         : input signal   ### X MUST BE A COLUMN VEC
-	%         B         : number of bins per octave
-	%         fs        : sampling frequency
-	%         fmin      : lowest frequency to be analyzed
-	%         fmax      : highest frequency to be analyzed
-	%         varargin  : Optional input pairs (see table below)
-	%
-	%   Output parameters: 
-	%         Xcq       : Struct consisting of 
-	%           .c           : CQT coefficients
-	%           .cDC         : transform coefficients for f = 0
-	%           .cNyq        : transform coefficients for fs/2
-	%           .g           : cell array of analysis filters
-	%           .shift       : center frequencies of analysis filters
-	%           .M           : bandwidth of analysis filters
-	%           .xlen        : length of input signal
-	%           .phasemode   : 'local'  -> zero-centered filtered used
-	%                        : 'global' -> mapping function used
-	%           .rast        : time-frequency plane sampling scheme (full,
-	%                          piecewise, none)
-	%           .fmin
-	%           .fmax
-	%           .B       
-	%           .format      : eighter 'cell' or 'matrix' (only applies for
-	%                          piecewise rasterization)
-	%   
-	%   Optional input arguments arguments can be supplied like this:
-	%
-	%       Xcq = cqt(x, B, fs, fmin, fmax, 'rasterize', 'piecewise')
-	%
-	%   The arguments must be character strings followed by an
-	%   argument:
-	%
-	%     'rasterize':  can be set to (default is 'full');
-	%           - 'none':      Hop sizes are distinct for each frequency
-	%                          channel. Transform coefficients will be
-	%                          presented in a cell array.
-	%           - 'full':      The hop sizes for all freqency channels are 
-	%                          set to the smallest hop size in the representa-
-	%                          tion. Transform coefficients will be presented 
-	%                          in matrix format.
-	%           - 'piecewise': Hop sizes will be rounded down to be a power-of-
-	%                          two integer multiple of the smallest hop size in
-	%                          the representation. Coefficients will be 
-	%                          presented either in a sparse matrix or as cell 
-	%                          arrays (see 'format' option)
-	%
-	%     'phasemode':  can be set to (default is 'global')
-	%           - 'local':     Zero-centered filtered used
-	%           - 'global':    Mapping function used (see reference)
-	%
-	%     'format':     applies only for piecewise rasterization               
-	%           - 'sparse':   Coefficients will be presented in a sparse matrix 
-	%           - 'cell':     Coefficients will be presented in a cell array
-	%
-	%     'gamma':      the bandwidth of each filter is given by
-	%                            Bk = 1/Q * fk + gamma,
-	%                   where fk is the filters center frequency, Q is fully
-	%                   determined by the number of bins per octave and gamma
-	%                   is a bandwidth offset. If gamma = 0 the obtained
-	%                   filterbank is constant-Q. Setting gamma > 0 time
-	%                   resolution towards lower frequencies can be improved
-	%                   compared to the constant-Q case (e.g. ERB proportional
-	%                   bandwidths). See reference for more information.
-	%     'normalize':  coefficient normalization
-	%          - 'sine':    Filters are scaled such that a sinusoid with
-	%                       amplitude A in time domain will exhibit the same
-	%                       amplitude in the time-frequency representation.
-	%          - 'impulse': Filters are scaled such that an impulse in time
-	%                       domain will exhibit a flat response in the
-	%                       time-frequency representation (in the frame that 
-	%                       centers the impulse)
-	%          - 'none':      ...
-	%     'winfun':        defines the window function that is used for filter
-	%                   design. See winfuns for more information.
-	%
-	%   See also:  nsgtf_real, winfuns
-	'''
-	g,shift,M = gen_filterbank(fmin,fmax,B,fs,len(x), winfun=win_fun, gamma=gamma)
+def cqt(signal, bins_per_octave, samp_rate, fmin, fmax,
+            rasterize='full', phasemode='global', outputFormat='sparse',
+            gamma=0, normalize='sine', window_name='hann'):
+    # type: (numpy.ndarray, int, int, float, float, str, str, str, int, str, str) -> dict
+    '''
+    Input parameters:
+          signal            : Real-valued signal
+          bins_per_octave   : Number of bins per octave
+          samp_rate         : Sampling frequency
+          fmin              : Lowest frequency to be analyzed
+          fmax              : Highest frequency to be analyzed
+          **rasterize       : Can be none, full, or piecewise --
+                              affects the hop size
+          **phasemode       : Can be local or global -- global 
+                              uses a mapping function
+          **outputFormat    : Can be sparse or cell to determine
+                              datatype of returned coefficients  
+          **gamma           : Constant factor for offsetting filter bandwidths, >=0
+          **normalize       : Can be sine, impulse or none -- used to 
+                              normalize the coefficients
+          **window_name     : Name of the window function used to generate filter
 
-	total_bins = int(len(M)/2 -1)
-	fbas = fs * np.cumsum(shift[1:]) / len(x)
-	fbas = fbas[:total_bins]
+    Output parameters: 
+          results          : Dict consisting of 
+             .cqt            : CQT coefficients
+             .cqt_DC         : transform coefficients for f = 0
+             .cqt_Nyq        : transform coefficients for nyquist rate
+             .filter_bank    : list of analysis filters
+             .shift          : center frequencies of analysis filters
+             .bw_bins        : bandwidth of analysis filters
+             .sig_len        : length of input signal
+             .phasemode      : 'local'  -> zero-centered filtered used
+                             : 'global' -> mapping function used
+             .rast           : time-frequency plane sampling scheme (full,
+                               piecewise, none)
+             .fmin           : Lowest frequency to be analyzed
+             .fmax           : Highest frequency to be analyzed
+             .bins_er_octave : Number of bins per octave  
+             .format         : eihter 'cell' or 'matrix' (only applies for
+                               piecewise rasterization)
 
-	# Assumes rasterize is full always
-	M[1:total_bins+1] = M[total_bins]
-	M[total_bins+2:] = M[total_bins:0:-1]
+    **optional args
 
-	if normalize in ['sine','Sine','SINE','sin']:
-		normFacVec = 2 * M[:total_bins+2]/len(x)
-	elif normalize in ['impulse','Impulse','IMPULSE','imp']:
-		win_lengths = np.zeros(len(g))
-		for i in range(len(g)):
-			win_lengths[i] = len(g[i])
-		normFacVec = 2 * M[:total_bins+2]/win_lengths
-	elif normalize in ['none','None','NONE','no']:
-		normFacVec = np.ones(total_bins+2)
-	else:
-		print("Unknown normalization method")
+    This function is a composition of gen_filter, gen_filterbank and apply_filterbank.
+    It takes in or generates all of the necessary parameters for those functions
+    and passes their output around to in order to compute the actual CQT. It requires
+    a real-valued signal, a number of bins per octave, and a min and max frequency. In
+    addition it allows you to tune values for the other functions like the window used
+    to shape the filters, the gamma factor, and the phasemode.
+    
+    References:
+      C. Schorkhuber, A. Klapuri, N. Holighaus, and M. Dorfler. A Matlab 
+      Toolbox for Efficient Perfect Reconstruction log-f Time-Frequecy 
+      Transforms.
+ 
+      G. A. Velasco, N. Holighaus, M. Dorfler, and T. Grill. Constructing an
+      invertible constant-Q transform with non-stationary Gabor frames.
+      Proceedings of DAFX11, Paris, 2011.
+      
+      N. Holighaus, M. Dorfler, G. Velasco, and T. Grill. A framework for
+      invertible, real-time constant-q transforms. Audio, Speech, and
+      Language Processing, IEEE Transactions on, 21(4):775-785, April 2013.
 
-	normFacVec = np.concatenate((normFacVec,normFacVec[len(normFacVec)-2:0:-1]))
+    See also:  nsgtf_real, winfuns
+    '''
+    filter_bank,shift,bw_bins = gen_filterbank(fmin,fmax,bins_per_octave,samp_rate,len(signal), window_name=window_name, gamma=gamma)
 
-	for i in range(len(normFacVec)):
-		g[i] *= normFacVec[i]
+    num_filters = int(len(bw_bins)/2 -1)
+    ctr_freqs = samp_rate * np.cumsum(shift[1:]) / len(signal)
+    ctr_freqs = ctr_freqs[:num_filters]
 
-	if len(x.shape) < 2:
-		x.shape = (len(x),1)
+    # Assumes rasterize is full always
+    bw_bins[1:num_filters+1] = bw_bins[num_filters]
+    bw_bins[num_filters+2:] = bw_bins[num_filters:0:-1]
 
-	c,Ls = apply_filterbank(x,g,shift,phasemode,M)
-	
-	# Assume rasterize is full always
-	cDC = np.squeeze(c[0])
-	cNyq = np.squeeze(c[total_bins+1])
-	c = np.squeeze(np.asarray(c[1:total_bins+1]))
+    # Create a normalization vector
+    normalize = normalize.lower()
+    if normalize in ['sine','sin']:
+        normFacVec = 2 * bw_bins[:num_filters+2]/len(signal)
+    elif normalize in ['impulse','imp']:
+        filter_lens = np.zeros(len(filter_bank))
+        for i in range(len(g)):
+            filter_lens[i] = len(filter_bank[i])
+        normFacVec = 2 * bw_bins[:num_filters+2]/filter_lens
+    elif normalize in ['none','no']:
+        normFacVec = np.ones(num_filters+2)
+    else:
+        print("Unknown normalization method")
 
-	results = {'c':c,'g':g,'shift':shift,'M':M,'xlen':len(x),
-		'phasemode':phasemode,'rast':rasterize,'fmin':fmin,'fmax':fmax,
-		'B':B,'cDC':cDC,'cNyq':cNyq,'format':outputFormat,'fbas':fbas}
+    normFacVec = np.concatenate((normFacVec,normFacVec[len(normFacVec)-2:0:-1]))
 
-	return results
+    # Apply normalization to the filterbank
+    for i in range(len(normFacVec)):
+        filter_bank[i] *= normFacVec[i]
+
+    if len(signal.shape) < 2:
+        signal.shape = (len(signal),1)
+
+    # Apply the normalized filterbank to the signal to compute the cqt
+    cqt,sig_len = apply_filterbank(signal,filter_bank,shift,phasemode,bw_bins)
+    
+    # Assume rasterize is full always
+    # Seperate  the actual cqt from the zero and nyq coefficients needed for perfect reconstruction
+    cqt_DC = np.squeeze(cqt[0])
+    cqt_Nyq = np.squeeze(cqt[num_filters+1])
+    cqt = np.squeeze(np.asarray(cqt[1:num_filters+1]))
+
+    results = {'cqt':cqt,'filter_bank':filter_bank,'shift':shift,'bw_bins':bw_bins,'sig_len':sig_len,
+        'phasemode':phasemode,'rast':rasterize,'fmin':fmin,'fmax':fmax,
+        'bins_per_octave':bins_per_octave,'cqt_DC':cqt_DC,'cqt_Nyq':cqt_Nyq,'format':outputFormat,'ctr_freqs':ctr_freqs}
+
+    return results

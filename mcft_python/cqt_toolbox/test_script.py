@@ -40,21 +40,21 @@ signal4, sr4 = librosa.core.load('trombone.wav')
 start = time.clock()
 
 # Compute cqts of all four signals
-Xcq1 = cqt(signal1, fres, samp_rate, fmin, fmax,gamma=gamma)
-Xcqt1 = Xcq1['c']
-time1 = time.clock()
+Xcq1 = cqt(signal1, fres, samp_rate, fmin, fmax, gamma=gamma, window_name='boxcar')
+Xcqt1 = Xcq1['cqt']
+#time1 = time.clock()
 
-Xcq2 = cqt(signal2, fres, samp_rate, fmin, fmax,gamma=gamma)
-Xcqt2 = Xcq2['c']
-time2 = time.clock() - time1
+Xcq2 = cqt(signal2, fres, samp_rate, fmin, fmax, gamma=gamma, window_name='cos')
+Xcqt2 = Xcq2['cqt']
+#time2 = time.clock() - time1
 
-Xcq3 = cqt(signal3, fres, sr3, fmin, fmax,gamma=gamma)
-Xcqt3 = Xcq3['c']
-time3 = time.clock() - time2 - time1
-print(time1,time2,time3)
+Xcq3 = cqt(signal3, fres, sr3, fmin, fmax, gamma=gamma, window_name='gauss')
+Xcqt3 = Xcq3['cqt']
+#time3 = time.clock() - time2 - time1
+#print(time1,time2,time3)
 
-Xcq4 = cqt(signal4, fres, sr4, fmin, fmax,gamma=gamma)
-Xcqt4 = Xcq4['c']
+Xcq4 = cqt(signal4, fres, sr4, fmin, fmax, gamma=gamma)
+Xcqt4 = Xcq4['cqt']
 
 # Check how long cqt computation took
 cqt_time = time.clock()
