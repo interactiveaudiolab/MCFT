@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>MCFT Demos</title>  
+		<!-- link to main stylesheet -->
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	</head>
+	<body>
+
+		<!-- Page Title -------------------------------------------------------------------------------------------------------->
+		<header>
+          <h1>Multi-resolution Common Fate Transform</h1>
+          <h4>Fatemeh Pishdadian, Bryan Pardo</h4>
+		</header>
+
+		
+		<!-------------------------------------------------------------------------------------------------------------------->
+		<!-- Table of contents -------------------------------------------------------------------------------------------------->
+		<!-------------------------------------------------------------------------------------------------------------------->
+		<div class="menu_box">
+		<!-- Audio Examples -------------------------------------------------------------------------------------------------->
+		<button class="accordion">Audio Examples</button>
+		<div class="panel">
+			<ul class="menu_out">
+				<li>	
+		  	   <button class="accordion">Two-source Mixtures</button> 
+  				<div class="panel">
+ 					<ul class="menu_in">
+ 						<li class="accordion_menu"> Octave 2 </li>
+ 						<li class="accordion_menu"> Octave 3 </li>
+ 						<li class="accordion_menu"> Octave 4 </li>
+ 						<li class="accordion_menu"> Octave 5 </li>
+ 						<li class="accordion_menu"> Octave 6 </li>
+ 						<li class="accordion_menu"> Octave 7 </li>
+				</div>
+				</li>
+
+				<li>	
+		  	   <button class="accordion">Three-source Mixtures</button> 
+  				<div class="panel">
+ 					<ul class="menu_in">
+ 						<li class="accordion_menu"> Octave 2 </li>
+ 						<li class="accordion_menu"> Octave 3 </li>
+ 						<li class="accordion_menu"> Octave 4 </li>
+ 						<li class="accordion_menu"> Octave 5 </li>
+ 						<li class="accordion_menu"> Octave 6 </li>
+ 						<li class="accordion_menu"> Octave 7 </li>
+				</div>
+				</li>
+
+				<li>	
+		  	   <button class="accordion">Four-source Mixtures</button> 
+  				<div class="panel">
+ 					<ul class="menu_in">
+ 						<li class="accordion_menu"> Octave 2 </li>
+ 						<li class="accordion_menu"> Octave 3 </li>
+ 						<li class="accordion_menu"> Octave 4 </li>
+ 						<li class="accordion_menu"> Octave 5 </li>
+ 						<li class="accordion_menu"> Octave 6 </li>
+ 						<li class="accordion_menu"> Octave 7 </li>
+				</div>
+				</li>
+
+				<li>	
+		  	   <button class="accordion">Five-source Mixtures</button> 
+  				<div class="panel">
+ 					<ul class="menu_in">
+ 						<li class="accordion_menu"> Octave 2 </li>
+ 						<li class="accordion_menu"> Octave 3 </li>
+ 						<li class="accordion_menu"> Octave 4 </li>
+ 						<li class="accordion_menu"> Octave 5 </li>
+ 						<li class="accordion_menu"> Octave 6 </li>
+ 						<li class="accordion_menu"> Octave 7 </li>
+				</div>
+				</li>
+			</ul>
+		</div> 
+		</br>
+
+		<!-- TF Plots -------------------------------------------------------------------------------------------------->
+
+		<button class="accordion">Time-frequency Plots</button>
+		<div class="panel">
+			<ul class="menu_out">
+				<li>	
+		  	   <button class="accordion">Two-source Mixtures</button> 
+  				<div class="panel">
+ 					<ul class="menu_in">
+ 						<li class="accordion_menu"> Octave 2 </li>
+ 						<li class="accordion_menu"> Octave 3 </li>
+ 						<li class="accordion_menu"> Octave 4 </li>
+ 						<li class="accordion_menu"> Octave 5 </li>
+ 						<li class="accordion_menu"> Octave 6 </li>
+ 						<li class="accordion_menu"> Octave 7 </li>
+				</div>
+				</li>
+
+				<li>	
+		  	   <button class="accordion">Three-source Mixtures</button> 
+  				<div class="panel">
+ 					<ul class="menu_in">
+ 						<li class="accordion_menu"> Octave 2 </li>
+ 						<li class="accordion_menu"> Octave 3 </li>
+ 						<li class="accordion_menu"> Octave 4 </li>
+ 						<li class="accordion_menu"> Octave 5 </li>
+ 						<li class="accordion_menu"> Octave 6 </li>
+ 						<li class="accordion_menu"> Octave 7 </li>
+				</div>
+				</li>
+
+				<li>	
+		  	   <button class="accordion">Four-source Mixtures</button> 
+  				<div class="panel">
+ 					<ul class="menu_in">
+ 						<li class="accordion_menu"> Octave 2 </li>
+ 						<li class="accordion_menu"> Octave 3 </li>
+ 						<li class="accordion_menu"> Octave 4 </li>
+ 						<li class="accordion_menu"> Octave 5 </li>
+ 						<li class="accordion_menu"> Octave 6 </li>
+ 						<li class="accordion_menu"> Octave 7 </li>
+				</div>
+				</li>
+
+				<li>	
+		  	   <button class="accordion">Five-source Mixtures</button> 
+  				<div class="panel">
+ 					<ul class="menu_in">
+ 						<li class="accordion_menu"> Octave 2 </li>
+ 						<li class="accordion_menu"> Octave 3 </li>
+ 						<li class="accordion_menu"> Octave 4 </li>
+ 						<li class="accordion_menu"> Octave 5 </li>
+ 						<li class="accordion_menu"> Octave 6 </li>
+ 						<li class="accordion_menu"> Octave 7 </li>
+				</div>
+				</li>
+			</ul>
+		</div> 
+		</br>
+
+		<!-- Results -------------------------------------------------------------------------------------------------->
+		<button class="accordion">Experimental Results</button>
+		<div class="panel">
+
+		</div>
+		</div>
+		<!-- Accordion Function ------------------------------------------------------------------------------------------------>
+		<script> 
+		var acc = document.getElementsByClassName("accordion");
+		var i;
+
+		for (i = 0; i < acc.length; i++) {
+		    acc[i].addEventListener("click", function() {
+		        this.classList.toggle("active");
+		        var panel = this.nextElementSibling;
+		        if (panel.style.display === "block") {
+		            panel.style.display = "none";
+		        } else {
+		            panel.style.display = "block";
+		        }
+		    });
+		}
+		</script>	
+
+
+		<!-------------------------------------------------------------------------------------------------------------------->
+		<!-- Audio Examples -------------------------------------------------------------------------------------------------->
+		<!-------------------------------------------------------------------------------------------------------------------->
+
+		<div class="pad"></div>
+
+      	<h2>Audio Examples</h2>
+      	<hr>
+
+		<div class="pad"></div>
+
+      	<h3>Two-source Mixtures</h3>
+
+      	<h4>Octave 2</h4>
+
+      			<div class="subsection">
+      			Source 1: C2-bassoon-vibrato - Source 2: C2-bassoon-minor trill 
+				
+				<div class="pad"></div>
+      			Mixture </br>
+      			<audio controls>
+				  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/mix_samp1_2src.ogg" type="audio/ogg">
+				  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/mix_samp1_2src.wav" type="audio/wav">
+				</audio> </br>
+
+				<div class="pad"></div>
+      			Original Source 1 </br>
+          		<audio controls>
+				  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
+				  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+				</audio></br>
+
+      			Estimated Source 1 </br>
+				<table>
+				  <tr>
+				    <th>Masking Thr</th>
+				    <th>STFT</th>
+				    <th>CQT</th>
+				    <th>CFT-best-sep</th>
+				    <th>MCFT</th>
+
+				  </tr>
+				  <tr>
+				    <td>0 dB</td>
+				    <td> <audio controls>
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+						</audio></br>
+					</td>
+				    <td> <audio controls>
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+						</audio></br>
+					</td>
+					<td> <audio controls>
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+						</audio></br>
+					</td>
+					<td> <audio controls>
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+						</audio></br>
+					</td>
+				  </tr>
+				  <tr>
+				    <td>15 dB</td>
+				    <td></td>
+				    <td></td>
+				    <td></td>
+				    <td></td>
+				  </tr>
+				  <tr>
+				    <td>30 dB</td>
+				    <td></td>
+				    <td></td>
+				    <td></td>
+				    <td></td>
+				  </tr>
+				</table>
+
+				<div class="pad"></div>
+				Original Source 2 </br>
+				<audio controls>
+				  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src2_samp1_2src.ogg" type="audio/ogg">
+				  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src2_samp1_2src.wav" type="audio/wav">
+				</audio></br>
+
+
+				Estimated Source 2 </br>
+				<table>
+				  <tr>
+				    <th>Masking Thr</th>
+				    <th>STFT</th>
+				    <th>CQT</th>
+				    <th>CFT-best-sep</th>
+				    <th>MCFT</th>
+
+				  </tr>
+				  <tr>
+				    <td>0 dB</td>
+				    <td> <audio controls>
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+						</audio></br>
+					</td>
+				    <td> <audio controls>
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+						</audio></br>
+					</td>
+					<td> <audio controls>
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+						</audio></br>
+					</td>
+					<td> <audio controls>
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
+					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+						</audio></br>
+					</td>
+				  </tr>
+				  <tr>
+				    <td>15 dB</td>
+				    <td></td>
+				    <td></td>
+				    <td></td>
+				    <td></td>
+				  </tr>
+				  <tr>
+				    <td>30 dB</td>
+				    <td></td>
+				    <td></td>
+				    <td></td>
+				    <td></td>
+				  </tr>
+				</table>
+
+			
+		<div class="pad"></div>
+
+      	<h4>Octave 3</h4>
+				<div class="subsection">
+			    </div>
+      	<h4>Octave 4</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4>Octave 5</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4>Octave 6</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4>Octave 7</h4>
+      			<div class="subsection">
+			    </div>
+
+
+		<!-------------------------------------------------------------------------------------------------------------------->
+		<!-- TF Plots -------------------------------------------------------------------------------------------------->
+		<!-------------------------------------------------------------------------------------------------------------------->
+
+		<div class="pad"></div>
+
+      	<h2>Time-frequency Plots</h2>
+      	<hr>
+
+		<div class="pad"></div>
+
+      	<h3>Two-source Mixtures</h3>
+
+      	<h4>Octave 2</h4>
+
+          			<div class="subsection">
+					</div>
+
+		<div class="pad"></div>
+
+      	<h4>Octave 3</h4>
+				<div class="subsection">
+			    </div>
+      	<h4>Octave 4</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4>Octave 5</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4>Octave 6</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4>Octave 7</h4>
+      			<div class="subsection">
+			    </div>
+
+
+		<!-------------------------------------------------------------------------------------------------------------------->
+		<!-- Results -------------------------------------------------------------------------------------------------->
+		<!-------------------------------------------------------------------------------------------------------------------->
+
+		<div class="pad"></div>
+
+      	<h2>Experimental Results</h2>
+      	<hr>
+
+		<div class="pad"></div>
+
+      	
+			
+
+		
+	</body>
+</html>
