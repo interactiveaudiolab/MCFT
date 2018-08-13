@@ -8,6 +8,27 @@
 	</head>
 	<body>
 
+		<!-- Back to top button ---------------------------------------------------------------------------------------------------->
+		<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+		<script>
+				// When the user scrolls down 20px from the top of the document, show the button
+				window.onscroll = function() {scrollFunction()};
+
+				function scrollFunction() {
+				    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+				        document.getElementById("myBtn").style.display = "block";
+				    } else {
+				        document.getElementById("myBtn").style.display = "none";
+				    }
+				}
+
+				// When the user clicks on the button, scroll to the top of the document
+				function topFunction() {
+				    document.body.scrollTop = 0;
+				    document.documentElement.scrollTop = 0;
+				}
+		</script>
+
 		<!-- Page Title -------------------------------------------------------------------------------------------------------->
 		<header>
           <h1>Multi-resolution Common Fate Transform</h1>
@@ -24,15 +45,15 @@
 		<div class="panel">
 			<ul class="menu_out">
 				<li>	
-		  	   <button class="accordion">Two-source Mixtures</button> 
+		  	    <button class="accordion">  Two-source Mixtures </button>
   				<div class="panel">
  					<ul class="menu_in">
- 						<li class="accordion_menu"> Octave 2 </li>
- 						<li class="accordion_menu"> Octave 3 </li>
- 						<li class="accordion_menu"> Octave 4 </li>
- 						<li class="accordion_menu"> Octave 5 </li>
- 						<li class="accordion_menu"> Octave 6 </li>
- 						<li class="accordion_menu"> Octave 7 </li>
+ 						<a href="#aud_ex_2src_oct2"><li class="accordion_menu"> Octave 2 </li></a> 
+ 						<a href="#aud_ex_2src_oct3"><li class="accordion_menu"> Octave 3 </li></a> 
+ 						<a href="#aud_ex_2src_oct4"><li class="accordion_menu"> Octave 4 </li></a> 
+ 						<a href="#aud_ex_2src_oct5"><li class="accordion_menu"> Octave 5 </li></a> 
+ 						<a href="#aud_ex_2src_oct6"><li class="accordion_menu"> Octave 6 </li></a> 
+ 						<a href="#aud_ex_2src_oct7"><li class="accordion_menu"> Octave 7 </li></a> 
 				</div>
 				</li>
 
@@ -40,12 +61,12 @@
 		  	   <button class="accordion">Three-source Mixtures</button> 
   				<div class="panel">
  					<ul class="menu_in">
- 						<li class="accordion_menu"> Octave 2 </li>
- 						<li class="accordion_menu"> Octave 3 </li>
- 						<li class="accordion_menu"> Octave 4 </li>
- 						<li class="accordion_menu"> Octave 5 </li>
- 						<li class="accordion_menu"> Octave 6 </li>
- 						<li class="accordion_menu"> Octave 7 </li>
+ 						<a href="#aud_ex_3src_oct2"><li class="accordion_menu"> Octave 2 </li></a>
+ 						<a href="#aud_ex_3src_oct3"><li class="accordion_menu"> Octave 3 </li></a>
+ 						<a href="#aud_ex_3src_oct4"><li class="accordion_menu"> Octave 4 </li></a>
+ 						<a href="#aud_ex_3src_oct5"><li class="accordion_menu"> Octave 5 </li></a>
+ 						<a href="#aud_ex_3src_oct6"><li class="accordion_menu"> Octave 6 </li></a>
+ 						<a href="#aud_ex_3src_oct7"><li class="accordion_menu"> Octave 7 </li></a>
 				</div>
 				</li>
 
@@ -53,12 +74,12 @@
 		  	   <button class="accordion">Four-source Mixtures</button> 
   				<div class="panel">
  					<ul class="menu_in">
- 						<li class="accordion_menu"> Octave 2 </li>
- 						<li class="accordion_menu"> Octave 3 </li>
- 						<li class="accordion_menu"> Octave 4 </li>
- 						<li class="accordion_menu"> Octave 5 </li>
- 						<li class="accordion_menu"> Octave 6 </li>
- 						<li class="accordion_menu"> Octave 7 </li>
+ 						<a href="#aud_ex_4src_oct2"><li class="accordion_menu"> Octave 2 </li></a>
+ 						<a href="#aud_ex_4src_oct3"><li class="accordion_menu"> Octave 3 </li></a>
+ 						<a href="#aud_ex_4src_oct4"><li class="accordion_menu"> Octave 4 </li></a>
+ 						<a href="#aud_ex_4src_oct5"><li class="accordion_menu"> Octave 5 </li></a>
+ 						<a href="#aud_ex_4src_oct6"><li class="accordion_menu"> Octave 6 </li></a>
+ 						<a href="#aud_ex_4src_oct7"><li class="accordion_menu"> Octave 7 </li></a>
 				</div>
 				</li>
 
@@ -66,12 +87,12 @@
 		  	   <button class="accordion">Five-source Mixtures</button> 
   				<div class="panel">
  					<ul class="menu_in">
- 						<li class="accordion_menu"> Octave 2 </li>
- 						<li class="accordion_menu"> Octave 3 </li>
- 						<li class="accordion_menu"> Octave 4 </li>
- 						<li class="accordion_menu"> Octave 5 </li>
- 						<li class="accordion_menu"> Octave 6 </li>
- 						<li class="accordion_menu"> Octave 7 </li>
+ 						<a href="#aud_ex_5src_oct2"><li class="accordion_menu"> Octave 2 </li></a>
+ 						<a href="#aud_ex_5src_oct3"><li class="accordion_menu"> Octave 3 </li></a>
+ 						<a href="#aud_ex_5src_oct4"><li class="accordion_menu"> Octave 4 </li></a>
+ 						<a href="#aud_ex_5src_oct5"><li class="accordion_menu"> Octave 5 </li></a>
+ 						<a href="#aud_ex_5src_oct6"><li class="accordion_menu"> Octave 6 </li></a>
+ 						<a href="#aud_ex_5src_oct7"><li class="accordion_menu"> Octave 7 </li></a>
 				</div>
 				</li>
 			</ul>
@@ -176,151 +197,210 @@
 
       	<h3>Two-source Mixtures</h3>
 
-      	<h4>Octave 2</h4>
+      	<h4 id="aud_ex_2src_oct2">Octave 2</h4>
 
       			<div class="subsection">
-      			Source 1: C2-bassoon-vibrato - Source 2: C2-bassoon-minor trill 
-				
-				<div class="pad"></div>
-      			Mixture </br>
-      			<audio controls>
-				  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/mix_samp1_2src.ogg" type="audio/ogg">
-				  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/mix_samp1_2src.wav" type="audio/wav">
-				</audio> </br>
+					Mixture = C2-bassoon-vibrato + C2-bassoon-minor trill </br>
+			      			<audio controls>
+							  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/mix_samp1_2src.wav" type="audio/wav">
+							</audio> </br>
 
-				<div class="pad"></div>
-      			Original Source 1 </br>
-          		<audio controls>
-				  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
-				  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
-				</audio></br>
+					<div class="pad_small"></div>
+	      			Original Source 1: C2-bassoon-vibrato </br>
+			          		<audio controls>
+							  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+							</audio></br>
 
-      			Estimated Source 1 </br>
-				<table>
-				  <tr>
-				    <th>Masking Thr</th>
-				    <th>STFT</th>
-				    <th>CQT</th>
-				    <th>CFT-best-sep</th>
-				    <th>MCFT</th>
+					<div class="pad_small"></div>
+	      			Estimated Source 1 </br>
+						<table>
+						  	<tr>
+							    <th>Masking Thr</th>
+							    <th>STFT</th>
+							    <th>CQT</th>
+							    <th>CFT-best-sep</th>
+							    <th>MCFT</th>
+						 	</tr>
 
-				  </tr>
-				  <tr>
-				    <td>0 dB</td>
-				    <td> <audio controls>
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
-						</audio></br>
-					</td>
-				    <td> <audio controls>
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
-						</audio></br>
-					</td>
-					<td> <audio controls>
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
-						</audio></br>
-					</td>
-					<td> <audio controls>
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
-						</audio></br>
-					</td>
-				  </tr>
-				  <tr>
-				    <td>15 dB</td>
-				    <td></td>
-				    <td></td>
-				    <td></td>
-				    <td></td>
-				  </tr>
-				  <tr>
-				    <td>30 dB</td>
-				    <td></td>
-				    <td></td>
-				    <td></td>
-				    <td></td>
-				  </tr>
-				</table>
+							<tr>
+							<td>0 dB</td>
+						    <td> <audio controls>
+						  		 <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+								</audio></br>
+							</td>
+						    <td> <audio controls>
+						  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+								</audio></br>
+							</td>
+							<td> <audio controls>
+						  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+								</audio></br>
+							</td>
+							<td> <audio controls>
+						  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+								</audio></br>
+							</td>
+						  	</tr>
 
-				<div class="pad"></div>
+							<tr>
+							<td>15 dB</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							</tr>
+
+						    <tr>
+						    <td>30 dB</td>
+						    <td></td>
+						    <td></td>
+						    <td></td>
+						    <td></td>
+						    </tr>
+					    </table>
+
+				<div class="pad_small"></div>
 				Original Source 2 </br>
-				<audio controls>
-				  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src2_samp1_2src.ogg" type="audio/ogg">
-				  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src2_samp1_2src.wav" type="audio/wav">
-				</audio></br>
-
-
-				Estimated Source 2 </br>
-				<table>
-				  <tr>
-				    <th>Masking Thr</th>
-				    <th>STFT</th>
-				    <th>CQT</th>
-				    <th>CFT-best-sep</th>
-				    <th>MCFT</th>
-
-				  </tr>
-				  <tr>
-				    <td>0 dB</td>
-				    <td> <audio controls>
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+						<audio controls>
+						  <source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src2_samp1_2src.wav" type="audio/wav">
 						</audio></br>
-					</td>
-				    <td> <audio controls>
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
-						</audio></br>
-					</td>
-					<td> <audio controls>
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
-						</audio></br>
-					</td>
-					<td> <audio controls>
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.ogg" type="audio/ogg">
-					  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
-						</audio></br>
-					</td>
-				  </tr>
-				  <tr>
-				    <td>15 dB</td>
-				    <td></td>
-				    <td></td>
-				    <td></td>
-				    <td></td>
-				  </tr>
-				  <tr>
-				    <td>30 dB</td>
-				    <td></td>
-				    <td></td>
-				    <td></td>
-				    <td></td>
-				  </tr>
-				</table>
 
-			
-		<div class="pad"></div>
+				<div class="pad_small"></div>
+				Estimated Source 2: C2-bassoon-minor trill </br>
+						<table>
+						    <tr>
+							    <th>Masking Thr</th>
+							    <th>STFT</th>
+							    <th>CQT</th>
+							    <th>CFT-best-sep</th>
+							    <th>MCFT</th>
 
-      	<h4>Octave 3</h4>
+				  			</tr>
+
+			  				<tr>
+							    <td>0 dB</td>
+							    <td> <audio controls>
+							  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+									</audio></br>
+								</td>
+							    <td> <audio controls>
+							  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+									</audio></br>
+								</td>
+								<td> <audio controls>
+							  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+									</audio></br>
+								</td>
+								<td> <audio controls>
+							  		<source src="https://raw.githubusercontent.com/fpishdadian/MCFT-Demos/master/audio_examples/src1_samp1_2src.wav" type="audio/wav">
+									</audio></br>
+								</td>
+				  			</tr>
+							<tr>
+							    <td>15 dB</td>
+							    <td></td>
+							    <td></td>
+							    <td></td>
+							    <td></td>
+							</tr>
+							<tr>
+							    <td>30 dB</td>
+							    <td></td>
+							    <td></td>
+							    <td></td>
+							    <td></td>
+							</tr>
+						</table>
+
+        <div class="pad"></div>
+		
+
+      	<h4 id="aud_ex_2src_oct3">Octave 3</h4>
 				<div class="subsection">
 			    </div>
-      	<h4>Octave 4</h4>
+      	<h4 id="aud_ex_2src_oct4">Octave 4</h4>
       			<div class="subsection">
 			    </div>
-      	<h4>Octave 5</h4>
+      	<h4 id="aud_ex_2src_oct5">Octave 5</h4>
       			<div class="subsection">
 			    </div>
-      	<h4>Octave 6</h4>
+      	<h4 id="aud_ex_2src_oct6">Octave 6</h4>
       			<div class="subsection">
 			    </div>
-      	<h4>Octave 7</h4>
+      	<h4 id="aud_ex_2src_oct7">Octave 7</h4>
+      			<div class="subsection">
+			    </div>
+
+		<div class="pad"></div>
+
+      	<h3>Three-source Mixtures</h3>
+
+      	<h4 id="aud_ex_3src_oct2">Octave 2</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_3src_oct3">Octave 3</h4>
+				<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_3src_oct4">Octave 4</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_3src_oct5">Octave 5</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_3src_oct6">Octave 6</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_3src_oct7">Octave 7</h4>
       			<div class="subsection">
 			    </div>
 
 
+	    <div class="pad"></div>
+
+      	<h3>Four-source Mixtures</h3>
+
+      	<h4 id="aud_ex_4src_oct2">Octave 2</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_4src_oct3">Octave 3</h4>
+				<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_4src_oct4">Octave 4</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_4src_oct5">Octave 5</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_4src_oct6">Octave 6</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_4src_oct7">Octave 7</h4>
+      			<div class="subsection">
+			    </div>
+
+
+			    <div class="pad"></div>
+
+      	<h3>Five-source Mixtures</h3>
+
+      	<h4 id="aud_ex_5src_oct2">Octave 2</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_5src_oct3">Octave 3</h4>
+				<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_5src_oct4">Octave 4</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_5src_oct5">Octave 5</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_5src_oct6">Octave 6</h4>
+      			<div class="subsection">
+			    </div>
+      	<h4 id="aud_ex_5src_oct7">Octave 7</h4>
+      			<div class="subsection">
+			    </div>
 		<!-------------------------------------------------------------------------------------------------------------------->
 		<!-- TF Plots -------------------------------------------------------------------------------------------------->
 		<!-------------------------------------------------------------------------------------------------------------------->

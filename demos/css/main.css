@@ -37,30 +37,19 @@ p {
     line-height: 1.4em;
     color: #333;
 }
-ul.a {
-    position: outside;
-    font-size: 1.2em;
-    font-family:'Helvetica', 'Arial', 'Sans-Serif';
-}
-ul.b {
-    position: inside;
-    font-size: 0.8em;
-    font-family:'Helvetica', 'Arial', 'Sans-Serif';
-}
-ol.a {
-    font-size: 1.2em;
-    font-family:'Helvetica', 'Arial', 'Sans-Serif';
-}
-ol.b {
-    font-size: 0.8em;
-    font-family:'Helvetica', 'Arial', 'Sans-Serif';
-}
 
 hr{
     color: white;
 }
+
+a:link {
+    text-decoration: none;
+}
 .pad {
     padding: 10px;
+}
+.pad_small {
+    padding: 5px;
 }
 .subsection{
     font-size: 1em;
@@ -169,4 +158,24 @@ ul.menu_in {
 }
 .active, .accordion_menu:hover {
     color: #000; 
+}
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 16px;
+  border: 2px solid gray;
+  outline: none;
+  background-color: white;
+  color: gray;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 25px;
+}
+
+#myBtn:hover {
+  background-color: white;
 }
