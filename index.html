@@ -9,16 +9,16 @@
 	<body>
 
 		<!-- Back to top button ---------------------------------------------------------------------------------------------------->
-		<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+		<button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
 		<script>
 				// When the user scrolls down 20px from the top of the document, show the button
 				window.onscroll = function() {scrollFunction()};
 
 				function scrollFunction() {
 				    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-				        document.getElementById("myBtn").style.display = "block";
+				        document.getElementById("topBtn").style.display = "block";
 				    } else {
-				        document.getElementById("myBtn").style.display = "none";
+				        document.getElementById("topBtn").style.display = "none";
 				    }
 				}
 

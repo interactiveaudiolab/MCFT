@@ -160,11 +160,11 @@ ul.menu_in {
     color: #000; 
 }
 
-#myBtn {
+#topBtn {
   display: none;
   position: fixed;
   bottom: 20px;
-  right: 30px;
+  left: 20px;
   z-index: 99;
   font-size: 16px;
   border: 2px solid gray;
@@ -176,6 +176,6 @@ ul.menu_in {
   border-radius: 25px;
 }
 
-#myBtn:hover {
+#topBtn:hover {
   background-color: white;
 }
