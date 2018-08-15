@@ -97,7 +97,7 @@
 				</li>
 			</ul>
 		</div> 
-		</br>
+		</br>    
 
 		<!-- TF Plots -------------------------------------------------------------------------------------------------->
 
@@ -108,12 +108,12 @@
 		  	   <button class="accordion">Two-source Mixtures</button> 
   				<div class="panel">
  					<ul class="menu_in">
- 						<li class="accordion_menu"> Octave 2 </li>
- 						<li class="accordion_menu"> Octave 3 </li>
- 						<li class="accordion_menu"> Octave 4 </li>
- 						<li class="accordion_menu"> Octave 5 </li>
- 						<li class="accordion_menu"> Octave 6 </li>
- 						<li class="accordion_menu"> Octave 7 </li>
+ 						<a href="#tf_plot_2src_oct2"><li class="accordion_menu"> Octave 2 </li></a>
+ 						<a href="#tf_plot_2src_oct3"><li class="accordion_menu"> Octave 3 </li></a>
+ 						<a href="#tf_plot_2src_oct4"><li class="accordion_menu"> Octave 4 </li></a>
+ 						<a href="#tf_plot_2src_oct5"><li class="accordion_menu"> Octave 5 </li></a>
+ 						<a href="#tf_plot_2src_oct6"><li class="accordion_menu"> Octave 6 </li></a>
+ 						<a href="#tf_plot_2src_oct7"><li class="accordion_menu"> Octave 7 </li></a>
 				</div>
 				</li>
 
@@ -121,12 +121,12 @@
 		  	   <button class="accordion">Three-source Mixtures</button> 
   				<div class="panel">
  					<ul class="menu_in">
- 						<li class="accordion_menu"> Octave 2 </li>
- 						<li class="accordion_menu"> Octave 3 </li>
- 						<li class="accordion_menu"> Octave 4 </li>
- 						<li class="accordion_menu"> Octave 5 </li>
- 						<li class="accordion_menu"> Octave 6 </li>
- 						<li class="accordion_menu"> Octave 7 </li>
+ 						<a href="#tf_plot_3src_oct2"><li class="accordion_menu"> Octave 2 </li></a>
+ 						<a href="#tf_plot_3src_oct3"><li class="accordion_menu"> Octave 3 </li></a>
+ 						<a href="#tf_plot_3src_oct4"><li class="accordion_menu"> Octave 4 </li></a>
+ 						<a href="#tf_plot_3src_oct5"><li class="accordion_menu"> Octave 5 </li></a>
+ 						<a href="#tf_plot_3src_oct6"><li class="accordion_menu"> Octave 6 </li></a>
+ 						<a href="#tf_plot_3src_oct7"><li class="accordion_menu"> Octave 7 </li></a>
 				</div>
 				</li>
 
@@ -134,12 +134,12 @@
 		  	   <button class="accordion">Four-source Mixtures</button> 
   				<div class="panel">
  					<ul class="menu_in">
- 						<li class="accordion_menu"> Octave 2 </li>
- 						<li class="accordion_menu"> Octave 3 </li>
- 						<li class="accordion_menu"> Octave 4 </li>
- 						<li class="accordion_menu"> Octave 5 </li>
- 						<li class="accordion_menu"> Octave 6 </li>
- 						<li class="accordion_menu"> Octave 7 </li>
+ 						<a href="#tf_plot_4src_oct2"><li class="accordion_menu"> Octave 2 </li></a>
+ 						<a href="#tf_plot_4src_oct3"><li class="accordion_menu"> Octave 3 </li></a>
+ 						<a href="#tf_plot_4src_oct4"><li class="accordion_menu"> Octave 4 </li></a>
+ 						<a href="#tf_plot_4src_oct5"><li class="accordion_menu"> Octave 5 </li></a>
+ 						<a href="#tf_plot_4src_oct6"><li class="accordion_menu"> Octave 6 </li></a>
+ 						<a href="#tf_plot_4src_oct7"><li class="accordion_menu"> Octave 7 </li></a>
 				</div>
 				</li>
 
@@ -147,12 +147,12 @@
 		  	   <button class="accordion">Five-source Mixtures</button> 
   				<div class="panel">
  					<ul class="menu_in">
- 						<li class="accordion_menu"> Octave 2 </li>
- 						<li class="accordion_menu"> Octave 3 </li>
- 						<li class="accordion_menu"> Octave 4 </li>
- 						<li class="accordion_menu"> Octave 5 </li>
- 						<li class="accordion_menu"> Octave 6 </li>
- 						<li class="accordion_menu"> Octave 7 </li>
+ 						<a href="#tf_plot_5src_oct2"><li class="accordion_menu"> Octave 2 </li></a>
+ 						<a href="#tf_plot_5src_oct3"><li class="accordion_menu"> Octave 3 </li></a>
+ 						<a href="#tf_plot_5src_oct4"><li class="accordion_menu"> Octave 4 </li></a>
+ 						<a href="#tf_plot_5src_oct5"><li class="accordion_menu"> Octave 5 </li></a>
+ 						<a href="#tf_plot_5src_oct6"><li class="accordion_menu"> Octave 6 </li></a>
+ 						<a href="#tf_plot_5src_oct7"><li class="accordion_menu"> Octave 7 </li></a>
 				</div>
 				</li>
 			</ul>
@@ -3214,16 +3214,53 @@
 
 		<div class="pad"></div>
 
-      	<h3>Two-source Mixtures</h3>
+      	<h3>Two-source Mixtures</h3><!-- 2-SRC ----------------------------------------------------------------------------->
 
-      	<h4>Octave 2</h4>
-      	<h4>Octave 3</h4>
-      	<h4>Octave 4</h4>
-      	<h4>Octave 5</h4>
-      	<h4>Octave 6</h4>
-      	<h4>Octave 7</h4>
+      	<h4 id="tf_plot_2src_oct2">Octave 2</h4><!-- OCT-2 ------------------------------------------------------------------>
+
+       			Mixture = C2-bassoon-vibrato + C2-bassoon-minor trill </br>
+       			Masking The = 15 dB
+				<div class="pad_small"></div>
+
+
+        		<img src="demos/tf_plots/2src/oct2/est1_0dB_samp1_cft_2src_STFT.png" height="200" width="300">
+
+
+
+      	<h4 id="tf_plot_2src_oct3">Octave 3</h4><!-- OCT-3 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_2src_oct4">Octave 4</h4><!-- OCT-4 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_2src_oct5">Octave 5</h4><!-- OCT-5 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_2src_oct6">Octave 6</h4><!-- OCT-6 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_2src_oct7">Octave 7</h4><!-- OCT-7 ------------------------------------------------------------------>
       			
 
+      	<h3>Three-source Mixtures</h3><!-- 3-SRC ----------------------------------------------------------------------------->
+
+        <h4 id="tf_plot_3src_oct2">Octave 2</h4><!-- OCT-2 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_3src_oct3">Octave 3</h4><!-- OCT-3 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_3src_oct4">Octave 4</h4><!-- OCT-4 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_3src_oct5">Octave 5</h4><!-- OCT-5 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_3src_oct6">Octave 6</h4><!-- OCT-6 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_3src_oct7">Octave 7</h4><!-- OCT-7 ------------------------------------------------------------------>
+
+
+      	<h3>Four-source Mixtures</h3><!-- 4-SRC ----------------------------------------------------------------------------->
+
+      	<h4 id="tf_plot_4src_oct2">Octave 2</h4><!-- OCT-2 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_4src_oct3">Octave 3</h4><!-- OCT-3 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_4src_oct4">Octave 4</h4><!-- OCT-4 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_4src_oct5">Octave 5</h4><!-- OCT-5 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_4src_oct6">Octave 6</h4><!-- OCT-6 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_4src_oct7">Octave 7</h4><!-- OCT-7 ------------------------------------------------------------------>
+
+      	<h3>Five-source Mixtures</h3><!-- 5-SRC ----------------------------------------------------------------------------->
+
+      	<h4 id="tf_plot_5src_oct2">Octave 2</h4><!-- OCT-2 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_5src_oct3">Octave 3</h4><!-- OCT-3 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_5src_oct4">Octave 4</h4><!-- OCT-4 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_5src_oct5">Octave 5</h4><!-- OCT-5 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_5src_oct6">Octave 6</h4><!-- OCT-6 ------------------------------------------------------------------>
+      	<h4 id="tf_plot_5src_oct7">Octave 7</h4><!-- OCT-7 ------------------------------------------------------------------>
 
 		<!-------------------------------------------------------------------------------------------------------------------->
 		<!-- Results -------------------------------------------------------------------------------------------------->
