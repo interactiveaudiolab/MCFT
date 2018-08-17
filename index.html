@@ -41,7 +41,7 @@
 		<!-------------------------------------------------------------------------------------------------------------------->
 		<div class="menu_box">
 		<!-- Audio Examples -------------------------------------------------------------------------------------------------->
-		<button class="accordion">Audio Examples</button>
+		<button class="accordion">Examples: Audio and Plots</button>
 		<div class="panel">
 			<ul class="menu_out">
 				<li>	
@@ -99,66 +99,6 @@
 		</div> 
 		</br>    
 
-		<!-- TF Plots -------------------------------------------------------------------------------------------------->
-
-		<button class="accordion">Time-frequency Plots</button>
-		<div class="panel">
-			<ul class="menu_out">
-				<li>	
-		  	   <button class="accordion">Two-source Mixtures</button> 
-  				<div class="panel">
- 					<ul class="menu_in">
- 						<a href="#tf_plot_2src_oct2"><li class="accordion_menu"> Octave 2 </li></a>
- 						<a href="#tf_plot_2src_oct3"><li class="accordion_menu"> Octave 3 </li></a>
- 						<a href="#tf_plot_2src_oct4"><li class="accordion_menu"> Octave 4 </li></a>
- 						<a href="#tf_plot_2src_oct5"><li class="accordion_menu"> Octave 5 </li></a>
- 						<a href="#tf_plot_2src_oct6"><li class="accordion_menu"> Octave 6 </li></a>
- 						<a href="#tf_plot_2src_oct7"><li class="accordion_menu"> Octave 7 </li></a>
-				</div>
-				</li>
-
-				<li>	
-		  	   <button class="accordion">Three-source Mixtures</button> 
-  				<div class="panel">
- 					<ul class="menu_in">
- 						<a href="#tf_plot_3src_oct2"><li class="accordion_menu"> Octave 2 </li></a>
- 						<a href="#tf_plot_3src_oct3"><li class="accordion_menu"> Octave 3 </li></a>
- 						<a href="#tf_plot_3src_oct4"><li class="accordion_menu"> Octave 4 </li></a>
- 						<a href="#tf_plot_3src_oct5"><li class="accordion_menu"> Octave 5 </li></a>
- 						<a href="#tf_plot_3src_oct6"><li class="accordion_menu"> Octave 6 </li></a>
- 						<a href="#tf_plot_3src_oct7"><li class="accordion_menu"> Octave 7 </li></a>
-				</div>
-				</li>
-
-				<li>	
-		  	   <button class="accordion">Four-source Mixtures</button> 
-  				<div class="panel">
- 					<ul class="menu_in">
- 						<a href="#tf_plot_4src_oct2"><li class="accordion_menu"> Octave 2 </li></a>
- 						<a href="#tf_plot_4src_oct3"><li class="accordion_menu"> Octave 3 </li></a>
- 						<a href="#tf_plot_4src_oct4"><li class="accordion_menu"> Octave 4 </li></a>
- 						<a href="#tf_plot_4src_oct5"><li class="accordion_menu"> Octave 5 </li></a>
- 						<a href="#tf_plot_4src_oct6"><li class="accordion_menu"> Octave 6 </li></a>
- 						<a href="#tf_plot_4src_oct7"><li class="accordion_menu"> Octave 7 </li></a>
-				</div>
-				</li>
-
-				<li>	
-		  	   <button class="accordion">Five-source Mixtures</button> 
-  				<div class="panel">
- 					<ul class="menu_in">
- 						<a href="#tf_plot_5src_oct2"><li class="accordion_menu"> Octave 2 </li></a>
- 						<a href="#tf_plot_5src_oct3"><li class="accordion_menu"> Octave 3 </li></a>
- 						<a href="#tf_plot_5src_oct4"><li class="accordion_menu"> Octave 4 </li></a>
- 						<a href="#tf_plot_5src_oct5"><li class="accordion_menu"> Octave 5 </li></a>
- 						<a href="#tf_plot_5src_oct6"><li class="accordion_menu"> Octave 6 </li></a>
- 						<a href="#tf_plot_5src_oct7"><li class="accordion_menu"> Octave 7 </li></a>
-				</div>
-				</li>
-			</ul>
-		</div> 
-		</br>
-
 		<!-- Results -------------------------------------------------------------------------------------------------->
 		<button class="accordion">Experimental Results</button>
 		<div class="panel">
@@ -191,14 +131,12 @@
 
 		<div class="pad"></div>
 
-      	<h2>Audio Examples</h2>
+      	<h2>Examples: Audio and Plots</h2>
       	<hr>
 
 		<div class="pad"></div>
 
-      	<h3>Two-source Mixtures</h3> <!-- 2-SRC ----------------------------------------------------------------------------->
-
-      	<h4 id="aud_ex_2src_oct2">Octave 2</h4> <!-- OCT-2 ------------------------------------------------------------------>
+      	<h3 id="aud_ex_2src_oct2">Two-source Mixtures - Octave 2</h3> <!-- OCT-2-Audio ------------------------------------------->
 
 				Mixture = C2-bassoon-vibrato + C2-bassoon-minor trill </br>
 				      			<audio controls>
@@ -257,7 +195,40 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/2src/oct2/est1_30dB_samp1_mcft_2src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C2-bassoon-vibrato</br>
+				        		<img src="demos/tf_plots/2src/oct2/src1_samp1_2src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>
+								<div class="plot_box"><div class="plot_scroll">
+								Masking Thr = 0 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct2/est1_0dB_samp1_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est1_0dB_samp1_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est1_0dB_samp1_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est1_0dB_samp1_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct2/est1_15dB_samp1_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est1_15dB_samp1_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est1_15dB_samp1_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est1_15dB_samp1_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+
+								Masking Thr = 30 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct2/est1_30dB_samp1_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est1_30dB_samp1_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est1_30dB_samp1_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est1_30dB_samp1_mcft_2src_STFT.png" height="200" width="250">
+								</div></div>
+								<div class="pad_20"></div>
 
 				Original Source 2: C2-bassoon-minor trill </br>
 								<audio controls>
@@ -310,10 +281,46 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/2src/oct2/est2_30dB_samp1_mcft_2src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
-								 <div class="pad"></div>
-		
+								 <div class="pad_20"></div>
+      			
+       			
 
-      	<h4 id="aud_ex_2src_oct3">Octave 3</h4> <!-- OCT-3 ------------------------------------------------------------------>
+				Original Source 2: C2-bassoon-minor-trill</br>
+				        		<img src="demos/tf_plots/2src/oct2/src2_samp1_2src_STFT.png" height="200" width="250"></br>
+								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>
+								<div class="plot_box"><div class="plot_scroll">
+								Masking Thr = 0 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct2/est2_0dB_samp1_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est2_0dB_samp1_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est2_0dB_samp1_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est2_0dB_samp1_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct2/est2_15dB_samp1_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est2_15dB_samp1_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est2_15dB_samp1_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est2_15dB_samp1_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+
+								Masking Thr = 30 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct2/est2_30dB_samp1_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est2_30dB_samp1_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est2_30dB_samp1_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct2/est2_30dB_samp1_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div></div></div>
+								<div class="pad_20"></div>
+
+
+
+      	<h3 id="aud_ex_2src_oct3">Two-source Mixtures - Octave 3</h3> <!-- OCT-3------------------------------------------------->
 
       			Mixture = C3-viola-minor-trill + C3-viola-major-trill </br>
 				      			<audio controls>
@@ -372,7 +379,41 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/2src/oct3/est1_30dB_samp26_mcft_2src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C3-viola-minor-trill</br>
+				        		<img src="demos/tf_plots/2src/oct3/src1_samp26_2src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>
+								<div class="plot_box"><div class="plot_scroll">
+								Masking Thr = 0 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct3/est1_0dB_samp26_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est1_0dB_samp26_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est1_0dB_samp26_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est1_0dB_samp26_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct3/est1_15dB_samp26_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est1_15dB_samp26_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est1_15dB_samp26_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est1_15dB_samp26_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+
+								Masking Thr = 30 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct3/est1_30dB_samp26_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est1_30dB_samp26_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est1_30dB_samp26_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est1_30dB_samp26_mcft_2src_STFT.png" height="200" width="250">
+								</div></div>
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C3-viola-major-trill </br>
 								<audio controls>
@@ -425,10 +466,43 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/2src/oct3/est2_30dB_samp26_mcft_2src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C3-viola-major-trill</br>
+				        		<img src="demos/tf_plots/2src/oct3/src2_samp26_2src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 2:
+								<div class="pad_small"></div>
+								<div class="plot_box"><div class="plot_scroll">
+								Masking Thr = 0 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct3/est2_0dB_samp26_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est2_0dB_samp26_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est2_0dB_samp26_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est2_0dB_samp26_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
 
-      	<h4 id="aud_ex_2src_oct4">Octave 4</h4> <!-- OCT-4 ------------------------------------------------------------------>
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct3/est2_15dB_samp26_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est2_15dB_samp26_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est2_15dB_samp26_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est2_15dB_samp26_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+
+								Masking Thr = 30 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct3/est2_30dB_samp26_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est2_30dB_samp26_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est2_30dB_samp26_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct3/est2_30dB_samp26_mcft_2src_STFT.png" height="200" width="250">
+								</div></div>
+								<div class="pad_20"></div>
+
+
+      	<h3 id="aud_ex_2src_oct4">Two-source Mixtures - Octave 4</h3> <!-- OCT-4 --------------------------------------------------->
 
 				Mixture = C4-oboe-sus-vib + C4-viola-minor-trill </br>
 				      			<audio controls>
@@ -487,7 +561,42 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/2src/oct4/est1_30dB_samp45_mcft_2src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C4-oboe-sus-vib</br>
+				        		<img src="demos/tf_plots/2src/oct4/src1_samp45_2src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>
+								<div class="plot_box"><div class="plot_scroll">
+								Masking Thr = 0 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct4/est1_0dB_samp45_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est1_0dB_samp45_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est1_0dB_samp45_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est1_0dB_samp45_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct4/est1_15dB_samp45_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est1_15dB_samp45_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est1_15dB_samp45_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est1_15dB_samp45_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+
+								Masking Thr = 30 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct4/est1_30dB_samp45_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est1_30dB_samp45_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est1_30dB_samp45_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est1_30dB_samp45_mcft_2src_STFT.png" height="200" width="250">
+								</div></div>
+								<div class="pad_20"></div>
+
+
 
 				Original Source 2: C4-viola-minor-trill </br>
 				          		<audio controls>
@@ -540,10 +649,44 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/2src/oct4/est2_30dB_samp45_mcft_2src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C4-viola-minor-trill</br>
+				        		<img src="demos/tf_plots/2src/oct4/src2_samp45_2src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 2:
+								<div class="pad_small"></div>
+								<div class="plot_box"><div class="plot_scroll">
+								Masking Thr = 0 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct4/est2_0dB_samp45_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est2_0dB_samp45_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est2_0dB_samp45_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est2_0dB_samp45_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
 
-      	<h4 id="aud_ex_2src_oct5">Octave 5</h4> <!-- OCT-5 ------------------------------------------------------------------>
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct4/est2_15dB_samp45_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est2_15dB_samp45_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est2_15dB_samp45_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est2_15dB_samp45_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+
+								Masking Thr = 30 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct4/est2_30dB_samp45_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est2_30dB_samp45_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est2_30dB_samp45_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct4/est2_30dB_samp45_mcft_2src_STFT.png" height="200" width="250">
+								</div></div>
+								<div class="pad_20"></div>
+
+
+
+      	<h3 id="aud_ex_2src_oct5">Two-source Mixtures - Octave 5</h3> <!-- OCT-5 --------------------------------------------------->
 
       			Mixture = C5-english-horn-minor-trill + C5-piccolo-trumpet-minor-trill </br>
 				      			<audio controls>
@@ -602,7 +745,41 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/2src/oct5/est1_30dB_samp64_mcft_2src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C5-english-horn-minor-trill</br>
+				        		<img src="demos/tf_plots/2src/oct5/src1_samp64_2src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>
+								<div class="plot_box"><div class="plot_scroll">
+								Masking Thr = 0 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct5/est1_0dB_samp64_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est1_0dB_samp64_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est1_0dB_samp64_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est1_0dB_samp64_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct5/est1_15dB_samp64_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est1_15dB_samp64_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est1_15dB_samp64_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est1_15dB_samp64_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+
+								Masking Thr = 30 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct5/est1_30dB_samp64_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est1_30dB_samp64_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est1_30dB_samp64_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est1_30dB_samp64_mcft_2src_STFT.png" height="200" width="250">
+								</div></div>
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C5-piccolo-trumpet-minor-trill </br>
 				          		<audio controls>
@@ -655,10 +832,44 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/2src/oct5/est2_30dB_samp64_mcft_2src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C5-piccolo-trumpet-minor-trill</br>
+				        		<img src="demos/tf_plots/2src/oct5/src2_samp64_2src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 2:
+								<div class="pad_small"></div>
+								<div class="plot_box"><div class="plot_scroll">
+								Masking Thr = 0 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct5/est2_0dB_samp64_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est2_0dB_samp64_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est2_0dB_samp64_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est2_0dB_samp64_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
 
-      	<h4 id="aud_ex_2src_oct6">Octave 6</h4> <!-- OCT-6 ------------------------------------------------------------------>
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct5/est2_15dB_samp64_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est2_15dB_samp64_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est2_15dB_samp64_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est2_15dB_samp64_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+
+								Masking Thr = 30 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct5/est2_30dB_samp64_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est2_30dB_samp64_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est2_30dB_samp64_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct5/est2_30dB_samp64_mcft_2src_STFT.png" height="200" width="250">
+								</div></div>
+								<div class="pad_20"></div>
+
+
+
+      	<h3 id="aud_ex_2src_oct6">Two-source Mixtures - Octave 6</h3> <!-- OCT-6 -------------------------------------------------->
 
       			Mixture = C6-clarinet-major-trill + C6-piccolo-flute-minor-trill </br>
 				      			<audio controls>
@@ -717,7 +928,42 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/2src/oct6/est1_30dB_samp93_mcft_2src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C6-clarinet-major-trill</br>
+				        		<img src="demos/tf_plots/2src/oct6/src1_samp93_2src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>
+								<div class="plot_box"><div class="plot_scroll">
+								Masking Thr = 0 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct6/est1_0dB_samp93_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est1_0dB_samp93_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est1_0dB_samp93_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est1_0dB_samp93_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct6/est1_15dB_samp93_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est1_15dB_samp93_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est1_15dB_samp93_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est1_15dB_samp93_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+
+								Masking Thr = 30 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct6/est1_30dB_samp93_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est1_30dB_samp93_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est1_30dB_samp93_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est1_30dB_samp93_mcft_2src_STFT.png" height="200" width="250">
+								</div></div>
+								<div class="pad_20"></div>
+
+
 
 				Original Source 2: C6-piccolo-flute-minor-trill  </br>
 				          		<audio controls>
@@ -770,10 +1016,44 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/2src/oct6/est2_30dB_samp93_mcft_2src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C6-piccolo-flute-minor-trill</br>
+				        		<img src="demos/tf_plots/2src/oct6/src2_samp93_2src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 2:
+								<div class="pad_small"></div>
+								<div class="plot_box"><div class="plot_scroll">
+								Masking Thr = 0 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct6/est2_0dB_samp93_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est2_0dB_samp93_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est2_0dB_samp93_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est2_0dB_samp93_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
 
-      	<h4 id="aud_ex_2src_oct7">Octave 7</h4> <!-- OCT-7 ------------------------------------------------------------------>
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct6/est2_15dB_samp93_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est2_15dB_samp93_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est2_15dB_samp93_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est2_15dB_samp93_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+
+								Masking Thr = 30 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct6/est2_30dB_samp93_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est2_30dB_samp93_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est2_30dB_samp93_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct6/est2_30dB_samp93_mcft_2src_STFT.png" height="200" width="250">
+								</div></div>
+								<div class="pad_20"></div>
+
+
+
+      	<h3 id="aud_ex_2src_oct7">Two-source Mixtures - Octave 7</h3> <!-- OCT-7 --------------------------------------------------->
 
       			Mixture = C7-piccolo-flute-minor-trill + C7-piccolo-flute-major-trill </br>
 				      			<audio controls>
@@ -832,7 +1112,41 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/2src/oct7/est1_30dB_samp117_mcft_2src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C7-piccolo-flute-minor-trill</br>
+				        		<img src="demos/tf_plots/2src/oct7/src1_samp117_2src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>
+								<div class="plot_box"><div class="plot_scroll">
+								Masking Thr = 0 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct7/est1_0dB_samp117_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est1_0dB_samp117_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est1_0dB_samp117_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est1_0dB_samp117_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct7/est1_15dB_samp117_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est1_15dB_samp117_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est1_15dB_samp117_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est1_15dB_samp117_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+
+								Masking Thr = 30 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct7/est1_30dB_samp117_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est1_30dB_samp117_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est1_30dB_samp117_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est1_30dB_samp117_mcft_2src_STFT.png" height="200" width="250">
+								</div></div>
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C7-piccolo-flute-major-trill  </br>
 				          		<audio controls>
@@ -885,11 +1199,44 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/2src/oct7/est2_30dB_samp117_mcft_2src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
-                                <div class="pad"></div>
+                                <div class="pad_20"></div>
 
-      	<h3>Three-source Mixtures</h3> <!-- 3-SRC ----------------------------------------------------------------------------->
+				Original Source 2: C7-piccolo-flute-major-trill</br>
+				        		<img src="demos/tf_plots/2src/oct7/src2_samp117_2src_STFT.png" height="200" width="250"></br>
+								<div class="pad"></div>
 
-      	<h4 id="aud_ex_3src_oct2">Octave 2</h4> <!-- OCT-2 ------------------------------------------------------------------>
+				Estimated Source 2:
+								<div class="pad_small"></div>
+								<div class="plot_box"><div class="plot_scroll">
+								Masking Thr = 0 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct7/est2_0dB_samp117_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est2_0dB_samp117_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est2_0dB_samp117_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est2_0dB_samp117_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct7/est2_15dB_samp117_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est2_15dB_samp117_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est2_15dB_samp117_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est2_15dB_samp117_mcft_2src_STFT.png" height="200" width="250">
+								<div class="pad_15"></div>
+
+
+								Masking Thr = 30 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/2src/oct7/est2_30dB_samp117_stft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est2_30dB_samp117_cqt_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est2_30dB_samp117_cft_2src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/2src/oct7/est2_30dB_samp117_mcft_2src_STFT.png" height="200" width="250">
+								</div></div>
+								<div class="pad_20"></div>
+
+
+
+      	<h3 id="aud_ex_3src_oct2">Three-source Mixtures - Octave 2</h3> <!-- OCT-2 --------------------------------------------->
 
       			Mixture = C2-bassoon-sus-vib + C2-bassoon-trill-ht + C2-piano </br>
 				      			<audio controls>
@@ -920,7 +1267,23 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct2/est1_15dB_samp11_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C2-bassoon-sus-vib</br>
+				        		<img src="demos/tf_plots/3src/oct2/src1_samp11_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct2/est1_15dB_samp11_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct2/est1_15dB_samp11_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct2/est1_15dB_samp11_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct2/est1_15dB_samp11_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
 
 				Original Source 2: C2-bassoon-tril-ht  </br>
 				          		<audio controls>
@@ -945,7 +1308,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct2/est2_15dB_samp11_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C2-bassoon-tril-ht</br>
+				        		<img src="demos/tf_plots/3src/oct2/src2_samp11_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct2/est2_15dB_samp11_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct2/est2_15dB_samp11_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct2/est2_15dB_samp11_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct2/est2_15dB_samp11_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 3: C2-piano  </br>
 				          		<audio controls>
@@ -970,10 +1348,25 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct2/est3_15dB_samp11_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C2-piano</br>
+				        		<img src="demos/tf_plots/3src/oct2/src3_samp11_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct2/est3_15dB_samp11_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct2/est3_15dB_samp11_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct2/est3_15dB_samp11_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct2/est3_15dB_samp11_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_3src_oct3">Octave 3</h4> <!-- OCT-3 ------------------------------------------------------------------>
+
+
+      	<h3 id="aud_ex_3src_oct3">Three-source Mixtures - Octave 3</h3> <!-- OCT-3 ------------------------------------------------->
 
       			Mixture = C3-cello-sus-vib-hard + C3-viola-minor-trill + C3-viola-major-trill </br>
 				      			<audio controls>
@@ -1004,7 +1397,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct3/est1_15dB_samp27_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C3-cello-sus-vib-hard</br>
+				        		<img src="demos/tf_plots/3src/oct3/src1_samp27_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct3/est1_15dB_samp27_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct3/est1_15dB_samp27_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct3/est1_15dB_samp27_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct3/est1_15dB_samp27_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C3-viola-minor-trill  </br>
 				          		<audio controls>
@@ -1029,9 +1437,24 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct3/est2_15dB_samp27_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C3-viola-minor-trill</br>
+				        		<img src="demos/tf_plots/3src/oct3/src2_samp27_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
-				Original Source 2: C3-viola-major-trill  </br>
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct3/est2_15dB_samp27_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct3/est2_15dB_samp27_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct3/est2_15dB_samp27_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct3/est2_15dB_samp27_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
+				Original Source 3: C3-viola-major-trill  </br>
 				          		<audio controls>
 								  <source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct3/src3_samp27_3src.wav" type="audio/wav">
 								</audio></br>
@@ -1054,10 +1477,25 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct3/est3_15dB_samp27_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C3-viola-major-trill</br>
+				        		<img src="demos/tf_plots/3src/oct3/src3_samp27_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct3/est3_15dB_samp27_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct3/est3_15dB_samp27_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct3/est3_15dB_samp27_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct3/est3_15dB_samp27_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_3src_oct4">Octave 4</h4> <!-- OCT-4 ------------------------------------------------------------------>
+
+
+      	<h3 id="aud_ex_3src_oct4">Three-source Mixtures - Octave 4</h3> <!-- OCT-4 ------------------------------------------------>
 
       			Mixture = C4-bassoon-major-trill + C4-clarinet-minor-trill + C4-contrabass-sus-vib </br>
 				      			<audio controls>
@@ -1088,7 +1526,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct4/est1_15dB_samp44_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C4-bassoon-major-trill</br>
+				        		<img src="demos/tf_plots/3src/oct4/src1_samp44_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct4/est1_15dB_samp44_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct4/est1_15dB_samp44_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct4/est1_15dB_samp44_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct4/est1_15dB_samp44_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C4-clarinet-minor-trill  </br>
 				          		<audio controls>
@@ -1113,7 +1566,23 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct4/est2_15dB_samp44_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C4-clarinet-minor-trill</br>
+				        		<img src="demos/tf_plots/3src/oct4/src2_samp44_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct4/est2_15dB_samp44_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct4/est2_15dB_samp44_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct4/est2_15dB_samp44_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct4/est2_15dB_samp44_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
 
 				Original Source 3: C4-contrabass-sus-vib  </br>
 				          		<audio controls>
@@ -1138,10 +1607,25 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct4/est3_15dB_samp44_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C4-clarinet-minor-trill</br>
+				        		<img src="demos/tf_plots/3src/oct4/src3_samp44_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct4/est3_15dB_samp44_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct4/est3_15dB_samp44_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct4/est3_15dB_samp44_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct4/est3_15dB_samp44_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_3src_oct5">Octave 5</h4> <!-- OCT-5 ------------------------------------------------------------------>
+
+
+      	<h3 id="aud_ex_3src_oct5">Three-source Mixtures - Octave 5</h3> <!-- OCT-5 ------------------------------------------------->
 
       			Mixture = C5-bassoon-sus-vib + C5-english-horn-major-trill + C5-trombone-long-forte-tremolo </br>
 				      			<audio controls>
@@ -1172,7 +1656,23 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct5/est1_15dB_samp70_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C5-bassoon-sus-vib</br>
+				        		<img src="demos/tf_plots/3src/oct5/src1_samp70_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct5/est1_15dB_samp70_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct5/est1_15dB_samp70_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct5/est1_15dB_samp70_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct5/est1_15dB_samp70_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
 
 				Original Source 2: C5-english-horn-major-trill </br>
 				          		<audio controls>
@@ -1197,7 +1697,23 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct5/est2_15dB_samp70_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C5-english-horn-major-trill</br>
+				        		<img src="demos/tf_plots/3src/oct5/src2_samp70_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct5/est2_15dB_samp70_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct5/est2_15dB_samp70_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct5/est2_15dB_samp70_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct5/est2_15dB_samp70_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
 
 				Original Source 3: C5-trombone-long-forte-tremolo </br>
 				          		<audio controls>
@@ -1222,10 +1738,24 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct5/est3_15dB_samp70_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C5-trombone-long-forte-tremolo</br>
+				        		<img src="demos/tf_plots/3src/oct5/src3_samp70_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct5/est3_15dB_samp70_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct5/est3_15dB_samp70_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct5/est3_15dB_samp70_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct5/est3_15dB_samp70_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_3src_oct6">Octave 6</h4> <!-- OCT-6 ------------------------------------------------------------------>
+
+      	<h3 id="aud_ex_3src_oct6">Three-source Mixtures - Octave 6</h3> <!-- OCT-6 ------------------------------------------------->
 
       			Mixture = C6-cello-sus-vib-hard + C6-piccolo-trumpet-minor-trill + C6-piccolo-trumpet-major-trill </br>
 				      			<audio controls>
@@ -1256,7 +1786,23 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct6/est1_15dB_samp91_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C6-cello-sus-vib-hard</br>
+				        		<img src="demos/tf_plots/3src/oct6/src1_samp91_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct6/est1_15dB_samp91_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct6/est1_15dB_samp91_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct6/est1_15dB_samp91_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct6/est1_15dB_samp91_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
 
 				Original Source 2: C6-piccolo-trumpet-minor-trill </br>
 				          		<audio controls>
@@ -1264,7 +1810,7 @@
 								</audio></br>
 								<div class="pad_small"></div>
 
-				Estimated Source 1:
+				Estimated Source 2:
   						<table>
 					  	<tr><th>Masking Thr</th><th>STFT</th><th>CQT</th><th>CFT-best-sep</th><th>MCFT</th></tr>
 
@@ -1281,7 +1827,23 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct6/est2_15dB_samp91_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C6-piccolo-trumpet-minor-trill</br>
+				        		<img src="demos/tf_plots/3src/oct6/src2_samp91_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct6/est2_15dB_samp91_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct6/est2_15dB_samp91_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct6/est2_15dB_samp91_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct6/est2_15dB_samp91_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
 
 				Original Source 3: C6-piccolo-trumpet-major-trill </br>
 				          		<audio controls>
@@ -1306,10 +1868,25 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct6/est3_15dB_samp91_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C6-piccolo-trumpet-major-trill</br>
+				        		<img src="demos/tf_plots/3src/oct6/src3_samp91_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct6/est3_15dB_samp91_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct6/est3_15dB_samp91_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct6/est3_15dB_samp91_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct6/est3_15dB_samp91_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_3src_oct7">Octave 7</h4> <!-- OCT-7 ------------------------------------------------------------------>
+
+
+      	<h3 id="aud_ex_3src_oct7">Three-source Mixtures - Octave 7</h3> <!-- OCT-7 ------------------------------------------------>
 
       			Mixture = C7-piccolo-flute-minor-trill + C7-piccolo-flute-major-trill + C7-violin-major-trill </br>
 				      			<audio controls>
@@ -1340,7 +1917,23 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct7/est1_15dB_samp119_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C7-piccolo-flute-minor-trill </br>
+				        		<img src="demos/tf_plots/3src/oct7/src1_samp119_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct7/est1_15dB_samp119_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct7/est1_15dB_samp119_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct7/est1_15dB_samp119_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct7/est1_15dB_samp119_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
 
 				Original Source 2: C7-piccolo-flute-major-trill </br>
 				          		<audio controls>
@@ -1365,7 +1958,23 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct7/est2_15dB_samp119_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C7-piccolo-flute-major-trill </br>
+				        		<img src="demos/tf_plots/3src/oct7/src2_samp119_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct7/est2_15dB_samp119_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct7/est2_15dB_samp119_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct7/est2_15dB_samp119_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct7/est2_15dB_samp119_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
 
 				Original Source 3: C7-violin-major-trill </br>
 				          		<audio controls>
@@ -1390,12 +1999,25 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/3src/oct7/est3_15dB_samp119_mcft_3src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C7-violin-major-trill </br>
+				        		<img src="demos/tf_plots/3src/oct7/src3_samp119_3src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 15 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/3src/oct7/est3_15dB_samp119_stft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct7/est3_15dB_samp119_cqt_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct7/est3_15dB_samp119_cft_3src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/3src/oct7/est3_15dB_samp119_mcft_3src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h3>Four-source Mixtures</h3> <!-- 4-SRC ----------------------------------------------------------------------------->
 
-      	<h4 id="aud_ex_4src_oct2">Octave 2</h4> <!-- OCT-2 ------------------------------------------------------------------>
+
+      	<h3 id="aud_ex_4src_oct2">Four-source Mixtures - Octave 2</h3> <!-- OCT-2 ------------------------------------------------->
 
       			Mixture = C2-bassoon-sus-vib + C2-bassoon-minor-trill + C2-contrabassoon-vib + C2-piano </br>
 				      			<audio controls>
@@ -1426,7 +2048,23 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct2/est1_10dB_samp21_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C2-bassoon-sus-vib </br>
+				        		<img src="demos/tf_plots/4src/oct2/src1_samp21_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct2/est1_10dB_samp21_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct2/est1_10dB_samp21_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct2/est1_10dB_samp21_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct2/est1_10dB_samp21_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
 
 				Original Source 2: C2-bassoon-minor-trill </br>
 				          		<audio controls>
@@ -1451,7 +2089,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct2/est2_10dB_samp21_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C2-bassoon-minor-trill </br>
+				        		<img src="demos/tf_plots/4src/oct2/src2_samp21_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct2/est2_10dB_samp21_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct2/est2_10dB_samp21_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct2/est2_10dB_samp21_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct2/est2_10dB_samp21_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 3: C2-contrabassoon-vib </br>
 				          		<audio controls>
@@ -1476,7 +2129,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct2/est3_10dB_samp21_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C2-contrabassoon-vib </br>
+				        		<img src="demos/tf_plots/4src/oct2/src3_samp21_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct2/est3_10dB_samp21_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct2/est3_10dB_samp21_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct2/est3_10dB_samp21_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct2/est3_10dB_samp21_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C2-piano </br>
 				          		<audio controls>
@@ -1501,9 +2169,25 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct2/est4_10dB_samp21_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C2-piano </br>
+				        		<img src="demos/tf_plots/4src/oct2/src4_samp21_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
-      	<h4 id="aud_ex_4src_oct3">Octave 3</h4> <!-- OCT-3 ------------------------------------------------------------------>
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct2/est4_10dB_samp21_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct2/est4_10dB_samp21_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct2/est4_10dB_samp21_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct2/est4_10dB_samp21_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
+
+      	<h3 id="aud_ex_4src_oct3">Four-source Mixtures - Octave 3</h3> <!-- OCT-3 ------------------------------------------------->
 
       			Mixture = C3-bassoon-sus-vib + C3-bassoon-major-trill + C3-viola-minor-trill + C3-viola-major-trill </br>
 				      			<audio controls>
@@ -1534,7 +2218,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct3/est1_10dB_samp27_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C3-bassoon-sus-vib </br>
+				        		<img src="demos/tf_plots/4src/oct3/src1_samp27_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct3/est1_10dB_samp27_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct3/est1_10dB_samp27_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct3/est1_10dB_samp27_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct3/est1_10dB_samp27_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C3-bassoon-major-trill </br>
 				          		<audio controls>
@@ -1559,7 +2258,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct3/est2_10dB_samp27_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C3-bassoon-major-trill </br>
+				        		<img src="demos/tf_plots/4src/oct3/src2_samp27_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct3/est2_10dB_samp27_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct3/est2_10dB_samp27_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct3/est2_10dB_samp27_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct3/est2_10dB_samp27_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 3: C3-viola-minor-trill </br>
 				          		<audio controls>
@@ -1584,7 +2298,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct3/est3_10dB_samp27_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C3-viola-minor-trill </br>
+				        		<img src="demos/tf_plots/4src/oct3/src3_samp27_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct3/est3_10dB_samp27_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct3/est3_10dB_samp27_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct3/est3_10dB_samp27_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct3/est3_10dB_samp27_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C3-viola-major-trill  </br>
 				          		<audio controls>
@@ -1609,10 +2338,25 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct3/est4_10dB_samp27_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C3-viola-major-trill </br>
+				        		<img src="demos/tf_plots/4src/oct3/src4_samp27_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct3/est4_10dB_samp27_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct3/est4_10dB_samp27_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct3/est4_10dB_samp27_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct3/est4_10dB_samp27_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_4src_oct4">Octave 4</h4> <!-- OCT-4 ------------------------------------------------------------------>
+
+
+      	<h3 id="aud_ex_4src_oct4">Four-source Mixtures - Octave 4</h3> <!-- OCT-4 ------------------------------------------->
 
 				Mixture = C4-english-horn-minor-trill + C4-piano + C4-saxophone-tremolo + C4-tuba-major-trill </br>
 				      			<audio controls>
@@ -1643,7 +2387,23 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct4/est1_10dB_samp53_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C4-english-horn-minor-trill </br>
+				        		<img src="demos/tf_plots/4src/oct4/src1_samp53_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct4/est1_10dB_samp53_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct4/est1_10dB_samp53_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct4/est1_10dB_samp53_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct4/est1_10dB_samp53_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
 
 				Original Source 2: C4-piano </br>
 				          		<audio controls>
@@ -1668,7 +2428,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct4/est2_10dB_samp53_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C4-piano </br>
+				        		<img src="demos/tf_plots/4src/oct4/src2_samp53_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct4/est2_10dB_samp53_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct4/est2_10dB_samp53_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct4/est2_10dB_samp53_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct4/est2_10dB_samp53_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 3: C4-saxophone-tremolo </br>
 				          		<audio controls>
@@ -1693,7 +2468,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct4/est3_10dB_samp53_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C4-saxophone-tremolo </br>
+				        		<img src="demos/tf_plots/4src/oct4/src3_samp53_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct4/est3_10dB_samp53_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct4/est3_10dB_samp53_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct4/est3_10dB_samp53_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct4/est3_10dB_samp53_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C4-tuba-major-trill </br>
 				          		<audio controls>
@@ -1718,9 +2508,25 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct4/est4_10dB_samp53_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C4-tuba-major-trill </br>
+				        		<img src="demos/tf_plots/4src/oct4/src4_samp53_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
-      	<h4 id="aud_ex_4src_oct5">Octave 5</h4> <!-- OCT-5 ------------------------------------------------------------------>
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct4/est4_10dB_samp53_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct4/est4_10dB_samp53_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct4/est4_10dB_samp53_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct4/est4_10dB_samp53_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
+
+      	<h3 id="aud_ex_4src_oct5">Four-source Mixtures - Octave 5</h3> <!-- OCT-5 ----------------------------------------------->
 
       			Mixture = C5-saxophone_minor-trill + C5-trombone-tremolo + C5-viola-minor-trill + C5-viola-major-trill </br>
 				      			<audio controls>
@@ -1751,7 +2557,23 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct5/est1_10dB_samp75_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C5-saxophone_minor-trill </br>
+				        		<img src="demos/tf_plots/4src/oct5/src1_samp75_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct5/est1_10dB_samp75_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct5/est1_10dB_samp75_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct5/est1_10dB_samp75_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct5/est1_10dB_samp75_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
 
 				Original Source 2: C5-trombone-tremolo </br>
 				          		<audio controls>
@@ -1776,7 +2598,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct5/est2_10dB_samp75_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C5-trombone-tremolo </br>
+				        		<img src="demos/tf_plots/4src/oct5/src2_samp75_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct5/est2_10dB_samp75_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct5/est2_10dB_samp75_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct5/est2_10dB_samp75_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct5/est2_10dB_samp75_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 3: C5-viola-minor-trill </br>
 				          		<audio controls>
@@ -1801,7 +2638,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct5/est3_10dB_samp75_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C5-viola-minor-trill </br>
+				        		<img src="demos/tf_plots/4src/oct5/src3_samp75_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct5/est3_10dB_samp75_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct5/est3_10dB_samp75_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct5/est3_10dB_samp75_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct5/est3_10dB_samp75_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C5-viola-major-trill </br>
 				          		<audio controls>
@@ -1826,10 +2678,24 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct5/est4_10dB_samp75_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C5-viola-major-trill </br>
+				        		<img src="demos/tf_plots/4src/oct5/src4_samp75_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct5/est4_10dB_samp75_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct5/est4_10dB_samp75_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct5/est4_10dB_samp75_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct5/est4_10dB_samp75_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_4src_oct6">Octave 6</h4> <!-- OCT-6 ------------------------------------------------------------------>
+
+      	<h3 id="aud_ex_4src_oct6">Four-source Mixtures - Octave 6</h3> <!-- OCT-6 ------------------------------------------------>
 
   				Mixture = C6-cello-vib + C6-oboe-minor-trill + C6-piccolo-flute-major-trill + C6-piccolo-trumpet-minor-trill </br>
 				      			<audio controls>
@@ -1860,7 +2726,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct6/samp1/est1_10dB_samp86_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C6-cello-vib </br>
+				        		<img src="demos/tf_plots/4src/oct6/samp1/src1_samp86_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est1_10dB_samp86_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est1_10dB_samp86_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est1_10dB_samp86_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est1_10dB_samp86_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C6-oboe-minor-trill  </br>
 				          		<audio controls>
@@ -1885,7 +2766,21 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct6/samp1/est2_10dB_samp86_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C6-oboe-minor-trill </br>
+				        		<img src="demos/tf_plots/4src/oct6/samp1/src2_samp86_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est2_10dB_samp86_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est2_10dB_samp86_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est2_10dB_samp86_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est2_10dB_samp86_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
 				Original Source 3: C6-piccolo-flute-major-trill  </br>
 				          		<audio controls>
@@ -1910,7 +2805,21 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct6/samp1/est3_10dB_samp86_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C6-piccolo-flute-major-trill </br>
+				        		<img src="demos/tf_plots/4src/oct6/samp1/src3_samp86_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est3_10dB_samp86_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est3_10dB_samp86_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est3_10dB_samp86_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est3_10dB_samp86_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
 				Original Source 4: C6-piccolo-trumpet-minor-trill  </br>
 				          		<audio controls>
@@ -1935,7 +2844,21 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct6/samp1/est4_10dB_samp86_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C6-piccolo-flute-major-trill </br>
+				        		<img src="demos/tf_plots/4src/oct6/samp1/src4_samp86_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est4_10dB_samp86_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est4_10dB_samp86_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est4_10dB_samp86_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp1/est4_10dB_samp86_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
 
 				Mixture = C6-piccolo-flute-minor-trill + C6-piccolo-flute-major-trill + C6-piccolo-trumpet-minor-trill + C6-viola-major-trill</br>
@@ -1967,7 +2890,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct6/samp2/est1_10dB_samp87_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C6-piccolo-flute-minor-trill </br>
+				        		<img src="demos/tf_plots/4src/oct6/samp2/src1_samp87_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est1_10dB_samp87_stft_4src_STFT.png" height="200" width="250">
+ 				        		<img src="demos/tf_plots/4src/oct6/samp2/est1_10dB_samp87_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est1_10dB_samp87_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est1_10dB_samp87_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C6-piccolo-flute-major-trill  </br>
 				          		<audio controls>
@@ -1992,7 +2930,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct6/samp2/est2_10dB_samp87_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C6-piccolo-flute-major-trill </br>
+				        		<img src="demos/tf_plots/4src/oct6/samp2/src2_samp87_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est2_10dB_samp87_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est2_10dB_samp87_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est2_10dB_samp87_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est2_10dB_samp87_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 3: C6-piccolo-trumpet-minor-trill  </br>
 				          		<audio controls>
@@ -2017,7 +2970,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct6/samp2/est3_10dB_samp87_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C6-piccolo-trumpet-minor-trill </br>
+				        		<img src="demos/tf_plots/4src/oct6/samp2/src3_samp87_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est3_10dB_samp87_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est3_10dB_samp87_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est3_10dB_samp87_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est3_10dB_samp87_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C6-viola-major-trill  </br>
 				          		<audio controls>
@@ -2042,10 +3010,24 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct6/samp2/est4_10dB_samp87_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C6-viola-major-trill </br>
+				        		<img src="demos/tf_plots/4src/oct6/samp2/src4_samp87_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est4_10dB_samp87_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est4_10dB_samp87_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est4_10dB_samp87_cft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct6/samp2/est4_10dB_samp87_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_4src_oct7">Octave 7</h4> <!-- OCT-7 ------------------------------------------------------------------>
+
+      	<h3 id="aud_ex_4src_oct7">Four-source Mixtures - Octave 7</h3> <!-- OCT-7 ------------------------------------------------->
 
       			Mixture = C7-piccolo-flute-sus-vib + C7-piccolo-flute-minor-trill + C7-piccolo-flute-major-trill + C7-violin-major-trill</br>
 				      			<audio controls>
@@ -2076,7 +3058,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct7/samp1/est1_10dB_samp106_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C7-piccolo-flute-sus-vib </br>
+				        		<img src="demos/tf_plots/4src/oct7/samp1/src1_samp106_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        	<img src="demos/tf_plots/4src/oct7/samp1/est1_10dB_samp106_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp1/est1_10dB_samp106_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp1/est1_10dB_samp106_cft_4src_STFT.png" height="200" width="250">
+				        	<img src="demos/tf_plots/4src/oct7/samp1/est1_10dB_samp106_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C7-piccolo-flute-minor-trill  </br>
 				          		<audio controls>
@@ -2101,7 +3098,21 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct7/samp1/est2_10dB_samp106_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C7-piccolo-flute-minor-trill </br>
+				        		<img src="demos/tf_plots/4src/oct7/samp1/src2_samp106_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        	<img src="demos/tf_plots/4src/oct7/samp1/est2_10dB_samp106_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp1/est2_10dB_samp106_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp1/est2_10dB_samp106_cft_4src_STFT.png" height="200" width="250">
+				        	<img src="demos/tf_plots/4src/oct7/samp1/est2_10dB_samp106_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
 				Original Source 3: C7-piccolo-flute-major-trill  </br>
 				          		<audio controls>
@@ -2126,7 +3137,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct7/samp1/est3_10dB_samp106_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C7-piccolo-flute-major-trill </br>
+				        		<img src="demos/tf_plots/4src/oct7/samp1/src3_samp106_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        	<img src="demos/tf_plots/4src/oct7/samp1/est3_10dB_samp106_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp1/est3_10dB_samp106_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp1/est3_10dB_samp106_cft_4src_STFT.png" height="200" width="250">
+				        	<img src="demos/tf_plots/4src/oct7/samp1/est3_10dB_samp106_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C7-violin-major-trill  </br>
 				          		<audio controls>
@@ -2151,7 +3177,21 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct7/samp1/est4_10dB_samp106_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C7-violin-major-trill </br>
+				        		<img src="demos/tf_plots/4src/oct7/samp1/src4_samp106_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        	<img src="demos/tf_plots/4src/oct7/samp1/est4_10dB_samp106_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp1/est4_10dB_samp106_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp1/est4_10dB_samp106_cft_4src_STFT.png" height="200" width="250">
+				        	<img src="demos/tf_plots/4src/oct7/samp1/est4_10dB_samp106_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
 
 
@@ -2184,7 +3224,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct7/samp2/est1_10dB_samp124_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C7-piano </br>
+				        		<img src="demos/tf_plots/4src/oct7/samp2/src1_samp124_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        	<img src="demos/tf_plots/4src/oct7/samp2/est1_10dB_samp124_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp2/est1_10dB_samp124_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp2/est1_10dB_samp124_cft_4src_STFT.png" height="200" width="250">
+				        	<img src="demos/tf_plots/4src/oct7/samp2/est1_10dB_samp124_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C7-violin-sus-vib  </br>
 				          		<audio controls>
@@ -2209,7 +3264,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct7/samp2/est2_10dB_samp124_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C7-violin-sus-vib </br>
+				        		<img src="demos/tf_plots/4src/oct7/samp2/src2_samp124_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        	<img src="demos/tf_plots/4src/oct7/samp2/est2_10dB_samp124_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp2/est2_10dB_samp124_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp2/est2_10dB_samp124_cft_4src_STFT.png" height="200" width="250">
+				        	<img src="demos/tf_plots/4src/oct7/samp2/est2_10dB_samp124_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 3: C7-violin-minor-trill  </br>
 				          		<audio controls>
@@ -2234,9 +3304,24 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct7/samp2/est3_10dB_samp124_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C7-violin-minor-trillb </br>
+				        		<img src="demos/tf_plots/4src/oct7/samp2/src3_samp124_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
-				Original Source 4: 7-violin-major-trill  </br>
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        	<img src="demos/tf_plots/4src/oct7/samp2/est3_10dB_samp124_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp2/est3_10dB_samp124_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp2/est3_10dB_samp124_cft_4src_STFT.png" height="200" width="250">
+				        	<img src="demos/tf_plots/4src/oct7/samp2/est3_10dB_samp124_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
+
+				Original Source 4: C7-violin-major-trill  </br>
 				          		<audio controls>
 								  <source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct7/samp2/src4_samp124_4src.wav" type="audio/wav">
 								</audio></br>
@@ -2259,12 +3344,25 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/4src/oct7/samp2/est4_10dB_samp124_mcft_4src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C7-violin-major-trill </br>
+				        		<img src="demos/tf_plots/4src/oct7/samp2/src4_samp124_4src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        	<img src="demos/tf_plots/4src/oct7/samp2/est4_10dB_samp124_stft_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp2/est4_10dB_samp124_cqt_4src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/4src/oct7/samp2/est4_10dB_samp124_cft_4src_STFT.png" height="200" width="250">
+				        	<img src="demos/tf_plots/4src/oct7/samp2/est4_10dB_samp124_mcft_4src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h3>Five-source Mixtures</h3> <!-- 5-SRC ----------------------------------------------------------------------------->
 
-      	<h4 id="aud_ex_5src_oct2">Octave 2</h4> <!-- OCT-2 ------------------------------------------------------------------>
+
+      	<h3 id="aud_ex_5src_oct2">Five-source Mixtures - Octave 2</h3> <!-- OCT-2 ----------------------------------------------->
 
       			Mixture = C2-bassoon-minor-trill + C2-bassoon-major-trill + C2-cello_vib + C2-contrabassoon_vib + C2-piano</br>
 				      			<audio controls>
@@ -2295,7 +3393,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct2/est1_10dB_samp18_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C2-bassoon-minor-trill </br>
+				        		<img src="demos/tf_plots/5src/oct2/src1_samp18_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct2/est1_10dB_samp18_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est1_10dB_samp18_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est1_10dB_samp18_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est1_10dB_samp18_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C2-bassoon-major-trill </br>
 				          		<audio controls>
@@ -2320,7 +3433,21 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct2/est2_10dB_samp18_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C2-bassoon-major-trill </br>
+				        		<img src="demos/tf_plots/5src/oct2/src2_samp18_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct2/est2_10dB_samp18_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est2_10dB_samp18_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est2_10dB_samp18_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est2_10dB_samp18_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
 				Original Source 3: C2-cello_vib </br>
 				          		<audio controls>
@@ -2345,7 +3472,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct2/est3_10dB_samp18_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C2-cello_vib </br>
+				        		<img src="demos/tf_plots/5src/oct2/src3_samp18_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct2/est3_10dB_samp18_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est3_10dB_samp18_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est3_10dB_samp18_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est3_10dB_samp18_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C2-contrabassoon_vib </br>
 				          		<audio controls>
@@ -2370,7 +3512,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct2/est4_10dB_samp18_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C2-contrabassoon_vib </br>
+				        		<img src="demos/tf_plots/5src/oct2/src4_samp18_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct2/est4_10dB_samp18_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est4_10dB_samp18_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est4_10dB_samp18_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est4_10dB_samp18_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 5: C2-piano </br>
 				          		<audio controls>
@@ -2395,10 +3552,24 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct2/est5_10dB_samp18_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 5: C2-piano </br>
+				        		<img src="demos/tf_plots/5src/oct2/src5_samp18_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 5:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct2/est5_10dB_samp18_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est5_10dB_samp18_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est5_10dB_samp18_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct2/est5_10dB_samp18_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_5src_oct3">Octave 3</h4> <!-- OCT-3 ------------------------------------------------------------------>
+
+      	<h3 id="aud_ex_5src_oct3">Five-source Mixtures - Octave 3</h3> <!-- OCT-3 --------------------------------------------->
 
       			Mixture =C3-bassoon-minor-trill + C3-bassoon-major-trill + C3-cello-vib + C3-contrabass_vib + C3-viola-minor-trill</br>
 				      			<audio controls>
@@ -2429,7 +3600,21 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct3/est1_10dB_samp35_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C3-bassoon-minor-trill </br>
+				        		<img src="demos/tf_plots/5src/oct3/src1_samp35_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct3/est1_10dB_samp35_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est1_10dB_samp35_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est1_10dB_samp35_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est1_10dB_samp35_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
 				Original Source 2: C3-bassoon-major-trill </br>
 				          		<audio controls>
@@ -2454,7 +3639,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct3/est2_10dB_samp35_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C3-bassoon-major-trill </br>
+				        		<img src="demos/tf_plots/5src/oct3/src2_samp35_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct3/est2_10dB_samp35_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est2_10dB_samp35_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est2_10dB_samp35_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est2_10dB_samp35_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 3: C3-cello-vib </br>
 				          		<audio controls>
@@ -2479,7 +3679,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct3/est3_10dB_samp35_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C3-cello-vib </br>
+				        		<img src="demos/tf_plots/5src/oct3/src3_samp35_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct3/est3_10dB_samp35_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est3_10dB_samp35_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est3_10dB_samp35_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est3_10dB_samp35_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C4-contrabass_vib </br>
 				          		<audio controls>
@@ -2504,7 +3719,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct3/est4_10dB_samp35_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C4-contrabass_vib </br>
+				        		<img src="demos/tf_plots/5src/oct3/src4_samp35_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct3/est4_10dB_samp35_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est4_10dB_samp35_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est4_10dB_samp35_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est4_10dB_samp35_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 5: C3-viola-minor-trill </br>
 				          		<audio controls>
@@ -2529,10 +3759,24 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct3/est5_10dB_samp35_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 5: C3-viola-minor-trill </br>
+				        		<img src="demos/tf_plots/5src/oct3/src5_samp35_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 5:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct3/est5_10dB_samp35_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est5_10dB_samp35_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est5_10dB_samp35_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct3/est5_10dB_samp35_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_5src_oct4">Octave 4</h4> <!-- OCT-4 ------------------------------------------------------------------>
+
+      	<h3 id="aud_ex_5src_oct4">Five-source Mixtures - Octave 4</h3> <!-- OCT-4 --------------------------------------------->
 
       			Mixture =C4-bassoon-minor-trill + C4-clarinet-minor-trill + C4-clarinet-major-trill + C4-english-horn-vib + C4-flute_vib</br>
 				      			<audio controls>
@@ -2563,7 +3807,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct4/est1_10dB_samp62_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C4-bassoon-minor-trill </br>
+				        		<img src="demos/tf_plots/5src/oct4/src1_samp62_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct4/est1_10dB_samp62_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est1_10dB_samp62_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est1_10dB_samp62_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est1_10dB_samp62_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C4-clarinet-minor-trill </br>
 				          		<audio controls>
@@ -2588,7 +3847,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct4/est2_10dB_samp62_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C4-clarinet-minor-trill </br>
+				        		<img src="demos/tf_plots/5src/oct4/src2_samp62_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct4/est2_10dB_samp62_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est2_10dB_samp62_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est2_10dB_samp62_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est2_10dB_samp62_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 3: C4-clarinet-major-trill </br>
 				          		<audio controls>
@@ -2613,7 +3887,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct4/est3_10dB_samp62_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C4-clarinet-major-trill </br>
+				        		<img src="demos/tf_plots/5src/oct4/src3_samp62_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct4/est3_10dB_samp62_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est3_10dB_samp62_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est3_10dB_samp62_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est3_10dB_samp62_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C4-english-horn-vib </br>
 				          		<audio controls>
@@ -2638,7 +3927,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct4/est4_10dB_samp62_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C4-english-horn-vib </br>
+				        		<img src="demos/tf_plots/5src/oct4/src4_samp62_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct4/est4_10dB_samp62_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est4_10dB_samp62_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est4_10dB_samp62_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est4_10dB_samp62_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 5: C4-flute_vib </br>
 				          		<audio controls>
@@ -2663,10 +3967,24 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct4/est5_10dB_samp62_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 5: C4-flute_vib </br>
+				        		<img src="demos/tf_plots/5src/oct4/src5_samp62_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 5:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct4/est5_10dB_samp62_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est5_10dB_samp62_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est5_10dB_samp62_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct4/est5_10dB_samp62_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_5src_oct5">Octave 5</h4> <!-- OCT-5 ------------------------------------------------------------------>
+
+      	<h3 id="aud_ex_5src_oct5">Five-source Mixtures - Octave 5</h3> <!-- OCT-5 ---------------------------------------------->
 
       			Mixture =C5-clarinet-minor-trill + C5-clarinet-major-trill + C5-trombone-tremolo + C5-trumpet-vib + C5-viola-major-trill</br>
 				      			<audio controls>
@@ -2697,7 +4015,21 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct5/samp1/est1_10dB_samp69_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C5-clarinet-minor-trill </br>
+				        		<img src="demos/tf_plots/5src/oct5/samp1/src1_samp69_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est1_10dB_samp69_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est1_10dB_samp69_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est1_10dB_samp69_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est1_10dB_samp69_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
 
 				Original Source 2: C5-clarinet-major-trill </br>
@@ -2723,7 +4055,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct5/samp1/est2_10dB_samp69_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C5-clarinet-major-trill </br>
+				        		<img src="demos/tf_plots/5src/oct5/samp1/src2_samp69_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est2_10dB_samp69_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est2_10dB_samp69_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est2_10dB_samp69_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est2_10dB_samp69_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 3: C5-trombone-tremolo </br>
 				          		<audio controls>
@@ -2748,7 +4095,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct5/samp1/est3_10dB_samp69_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C5-trombone-tremolo </br>
+				        		<img src="demos/tf_plots/5src/oct5/samp1/src3_samp69_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est3_10dB_samp69_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est3_10dB_samp69_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est3_10dB_samp69_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est3_10dB_samp69_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C5-trumpet-vib </br>
 				          		<audio controls>
@@ -2773,7 +4135,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct5/samp1/est4_10dB_samp69_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C5-trumpet-vib </br>
+				        		<img src="demos/tf_plots/5src/oct5/samp1/src4_samp69_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est4_10dB_samp69_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est4_10dB_samp69_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est4_10dB_samp69_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est4_10dB_samp69_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 5: C5-viola-major-trill </br>
 				          		<audio controls>
@@ -2798,7 +4175,21 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct5/samp1/est5_10dB_samp69_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 5: C5-viola-major-trill </br>
+				        		<img src="demos/tf_plots/5src/oct5/samp1/src5_samp69_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 5:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est5_10dB_samp69_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est5_10dB_samp69_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est5_10dB_samp69_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp1/est5_10dB_samp69_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
 
 
@@ -2831,7 +4222,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct5/samp2/est1_10dB_samp76_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C5-cello-vib </br>
+				        		<img src="demos/tf_plots/5src/oct5/samp2/src1_samp76_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est1_10dB_samp76_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est1_10dB_samp76_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est1_10dB_samp76_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est1_10dB_samp76_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C5-flute-vib </br>
 				          		<audio controls>
@@ -2856,7 +4262,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct5/samp2/est2_10dB_samp76_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C5-flute-vib </br>
+				        		<img src="demos/tf_plots/5src/oct5/samp2/src2_samp76_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est2_10dB_samp76_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est2_10dB_samp76_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est2_10dB_samp76_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est2_10dB_samp76_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 3: C5-piccolo-trumpet-minor-trill </br>
 				          		<audio controls>
@@ -2881,7 +4302,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct5/samp2/est3_10dB_samp76_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C5-piccolo-trumpet-minor-trill </br>
+				        		<img src="demos/tf_plots/5src/oct5/samp2/src3_samp76_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est3_10dB_samp76_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est3_10dB_samp76_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est3_10dB_samp76_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est3_10dB_samp76_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C5-saxophone-minor-trill </br>
 				          		<audio controls>
@@ -2906,7 +4342,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct5/samp2/est4_10dB_samp76_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C5-saxophone-minor-trill </br>
+				        		<img src="demos/tf_plots/5src/oct5/samp2/src4_samp76_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est4_10dB_samp76_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est4_10dB_samp76_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est4_10dB_samp76_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est4_10dB_samp76_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 5: C5-trombone-tremolo </br>
 				          		<audio controls>
@@ -2931,10 +4382,25 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct5/samp2/est5_10dB_samp76_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 5: C5-trombone-tremolo </br>
+				        		<img src="demos/tf_plots/5src/oct5/samp2/src5_samp76_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 5:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est5_10dB_samp76_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est5_10dB_samp76_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est5_10dB_samp76_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct5/samp2/est5_10dB_samp76_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_5src_oct6">Octave 6</h4> <!-- OCT-6 ------------------------------------------------------------------>
+
+
+      	<h3 id="aud_ex_5src_oct6">Five-source Mixtures - Octave 6</h3> <!-- OCT-6 ---------------------------------------------->
 
       			Mixture =C6-clarinet-minor-trill + C6-oboe-major-trill + C6-piccolo-flute-major-trill + C6-viola-minor-trill + C6-viola-major-trill</br>
 				      			<audio controls>
@@ -2965,7 +4431,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct6/est1_10dB_samp92_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C6-clarinet-minor-trill </br>
+				        		<img src="demos/tf_plots/5src/oct6/src1_samp92_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct6/est1_10dB_samp92_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est1_10dB_samp92_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est1_10dB_samp92_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est1_10dB_samp92_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C6-oboe-major-trill </br>
 				          		<audio controls>
@@ -2990,7 +4471,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct6/est2_10dB_samp92_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C6-oboe-major-trill </br>
+				        		<img src="demos/tf_plots/5src/oct6/src2_samp92_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct6/est2_10dB_samp92_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est2_10dB_samp92_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est2_10dB_samp92_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est2_10dB_samp92_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 3: C6-piccolo-flute-major-trill </br>
 				          		<audio controls>
@@ -3015,7 +4511,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct6/est3_10dB_samp92_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C6-piccolo-flute-major-trill </br>
+				        		<img src="demos/tf_plots/5src/oct6/src3_samp92_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct6/est3_10dB_samp92_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est3_10dB_samp92_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est3_10dB_samp92_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est3_10dB_samp92_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C6-viola-minor-trill </br>
 				          		<audio controls>
@@ -3040,7 +4551,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct6/est4_10dB_samp92_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C6-viola-minor-trill </br>
+				        		<img src="demos/tf_plots/5src/oct6/src4_samp92_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct6/est4_10dB_samp92_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est4_10dB_samp92_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est4_10dB_samp92_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est4_10dB_samp92_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 5: C6-viola-major-trill </br>
 				          		<audio controls>
@@ -3065,10 +4591,25 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct6/est5_10dB_samp92_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 5: C6-viola-major-trill </br>
+				        		<img src="demos/tf_plots/5src/oct6/src5_samp92_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 5:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct6/est5_10dB_samp92_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est5_10dB_samp92_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est5_10dB_samp92_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct6/est5_10dB_samp92_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-      	<h4 id="aud_ex_5src_oct7">Octave 7</h4> <!-- OCT-7 ------------------------------------------------------------------>
+
+
+      	<h3 id="aud_ex_5src_oct7">Five-source Mixtures - Octave 7</h3> <!-- OCT-7 --------------------------------------------->
 
       			Mixture =C7-piano + C7-piccolo-flute-vib + C7-piccolo-flute-minor-trill + C7-piccolo-flute-major-trill + C7-violin-major-trill</br>
 				      			<audio controls>
@@ -3099,7 +4640,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct7/est1_10dB_samp108_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 1: C7-piano </br>
+				        		<img src="demos/tf_plots/5src/oct7/src1_samp108_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 1:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct7/est1_10dB_samp108_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est1_10dB_samp108_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est1_10dB_samp108_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est1_10dB_samp108_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 2: C7-piccolo-flute-vib </br>
 				          		<audio controls>
@@ -3124,7 +4680,21 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct7/est2_10dB_samp108_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 2: C7-piccolo-flute-vib </br>
+				        		<img src="demos/tf_plots/5src/oct7/src2_samp108_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 2:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct7/est2_10dB_samp108_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est2_10dB_samp108_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est2_10dB_samp108_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est2_10dB_samp108_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
 				Original Source 3: C7-piccolo-flute-minor-trill </br>
 				          		<audio controls>
@@ -3149,7 +4719,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct7/est3_10dB_samp108_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 3: C7-piccolo-flute-minor-trill </br>
+				        		<img src="demos/tf_plots/5src/oct7/src3_samp108_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 3:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct7/est3_10dB_samp108_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est3_10dB_samp108_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est3_10dB_samp108_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est3_10dB_samp108_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 4: C7-piccolo-flute-major-trill </br>
 				          		<audio controls>
@@ -3174,7 +4759,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct7/est4_10dB_samp108_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 4: C7-piccolo-flute-major-trill</br>
+				        		<img src="demos/tf_plots/5src/oct7/src4_samp108_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
+
+				Estimated Source 4:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct7/est4_10dB_samp108_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est4_10dB_samp108_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est4_10dB_samp108_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est4_10dB_samp108_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
+
 
 				Original Source 5: C7-violin-major-trill </br>
 				          		<audio controls>
@@ -3199,68 +4799,22 @@
 							<td> <audio controls>
 						  		<source src="https://raw.githubusercontent.com/interactiveaudiolab/MCFT/master/demos/audio_examples/5src/oct7/est5_10dB_samp108_mcft_5src.wav" type="audio/wav">
 								</audio></br></td></tr></table>
+								<div class="pad_20"></div>
+
+				Original Source 5: C7-violin-major-trill</br>
+				        		<img src="demos/tf_plots/5src/oct7/src5_samp108_5src_STFT.png" height="200" width="250"></br>
 								<div class="pad"></div>
 
+				Estimated Source 5:
+								<div class="pad_small"></div>							
+								Masking Thr = 10 dB
+								<div class="pad_small"></div>
+				        		<img src="demos/tf_plots/5src/oct7/est5_10dB_samp108_stft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est5_10dB_samp108_cqt_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est5_10dB_samp108_cft_5src_STFT.png" height="200" width="250">
+				        		<img src="demos/tf_plots/5src/oct7/est5_10dB_samp108_mcft_5src_STFT.png" height="200" width="250">
+								<div class="pad_20"></div>
 
-
-		<!-------------------------------------------------------------------------------------------------------------------->
-		<!-- TF Plots -------------------------------------------------------------------------------------------------->
-		<!-------------------------------------------------------------------------------------------------------------------->
-
-		<div class="pad"></div>
-
-      	<h2>Time-frequency Plots</h2>
-      	<hr>
-
-		<div class="pad"></div>
-
-      	<h3>Two-source Mixtures</h3><!-- 2-SRC ----------------------------------------------------------------------------->
-
-      	<h4 id="tf_plot_2src_oct2">Octave 2</h4><!-- OCT-2 ------------------------------------------------------------------>
-
-       			Mixture = C2-bassoon-vibrato + C2-bassoon-minor trill </br>
-       			Masking The = 15 dB
-				<div class="pad_small"></div>
-
-
-        		<img src="demos/tf_plots/2src/oct2/est1_0dB_samp1_cft_2src_STFT.png" height="200" width="300">
-
-
-
-      	<h4 id="tf_plot_2src_oct3">Octave 3</h4><!-- OCT-3 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_2src_oct4">Octave 4</h4><!-- OCT-4 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_2src_oct5">Octave 5</h4><!-- OCT-5 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_2src_oct6">Octave 6</h4><!-- OCT-6 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_2src_oct7">Octave 7</h4><!-- OCT-7 ------------------------------------------------------------------>
-      			
-
-      	<h3>Three-source Mixtures</h3><!-- 3-SRC ----------------------------------------------------------------------------->
-
-        <h4 id="tf_plot_3src_oct2">Octave 2</h4><!-- OCT-2 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_3src_oct3">Octave 3</h4><!-- OCT-3 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_3src_oct4">Octave 4</h4><!-- OCT-4 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_3src_oct5">Octave 5</h4><!-- OCT-5 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_3src_oct6">Octave 6</h4><!-- OCT-6 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_3src_oct7">Octave 7</h4><!-- OCT-7 ------------------------------------------------------------------>
-
-
-      	<h3>Four-source Mixtures</h3><!-- 4-SRC ----------------------------------------------------------------------------->
-
-      	<h4 id="tf_plot_4src_oct2">Octave 2</h4><!-- OCT-2 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_4src_oct3">Octave 3</h4><!-- OCT-3 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_4src_oct4">Octave 4</h4><!-- OCT-4 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_4src_oct5">Octave 5</h4><!-- OCT-5 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_4src_oct6">Octave 6</h4><!-- OCT-6 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_4src_oct7">Octave 7</h4><!-- OCT-7 ------------------------------------------------------------------>
-
-      	<h3>Five-source Mixtures</h3><!-- 5-SRC ----------------------------------------------------------------------------->
-
-      	<h4 id="tf_plot_5src_oct2">Octave 2</h4><!-- OCT-2 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_5src_oct3">Octave 3</h4><!-- OCT-3 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_5src_oct4">Octave 4</h4><!-- OCT-4 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_5src_oct5">Octave 5</h4><!-- OCT-5 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_5src_oct6">Octave 6</h4><!-- OCT-6 ------------------------------------------------------------------>
-      	<h4 id="tf_plot_5src_oct7">Octave 7</h4><!-- OCT-7 ------------------------------------------------------------------>
 
 		<!-------------------------------------------------------------------------------------------------------------------->
 		<!-- Results -------------------------------------------------------------------------------------------------->

@@ -1,6 +1,6 @@
 body {
     margin: 60px auto;
-    width: 80%;
+    width: 82%;
 }
 header {
     background-color: #FFF;
@@ -50,6 +50,12 @@ a:link {
 }
 .pad_small {
     padding: 5px;
+}
+.pad_20 {
+    padding: 20px;
+}
+.pad_15 {
+    padding: 15px;
 }
 .section_font{
     font-size: 1em;
@@ -163,7 +169,7 @@ ul.menu_in {
 #topBtn {
   display: none;
   position: fixed;
-  bottom: 20px;
+  bottom: 50px;
   left: 20px;
   z-index: 99;
   font-size: 16px;
@@ -179,3 +185,22 @@ ul.menu_in {
 #topBtn:hover {
   background-color: white;
 }
+
+div.plot_box{
+    background-color: white;
+    border: 0.5px solid gray;
+    padding-top: 10px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 0px;
+}
+
+
+div.plot_scroll {
+    background-color: white;
+    width: 100%;
+    height: 250px;
+    overflow: scroll;
+    border-color: 1px solid gray;
+}
+
