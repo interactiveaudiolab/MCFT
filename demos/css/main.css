@@ -1,6 +1,6 @@
 body {
     margin: 60px auto;
-    width: 1050px;
+    width: 1030px;
 }
 header {
     background-color: #FFF;
@@ -105,7 +105,7 @@ div.menu_box{
     padding-left: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-    width: 25%;
+    width: 30%;
     border: none;
     text-align: left;
     outline: none;
@@ -166,13 +166,31 @@ ul.menu_in {
     color: #000; 
 }
 
-#topBtn {
+#topBtn_left {
   display: none;
   position: fixed;
-  bottom: 50px;
+  bottom: 20px;
   left: 20px;
   z-index: 99;
-  font-size: 16px;
+  font-size: 14px;
+  border: 2px solid gray;
+  outline: none;
+  background-color: white;
+  color: gray;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 25px;
+}
+#topBtn_left:hover {
+  background-color: white;
+}
+#topBtn_right {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  font-size: 14px;
   border: 2px solid gray;
   outline: none;
   background-color: white;
@@ -182,7 +200,7 @@ ul.menu_in {
   border-radius: 25px;
 }
 
-#topBtn:hover {
+#topBtn_right:hover {
   background-color: white;
 }
 

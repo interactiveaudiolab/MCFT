@@ -9,18 +9,24 @@
 	<body>
 
 		<!-- Back to top button ---------------------------------------------------------------------------------------------------->
-		<button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
+		<button onclick="topFunction()" id="topBtn_left" title="Go to top">Top</button>
+		<button onclick="topFunction()" id="topBtn_right" title="Go to top">Top</button>
+
 		<script>
 				// When the user scrolls down 20px from the top of the document, show the button
 				window.onscroll = function() {scrollFunction()};
 
 				function scrollFunction() {
 				    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-				        document.getElementById("topBtn").style.display = "block";
+				        document.getElementById("topBtn_left").style.display = "block";
+				        document.getElementById("topBtn_right").style.display = "block";
+
 				    } else {
-				        document.getElementById("topBtn").style.display = "none";
+				        document.getElementById("topBtn_left").style.display = "none";
+				        document.getElementById("topBtn_right").style.display = "none";
+
 				    }
-				}
+				}				
 
 				// When the user clicks on the button, scroll to the top of the document
 				function topFunction() {
@@ -28,6 +34,8 @@
 				    document.documentElement.scrollTop = 0;
 				}
 		</script>
+
+		
 
 		<!-- Page Title -------------------------------------------------------------------------------------------------------->
 		<header>
@@ -41,7 +49,7 @@
 		<!-------------------------------------------------------------------------------------------------------------------->
 		<div class="menu_box">
 		<!-- Audio Examples -------------------------------------------------------------------------------------------------->
-		<button class="accordion">Examples: Audio and Plots</button>
+		<button class="accordion">Examples: Audio and Spectrograms</button>
 		<div class="panel">
 			<ul class="menu_out">
 				<li>	
@@ -131,10 +139,16 @@
 
 		<div class="pad"></div>
 
-      	<h2>Examples: Audio and Plots</h2>
+      	<h2>Examples: Audio and Spectrograms</h2>
       	<hr>
 
-		<div class="pad"></div>
+		<div class="pad_small"></div>
+
+		<p align="justify">
+		In this section we present examples of our experimental results. Each example includes audio for the mixture, original sources, and estimated sources. Time-frequency plots for the original sources and estimated sources are also provided. In order to make visual comparison easier across representations, all results are displayed in the STFT domain. It should, however, be noted that the MCFT (and clearly the CQT) use the CQT domain as the time-frequency analysis stage. The frequency range in all time-frequency plots is limited to 0 - 4 kHz for visual purposes.
+		</p>
+
+		<div class="pad_small"></div>
 
       	<h3 id="aud_ex_2src_oct2">Two-source Mixtures - Octave 2</h3> <!-- OCT-2-Audio ------------------------------------------->
 
