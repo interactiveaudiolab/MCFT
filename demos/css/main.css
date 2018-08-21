@@ -222,3 +222,54 @@ div.plot_scroll {
     border-color: 1px solid gray;
 }
 
+
+table.results, th.results, td.results {
+    border: 1px solid black;
+}
+table.results {
+    background-color: #FFF;
+    border-collapse: collapse;
+    width: 100%;
+    height: 50%;
+}
+th.results {
+    height: 20px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: #FFF;
+    color: #000;
+    font-size: 14px;
+}
+td.results {
+    height: 20px;
+    vertical-align: center;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    font-size: 14px;
+}
+div.results{
+    height:360px; 
+    width: 100%;
+    background-color: white;
+    border: 0.5px solid white;
+}
+.results > div{
+  float:right;
+  margin-right:10px;
+}
+div.results_plot{
+    height: 360px;
+    width: 480px;
+    background-color: white;
+    border: 0.5px solid white;
+}
+div.results_table{
+    height: 270px;
+    width: 500px;
+    background-color: white;
+    border: 0.5px solid white;
+    padding-top:90px;
+    padding-left: 20px;
+}
+

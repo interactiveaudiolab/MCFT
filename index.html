@@ -108,7 +108,7 @@
 		</br>    
 
 		<!-- Results -------------------------------------------------------------------------------------------------->
-		<button class="accordion">Experimental Results</button>
+		<a href="#experimental_results"><button class="accordion">Experimental Results</button></a>
 		<div class="panel">
 
 		</div>
@@ -145,7 +145,10 @@
 		<div class="pad_small"></div>
 
 		<p align="justify">
-		In this section we present examples of our experimental results. Each example includes audio for the mixture, original sources, and estimated sources. Time-frequency plots for the original sources and estimated sources are also provided. In order to make visual comparison easier across representations, all results are displayed in the STFT domain. It should, however, be noted that the MCFT (and clearly the CQT) use the CQT domain as the time-frequency analysis stage. The frequency range in all time-frequency plots is limited to 0 - 4 kHz for visual purposes.
+		In this section, we present examples of our experimental results. Each example includes audio for the mixture, original sources, and estimated sources. We recommend to listen to audio examples with a set of headphones. </p>
+
+		<p align="justify">
+		Time-frequency plots for the original sources and estimated sources are also provided. In order to make visual comparison across representations easier, all results are displayed in the STFT domain. It should, however, be noted that the MCFT (and clearly the CQT) use the CQT domain as the time-frequency analysis stage. The frequency range in all time-frequency plots is limited to 0 - 4 kHz for visual purposes.
 		</p>
 
 		<div class="pad_small"></div>
@@ -4836,10 +4839,355 @@
 
 		<div class="pad"></div>
 
-      	<h2>Experimental Results</h2>
+      	<h2 id="experimental_results">Experimental Results</h2>
       	<hr>
-
 		<div class="pad"></div>
+
+	        <p align="justify">
+			In this section, we present detailed results of our separability and clusterability experiments. Box plots show the distribution of separability and clusterability values. Tables contain the results of statistical significance tests. The null hypothesis in all statistical tests is that the median of the results for the MCFT is <i><b> less or equal </b></i> the median of other representations, in other words, the MCFT does not provide any improvement. In all tables <i>n</i> denotes the number of samples in statistical tests and <i>median diff = median(MCFT) &minus; median(other representation)"</i> (positive values mean improved performance for the MCFT). 
+	        </p>
+	        <div class="pad"></div>
+
+			<h3 class="">Separability Results</h3>
+
+			<!-- SDR -------------------------------------------------------------------------------------------------->
+
+				<div class="results">
+
+					<div class="results_table">
+						<table class="results">
+							<caption>Wilcoxon rank sum test restuls.</caption>
+			  				<tr>
+			  					<th class="results" colspan="2"> </th>
+			  					<th class="results">STFT</th>
+			  					<th class="results">CQT</th>
+			  					<th class="results">CFT</br>best-sep</th>
+			  					<th class="results">CFT</br>best-clus</th>
+			  				</tr>
+							<tr>
+								<td class="results" rowspan="2">2src</br>n=1764</td>
+								<td class="results"> <i>median diff (dB)</i></td>
+								<td class="results"> + 3.03</td>
+							    <td class="results"> + 2.16</td>
+								<td class="results"> + 1.35 </td>
+								<td class="results"> + 1.54 </td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+							</tr>
+							<tr>
+								<td class="results" rowspan="2">3src</br>n=2646</td>
+								<td class="results"> <i>median diff (dB)</i></td>
+								<td class="results"> + 3.54</td>
+							    <td class="results"> + 2.67 </td>
+								<td class="results"> + 1.84 </td>
+								<td class="results"> + 2.17 </td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+							</tr>
+							<tr>
+								<td class="results" rowspan="2">4src</br>n=3528</td>
+								<td class="results"> <i>median diff (dB) </i></td>
+								<td class="results"> + 4.26</td>
+							    <td class="results"> + 3.07</td>
+								<td class="results"> + 2.12 </td>
+								<td class="results"> + 2.45 </td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+							</tr>
+							<tr>
+								<td class="results" rowspan="2">5src</br>n=4410</td>
+								<td class="results"> <i>median diff (dB) </i></td>
+								<td class="results"> + 4.89 </td>
+							    <td class="results"> + 3.39 </td>
+								<td class="results"> + 2.85 </td>
+								<td class="results"> + 3.22 </td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="results_plot">
+						<img  src="demos/experimental_results/sdr_box.png" height="360" width="480">
+					</div>
+
+				</div></br>
+
+				<div class="pad"></div>
+
+				<!-- SIR -------------------------------------------------------------------------------------------------->
+				<div class="results">
+
+					<div class="results_table">
+						<table class="results">
+							<caption>Wilcoxon rank sum test restuls.</caption>
+			  				<tr>
+			  					<th class="results" colspan="2"> </th>
+			  					<th class="results">STFT</th>
+			  					<th class="results">CQT</th>
+			  					<th class="results">CFT</br>best-sep</th>
+			  					<th class="results">CFT</br>best-clus</th>
+			  				</tr>
+							<tr>
+								<td class="results" rowspan="2" >2src</br>n=1764</td>
+								<td class="results"> <i>median diff (dB)</i></td>
+								<td class="results"> + 0.41</td>
+							    <td class="results"> + 0.09</td>
+								<td class="results"> &minus; 0.44 </td>
+								<td class="results"> &minus; 0.29 </td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.001</td>
+							    <td class="results"> > 0.05 </td>
+								<td class="results"> > 0.05 </td>
+								<td class="results"> > 0.05 </td>
+							</tr>
+							<tr>
+								<td class="results" rowspan="2">3src</br>n=2646</td>
+								<td class="results"> <i>median diff (dB)</i></td>
+								<td class="results"> + 1.87</td>
+							    <td class="results"> + 0.99 </td>
+								<td class="results"> + 0.66 </td>
+								<td class="results"> + 0.89</td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+							</tr>
+							<tr>
+								<td class="results" rowspan="2">4src</br>n=3528</td>
+								<td class="results"> <i>median diff (dB) </i></td>
+								<td class="results"> + 2.46</td>
+							    <td class="results"> + 1.40</td>
+								<td class="results"> + 1.08</td>
+								<td class="results"> + 1.22</td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+							</tr>
+							<tr>
+								<td class="results" rowspan="2">5src</br>n=4410</td>
+								<td class="results"> <i>median diff (dB) </i></td>
+								<td class="results"> + 2.96 </td>
+							    <td class="results"> + 1.81 </td>
+								<td class="results"> + 1.52 </td>
+								<td class="results"> + 1.83 </td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="results_plot">
+						<img  src="demos/experimental_results/sir_box.png" height="360" width="480">
+					</div>
+
+				</div></br>
+				<div class="pad"></div>
+
+				<!-- SAR -------------------------------------------------------------------------------------------------->
+				<div class="results">
+
+					<div class="results_table">
+						<table class="results">
+							<caption>Wilcoxon rank sum test restuls.</caption>
+			  				<tr>
+			  					<th class="results" colspan="2"> </th>
+			  					<th class="results">STFT</th>
+			  					<th class="results">CQT</th>
+			  					<th class="results">CFT</br>best-sep</th>
+			  					<th class="results">CFT</br>best-clus</th>
+			  				</tr>
+							<tr>
+								<td class="results" rowspan="2" >2src</br>n=1764</td>
+								<td class="results"> <i>median diff (dB)</i></td>
+								<td class="results"> + 3.35</td>
+							    <td class="results"> + 2.48</td>
+								<td class="results"> + 1.71 </td>
+								<td class="results"> + 1.87 </td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+							</tr>
+							<tr>
+								<td class="results" rowspan="2">3src</br>n=2646</td>
+								<td class="results"> <i>median diff (dB)</i></td>
+								<td class="results"> + 3.86</td>
+							    <td class="results"> + 2.93</td>
+								<td class="results"> + 2.11</td>
+								<td class="results"> + 2.38</td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+							</tr>
+							<tr>
+								<td class="results" rowspan="2">4src</br>n=3528</td>
+								<td class="results"> <i>median diff (dB) </i></td>
+								<td class="results"> + 4.46</td>
+							    <td class="results"> + 3.28</td>
+								<td class="results"> + 2.34</td>
+								<td class="results"> + 2.67</td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+							</tr>
+							<tr>
+								<td class="results" rowspan="2">5src</br>n=4410</td>
+								<td class="results"> <i>median diff (dB) </i></td>
+								<td class="results"> + 5.07 </td>
+							    <td class="results"> + 3.62 </td>
+								<td class="results"> + 3.13 </td>
+								<td class="results"> + 3.37 </td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="results_plot">
+						<img  src="demos/experimental_results/sar_box.png" height="360" width="480">
+					</div>
+
+				</div></br>
+
+				<div class="pad"></div>
+
+
+			<h3 id="">Clusterability Results</h3>
+
+				<!-- Clus -------------------------------------------------------------------------------------------------->
+				<div class="results">
+
+					<div class="results_table">
+						<table class="results">
+							<caption>Wilcoxon rank sum test restuls.</caption>
+			  				<tr>
+			  					<th class="results" colspan="2"> </th>
+			  					<th class="results">STFT</th>
+			  					<th class="results">CQT</th>
+			  					<th class="results">CFT</br>best-sep</th>
+			  					<th class="results">CFT</br>best-clus</th>
+			  				</tr>
+							<tr>
+								<td class="results" rowspan="2" >2src</br>n=8820</td>
+								<td class="results"> <i>median diff</i></td>
+								<td class="results"> + 0.088</td>
+							    <td class="results"> + 0.100</td>
+								<td class="results"> + 0.130 </td>
+								<td class="results"> + 0.003 </td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> > 0.05 </td>
+							</tr>
+							<tr>
+								<td class="results" rowspan="2">3src</br>n=8820</td>
+								<td class="results"> <i>median diff</i></td>
+								<td class="results"> + 0.041</td>
+							    <td class="results"> + 0.040 </td>
+								<td class="results"> + 0.13 </td>
+								<td class="results"> &minus; 0.031 </td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> &le; 0.0001</td>
+							    <td class="results"> &le; 0.0001 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> > 0.05 </td>
+							</tr>
+							<tr>
+								<td class="results" rowspan="2">4src</br>n=8820</td>
+								<td class="results"> <i>median diff</i></td>
+								<td class="results"> + 0.012</td>
+							    <td class="results"> + 0.008</td>
+								<td class="results"> + 0.098 </td>
+								<td class="results"> &minus; 0.057 </td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> > 0.05</td>
+							    <td class="results"> &le; 0.05 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> >0.05 </td>
+							</tr>
+							<tr>
+								<td class="results" rowspan="2">5src</br>n=8820</td>
+								<td class="results"> <i>median diff</i></td>
+								<td class="results"> &minus; 0.009 </td>
+							    <td class="results"> &minus; 0.017 </td>
+								<td class="results"> + 0.098 </td>
+								<td class="results"> &minus; 0.077 </td>
+							</tr>
+							<tr>
+								<td class="results"> <i>p-value</i></td>
+								<td class="results"> > 0.05</td>
+							    <td class="results"> > 0.05 </td>
+								<td class="results"> &le; 0.0001 </td>
+								<td class="results"> >0.05 </td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="results_plot">
+						<img  src="demos/experimental_results/clus_box.png" height="360" width="480">
+					</div>
+
+				</div></br>
+
+				<div class="pad"></div>
 
       	
 			
