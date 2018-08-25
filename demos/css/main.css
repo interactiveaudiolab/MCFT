@@ -48,6 +48,9 @@ a:link {
 .pad {
     padding: 10px;
 }
+.pad_tiny {
+    padding: 2px;
+}
 .pad_small {
     padding: 5px;
 }
@@ -138,7 +141,8 @@ ul.menu_out {
 }
 
 ul.menu_in {
-    padding-top: 10px; 
+    padding-top: 5px; 
+    padding-bottom: 5px; 
     padding-left: 20px;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -154,7 +158,7 @@ ul.menu_in {
     padding-left: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-    width: 25%;
+    width: 30%;
     border: none;
     text-align: left;
     outline: none;
