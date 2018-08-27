@@ -84,7 +84,6 @@ th {
     color: #FFF;
 }
 td {
-    height: 40px;
     vertical-align: center;
     padding-left: 1px;
     padding-right: 1px;
@@ -92,7 +91,6 @@ td {
 }
 audio {
     width: 200px;
-    height: 25px;
 }
 
 div.menu_box{
@@ -100,6 +98,7 @@ div.menu_box{
     border: 0.5px solid gray;
     padding-top: 20px;
     padding-bottom: 20px;
+    padding-left: 10px;
 }
 .accordion {
     background-color: white;
@@ -213,7 +212,7 @@ div.plot_box{
     background-color: white;
     border: 0.5px solid gray;
     padding-top: 10px;
-    padding-bottom: 0px;
+    padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 0px;
 }
