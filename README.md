@@ -5,7 +5,7 @@ This toolbox provides MATLAB and Python implementations of the Multi-resolution 
 The MCFT toolbox uses [the CQT implementation](http://www.cs.tut.fi/sgn/arg/CQT/) by Schörkhuber et al. to compute the time-frequency representation of the input audio signal. 
 
 ## Demos
-Audio examples, time-frequency plots, and detailed experimental results are provided in [the demo webpage](https://interactiveaudiolab.github.io/MCFT/#aud_ex_2src_oct4/). 
+Audio examples, time-frequency plots, and detailed experimental results are provided in [the demo webpage](https://interactiveaudiolab.github.io/MCFT). 
 
 
 
