@@ -44,7 +44,15 @@ hr{
 
 a:link {
     text-decoration: none;
+    color: #999;
 }
+a:visited {
+    color: #999;
+}
+a:hover {
+    color: #000;
+}
+
 .pad {
     padding: 10px;
 }
