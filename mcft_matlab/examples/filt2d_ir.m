@@ -14,8 +14,8 @@ FPS=150; % # of frames per second
 Lr=FPS; % # of time frames of the spectrogram (1 second)
 beta=3.5; % time constant
  
-S_params=struct('hslen',Ls,'ripple_freq',SRF,'type','bandpass');
-R_params=struct('time_const',beta,'hrlen',Lr,'frame_per_sec',FPS,'type','bandpass');
+S_params=struct('hslen',Ls,'samprate_spec',SRF,'type','bandpass');
+R_params=struct('time_const',beta,'hrlen',Lr,'samprate_temp',FPS,'type','bandpass');
 
 [h_up,~]=gen_hsr(S,R,S_params,R_params,'up');
 [h_down,~]=gen_hsr(S,R,S_params,R_params,'down');
