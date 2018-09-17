@@ -62,6 +62,7 @@ hs = [hs(1:hs_len/2+1);hs(hs_len/2:-1:2)]; % make it even so the transform is re
 %% impulse response of the original rate filter    
 
 hr = rate_ctr*(rate_ctr*time_vec).^2.*exp(-time_vec*beta*rate_ctr).*sin(2*pi*rate_ctr*time_vec);
+hr = hr - mean(hr); 
 
 %% scale response (Fourier transform of the scale impulse response)
 
