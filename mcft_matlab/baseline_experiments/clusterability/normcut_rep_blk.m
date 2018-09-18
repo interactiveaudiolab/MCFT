@@ -1,11 +1,11 @@
-function ncut_measure=normcut_rep_blk(mix_rep,src_rep,ibm_thr,sim_width,dist,blk_len)
+function ncut_measure = normcut_rep_blk(mix_rep,src_rep,ibm_thr,sim_width,dist,blk_len)
 
 % This function receives constituent sources of a mixture in a
 % particular representation domain (STFT, CQT, 2DFT, CFT, MCFT)
 % and computes the clusterability measure (normalized cut loss value) as a
 % function of ideal binary masking threshold and the width of the
 % similarity kernel in the representation domain. 
-% Main assumption: the input is high dimensional so it is divided into
+% Assumption: the input is high dimensional so it is divided into
 % blocks to avoid exceeding MATLAB's matrix size limit.
 % 
 % Inputs:
