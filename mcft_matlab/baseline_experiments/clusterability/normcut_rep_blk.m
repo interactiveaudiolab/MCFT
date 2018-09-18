@@ -6,7 +6,7 @@ function ncut_measure=normcut_rep_blk(mix_rep,src_rep,ibm_thr,sim_width,dist,blk
 % function of ideal binary masking threshold and the width of the
 % similarity kernel in the representation domain. 
 % Main assumption: the input is high dimensional so it is divided into
-% block to avoid exceeding the matrix size limit.
+% blocks to avoid exceeding MATLAB's matrix size limit.
 % 
 % Inputs:
 % mix_rep: (n1*n2*...*nd) matrix containing the mixture
