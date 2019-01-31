@@ -71,7 +71,7 @@ def gen_filterbank(fmin,fmax,bins_per_octave,samp_rate,sig_len,min_filt_len=4,bw
     nonzeroIndices = np.nonzero([int(ctr_freqs[i]+cqt_bw[i]/2>nyquist) for i in range(len(ctr_freqs))])
     if nonzeroIndices[0].size > 0:
         ctr_freqs = ctr_freqs[:nonzeroIndices[0][0]]
-        cqt_bw = cqt_bw[:nonzeroIndices[0]]
+        cqt_bw = cqt_bw[:nonzeroIndices[0][0]]
 
     # Excludes frequencies below zero
     nonzeroIndices = np.nonzero([int(ctr_freqs[i]-cqt_bw[i]/2<0) for i in range(len(ctr_freqs))])
