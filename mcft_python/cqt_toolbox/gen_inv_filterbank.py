@@ -47,6 +47,9 @@ def gen_inv_filterbank(filter_bank,shift,bw_bins=None):
       J. Comput. Appl. Math., 236(6):1481-1496, 2011.
   
     See also:  apply_inv_filterbank, icqt
+
+    Translation from MATLAB by: Trent Cwiok (cwiok@u.northwestern.edu)
+                                Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
     '''
     # Argument handling
     if bw_bins is None:

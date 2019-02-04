@@ -8,7 +8,7 @@ function  mcft_out=cqt_to_mcft(Xcqt,H)
 % Inputs:
 % Xcqt: 2d matrix contatining the (complex) t-f representation of an 
 %    audio signal (log scale frequency, e.g. CQT)
-% h: 4d matrix containing a bank of filters in the scale-rate domain
+% H: 4d matrix containing a bank of filters in the scale-rate domain
 %
 % Ouput: 
 % mcft_out: 4d matrix containing MCFT coefficients
@@ -34,7 +34,7 @@ for i = 1:num_scale_ctrs
       Hsr_temp = squeeze(H(i,j,:,:));
       XHsr = Xsr.*Hsr_temp;   % filter the signal in scale-rate domain
       XHft = ifft2(XHsr); % convert back to the frequency-time domain
-      mcft_out(i,j,:,:)=XHft; %(1:Nf,1:Nt); % remove the zero padding
+      mcft_out(i,j,:,:) = XHft; %(1:Nf,1:Nt); % remove the zero padding
            
    end
 end

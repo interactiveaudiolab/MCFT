@@ -30,6 +30,9 @@ def icqt(Xcq):
       Language Processing, IEEE Transactions on, 21(4):775-785, April 2013.
 
     See also:  gen_inv_filterbank, apply_inv_filterbank
+
+    Translation from MATLAB by: Trent Cwiok (cwiok@u.northwestern.edu)
+                                Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
     '''
     Xcq['inv_filter_bank'] = gen_inv_filterbank(Xcq['filter_bank'],Xcq['shift'],Xcq['bw_bins'])
 

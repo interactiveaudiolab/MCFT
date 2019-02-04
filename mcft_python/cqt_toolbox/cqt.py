@@ -70,6 +70,9 @@ def cqt(signal, bins_per_octave, samp_rate, fmin, fmax,
       Language Processing, IEEE Transactions on, 21(4):775-785, April 2013.
 
     See also:  nsgtf_real, winfuns
+
+    Translation from MATLAB by: Trent Cwiok (cwiok@u.northwestern.edu)
+                                Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
     '''
     filter_bank,shift,bw_bins = gen_filterbank(fmin,fmax,bins_per_octave,samp_rate,len(signal), window_name=window_name, gamma=gamma)
 

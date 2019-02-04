@@ -17,13 +17,10 @@ function [hsr,Hsr] = gen_hsr(scale_ctr,rate_ctr,scale_params,rate_params,filt_di
 %          samprate_temp: sample rate along the time axis
 %          type: string argument indicating the type of the filter
 %                ('bandpass','lowpass','highpass')
-% mod_phase: (optional) matrix of size hslen*hrlen containing modulation 
-%         phase values, which are supposed to tune the scale-rate filter 
-%         to the signal (default is mod_factor=0)
 % filt_type: string type, determines the moving direction of the filter 
 %            'none' (full s-r domain)
-%            'up' (upward analytic, nonzero over 2nd and 3rd quadrants)
-%            'down' (downward analytic, nonzero over 1st and 4th quadrants)
+%            'up' (upward analytic, nonzero over upper left (2nd) and lower right (4th) quadrants)
+%            'down' (downward analytic, nonzero over upper right (1st) and lower left (3rd) quadrants)
 %
 % Outputs
 % hsr: impulse response of the 2D filter (in time-frequency domain)
@@ -44,6 +41,7 @@ hr_len = rate_params.hrlen;  % length of the temporal filter
 samprate_temp = rate_params.samprate_temp; % # of frames per second
 hr_type = rate_params.type;  % type of the temporal filter
 
+
 %% frequency and time vectors
 
 % zero-pad filters to the next even number 
@@ -63,6 +61,15 @@ hs = [hs(1:hs_len/2+1);hs(hs_len/2:-1:2)]; % make it even so the transform is re
 
 hr = rate_ctr*(rate_ctr*time_vec).^2.*exp(-time_vec*beta*rate_ctr).*sin(2*pi*rate_ctr*time_vec);
 hr = hr - mean(hr); 
+
+% if the magnitude of dc element is set to zero by
+% subtracting the mean of hr, make sure the phase is
+% also set to zero to avoid any computational error
+if abs(mean(hr))<eps
+    correct_Hr_phase = 1;
+else
+    correct_Hr_phase = 0;
+end
 
 %% scale response (Fourier transform of the scale impulse response)
 
@@ -87,6 +94,7 @@ if ~strcmp(hs_type,'bandpass')
     Hs = [Hs1;Hs2]; % form the full magnitude spectrum
 end 
 
+
 %% rate response (Fourier transform of the rate impulse response)
 
 % band-pass rate filter
@@ -94,7 +102,10 @@ Hr = fft(hr,hr_len); % rate response is complex
 
 % low/high-pass rate filter
 if ~strcmp(hr_type,'bandpass')
-    Hr_ph = angle(Hr); 
+    Hr_ph = angle(Hr);
+    if correct_Hr_phase
+     Hr_ph(1) = 0; % dc element is zero so the phase shouldn't matter
+    end
     Hr_mag = abs(Hr);
     
     Hr_mag1 = Hr_mag(1:hr_len/2+1,:); Hr_mag1 = Hr_mag1/max(Hr_mag1);
@@ -111,9 +122,9 @@ if ~strcmp(hr_type,'bandpass')
     end
     
     Hr_mag = [Hr_mag1;Hr_mag2]; % form the full magnitude spectrum
-    Hr = Hr_mag.*exp(1j*Hr_ph); % form the full Fourier transfomr
+    Hr = Hr_mag.*exp(1j*Hr_ph); % form the full Fourier transform
 end    
-        
+ 
 %% full scale-rate impulse and transform responses
  % Hsr_full is quadrant separable
 
@@ -128,18 +139,18 @@ if strcmp(filt_dir,'up')
     
   % compute the upward version of the scale-rate response
   Hsr_up=Hsr_full;
-  Hsr_up(1:hs_len/2,1:hr_len/2)=0; 
-  %Hsr_up(hs_len/2+1:end,hr_len/2+1:end)=0; 
+  Hsr_up(2:hs_len/2+1,2:hr_len/2+1)=0; 
+  %Hsr_up(1:hs_len/2,1:hr_len/2)=0; 
   Hsr_up(hs_len/2+2:end,hr_len/2+2:end)=0; 
   Hsr=Hsr_up;
   
 elseif strcmp(filt_dir,'down') % downward ripple
     
   Hsr_down=Hsr_full;
-%   Hsr_down(1:hs_len/2,hr_len/2+1:end)=0;
-%   Hsr_down(hs_len/2+1:end,1:hr_len/2)=0;
-  Hsr_down(1:hs_len/2,hr_len/2+2:end)=0;
-  Hsr_down(hs_len/2+2:end,1:hr_len/2)=0;
+  %Hsr_down(1:hs_len/2,hr_len/2+2:end)=0;
+  %Hsr_down(hs_len/2+2:end,1:hr_len/2)=0;
+  Hsr_down(2:hs_len/2+1,hr_len/2+2:end)=0;
+  Hsr_down(hs_len/2+2:end,2:hr_len/2+1)=0;
   Hsr=Hsr_down;
   
 else   

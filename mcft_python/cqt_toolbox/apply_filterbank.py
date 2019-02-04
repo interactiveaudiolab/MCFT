@@ -45,6 +45,10 @@ def apply_filterbank(signal,filter_bank,shift,phasemode,bw_bins=None):
     supported on the negative frequencies are ignored.
 
     See also:  nsigtf_real, nsdual, nstight
+
+    Translation from MATLAB by: Trent Cwiok (cwiok@u.northwestern.edu)
+                                Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
+
     '''
     # Unpack the signal length and num of channels
     sig_len,num_channels = signal.shape

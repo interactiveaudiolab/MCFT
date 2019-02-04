@@ -59,6 +59,9 @@ def apply_inv_filterbank(cqt,inv_filter_bank,shift,sig_len,phasemode):
       Proceedings of DAFX11, Paris, 2011. 
 
     See also:  gen_inv_filterbank, icqt
+
+    Translation from MATLAB by: Trent Cwiok (cwiok@u.northwestern.edu)
+                                Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
     '''
     # Input checking
     if len(cqt[0].shape) > 1:

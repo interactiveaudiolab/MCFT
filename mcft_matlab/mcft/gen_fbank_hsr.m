@@ -28,9 +28,9 @@ function [h_out,H_out] = gen_fbank_hsr(scale_ctrs,rate_ctrs,nfft_s,nfft_r,params
 
 
 %% Input check
-tune_filter = 0;
+mod_filter = 0;
 if nargin == 6
-    tune_filter = 1;
+    mod_filter = 1;
 end
 
 %% Parameters and dimensions
@@ -51,10 +51,14 @@ rate_params=struct('time_const',beta,'hrlen',nfft_r,'samprate_temp',samprate_tem
 
 %% Generate the filterbank
 
-% Filter tuning factor (can be thought as a pre-filtering stage)
-if tune_filter 
+% Filter modulation factor (can be thought as a pre-filtering stage)
+if mod_filter     
    Xft=ifft2(fft2(comp_specgram,nfft_s,nfft_r)); % for dimension adjustment
-   h_factor=exp(1j.*angle(Xft));
+   Xft_ph = angle(Xft); % complete phase
+   % uncomment this line to compare to the python code
+   % otherwise fft phase difference results in large error values
+   %Xft_ph = angle(Xft).*(abs(Xft)>1e-10); % includes phase of nonzero elements only
+   h_factor=exp(1j.*Xft_ph);
 else
    h_factor=1; 
 end

@@ -54,6 +54,9 @@ def gen_filterbank(fmin,fmax,bins_per_octave,samp_rate,sig_len,min_filt_len=4,bw
         Language Processing, IEEE Transactions on, 21(4):775-785, April 2013.
 
     See also: nsgtf_real, winfuns
+
+    Translation from MATLAB by: Trent Cwiok (cwiok@u.northwestern.edu)
+                                Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
     '''
     # Calculate nyquist rate and redefine fmax in terms of nyquist
     nyquist = samp_rate/2

@@ -7,8 +7,6 @@ import numpy as np
 from cqt import cqt
 from icqt import icqt
 
-#### TODO: Add python3 type hints to function definitions
-
 # make time vectors for constructing signals   
 samp_rate = 16000 # sample rate
 time_vec = np.mat(np.arange(0,1,1/samp_rate)).T # time vector
@@ -21,8 +19,8 @@ gamma = 10
 
 # Construct 4 unique signals
 signal1 = np.cos(2*np.pi*220*time_vec)+np.cos(2*np.pi*440*time_vec)+np.cos(2*np.pi*880*time_vec)
-signal2, sr2 = librosa.core.load('audio_files/original/chirps.wav')
-signal3, sr3 = librosa.core.load('audio_files/original/trombone.wav')
+signal2, sr2 = librosa.core.load('cqt_test/audio_files/original/chirps.wav')
+signal3, sr3 = librosa.core.load('cqt_test/audio_files/original/trombone.wav')
 
 total_sig_length = (len(signal1)/samp_rate)+(len(signal2)/sr2)+(len(signal3)/sr3)
 
@@ -51,9 +49,9 @@ re_signal3, gd = icqt(Xcq3)
 icqt_time = time.clock() - cqt_time
 
 # Write the reconstructed signals to file
-librosa.output.write_wav('audio_files/reconstructed/re_synth.wav',signal1,samp_rate)
-librosa.output.write_wav('audio_files/reconstructed/re_chirps.wav',signal2,sr2)
-librosa.output.write_wav('audio_files/reconstructed/re_trombone.wav',signal3,sr3)
+librosa.output.write_wav('cqt_test/audio_files/reconstructed/re_synth.wav',signal1,samp_rate)
+librosa.output.write_wav('cqt_test/audio_files/reconstructed/re_chirps.wav',signal2,sr2)
+librosa.output.write_wav('cqt_test/audio_files/reconstructed/re_trombone.wav',signal3,sr3)
 
 # Compute reconstruction error and output times
 def norm2(x):

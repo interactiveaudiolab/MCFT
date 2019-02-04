@@ -1,4 +1,4 @@
-function [mcft_out,cqt_params_out,H]=mcft(x,cqt_params_in,filt2d_params)
+function [mcft_out,cqt_params_out,H]=mcft(x,cqt_params_in,del_cqt_phase,filt2d_params)
 
 % This function receives a time domian audio signal and returns its 
 % Multi-resolution Common Fate Transform (MCFT). 
@@ -22,6 +22,15 @@ function [mcft_out,cqt_params_out,H]=mcft(x,cqt_params_in,filt2d_params)
 %        fmin: minimum frequency of analysis
 %        fmax: maximum frequency of analysis
 %        fres: frequency resolution (# of bins per octave)
+%        gamma: linear-Q factor
+% del_cqt_phase: boolean indicating whether the cqt phase is to be deleted 
+%                or included in the 2d filtering process.
+%                If the phase is included, the filterbank will be modulated 
+%                with the phase.
+%                If the phase is deleted the origianl filterbank will be 
+%                applied to the magnitude CQT.
+%                Note: the output representation is invertible only if the 
+%                      phase is included (default)
 % filt2d_params (optional): structure array containing parameters of 
 %        2d (spectro-temporal) filters: 
 %        scale_ctrs: vector containing filter centers (along scale axis)
@@ -39,6 +48,9 @@ function [mcft_out,cqt_params_out,H]=mcft(x,cqt_params_in,filt2d_params)
 %% Input check
 
 if nargin<3
+    del_cqt_phase = 0;
+    set_filt_params = 1;
+elseif nargin<4
     set_filt_params = 1;
 else
     set_filt_params = 0;
@@ -109,11 +121,19 @@ H_params=struct('samprate_spec',samprate_spec,'samprate_temp',samprate_temp,'tim
 disp('Computing the filterbank...');
 %%% the following line is interesting and worth exploring
 % aa = abs(X).*exp(1j*abs(X).*angle(X));
-[~,H]=gen_fbank_hsr(scale_ctrs,rate_ctrs,nfft_s,nfft_r,H_params,X); 
+if del_cqt_phase
+   [~,H]=gen_fbank_hsr(scale_ctrs,rate_ctrs,nfft_s,nfft_r,H_params);
+else
+   [~,H]=gen_fbank_hsr(scale_ctrs,rate_ctrs,nfft_s,nfft_r,H_params,X);
+end
 
 %% CQT to MCFT
-
 disp('Computing the transform...');
+
+if del_cqt_phase
+   X = abs(X);
+end
+
 mcft_out=cqt_to_mcft(X,H);
 
 end

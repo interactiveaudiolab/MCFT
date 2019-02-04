@@ -116,6 +116,9 @@ def gen_filter(window_name, sample_positions=None, num_samples=None):
       January 1978.
 
     See also:  gen_filterbank, gen_inv_filterbank
+
+    Translation from MATLAB by: Trent Cwiok (cwiok@u.northwestern.edu)
+                                Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
     '''
 
     # Input argument checking -- either sample_positions or num_samples must be provided
