@@ -1,6 +1,5 @@
 import numpy as np
 from scipy.fftpack import fft,ifft,fft2,ifft2
-from gen_filt_scale_rate import gen_filt_scale_rate
 
 def gen_fbank_scale_rate(scale_ctrs,rate_ctrs,nfft_scale,nfft_rate,filt_params,comp_specgram=None):
     """
