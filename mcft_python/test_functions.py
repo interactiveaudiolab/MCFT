@@ -59,10 +59,10 @@ plt.xlabel('time (sec)')
 plt.title('downward ripple')
 plt.show()
 
-# compare python and matlab results
-mat_results = loadmat('mat_files/matlab_results_filt.mat')
-err_up = np.sum(np.abs(filt_tf_up - mat_results['h_up']))
-err_down = np.sum(np.abs(filt_tf_down - mat_results['h_down']))
+# # compare python and matlab results
+# mat_results = loadmat('mat_files/matlab_results_filt.mat')
+# err_up = np.sum(np.abs(filt_tf_up - mat_results['h_up']))
+# err_down = np.sum(np.abs(filt_tf_down - mat_results['h_down']))
 
 #################################### Compute a scale-rate filterbank #####################################
 # generate a complex signal for phase modulation
@@ -103,16 +103,16 @@ plt.pcolormesh(fftshift(np.abs(fbank_sr_domain[2,2,:])))
 plt.subplot(224)
 plt.pcolormesh(fftshift(np.abs(fbank_sr_domain[2,-3,:])))
 
-# compare python and matlab results
-mat_results = loadmat('mat_files/matlab_results_fbank.mat')
-
-err_spec = np.sum(np.abs(comp_specgram - mat_results['comp_specgram']))
-
-err_tf = np.abs(fbank_tf_domain - mat_results['h_out'])
-err_sr = np.abs(fbank_sr_domain - mat_results['H_out'])
-
-err_tf = np.sum(np.abs(fbank_tf_domain - mat_results['h_out']))
-err_sr = np.sum(np.abs(fbank_sr_domain - mat_results['H_out']))
+# # compare python and matlab results
+# mat_results = loadmat('mat_files/matlab_results_fbank.mat')
+#
+# err_spec = np.sum(np.abs(comp_specgram - mat_results['comp_specgram']))
+#
+# err_tf = np.abs(fbank_tf_domain - mat_results['h_out'])
+# err_sr = np.abs(fbank_sr_domain - mat_results['H_out'])
+#
+# err_tf = np.sum(np.abs(fbank_tf_domain - mat_results['h_out']))
+# err_sr = np.sum(np.abs(fbank_sr_domain - mat_results['H_out']))
 
 ############################# Test cqt-to-mcft #######################################
 
@@ -124,9 +124,9 @@ mcft_out = cqt_to_mcft(sig_cqt,fbank_scale_rate)
 end = time.time()
 print('computation time:',end-start)
 
-mat_results = loadmat('mat_files/cqt_to_mcft.mat')
-
-err_mcft = np.sum(np.abs(mcft_out - mat_results['mcft_out']))
+# mat_results = loadmat('mat_files/cqt_to_mcft.mat')
+#
+# err_mcft = np.sum(np.abs(mcft_out - mat_results['mcft_out']))
 
 ############################# Test mcft #######################################
 
@@ -137,10 +137,10 @@ mcft_out, cqt_params_out, fbank_sr_domain,scale_ctrs,rate_ctrs = mcft(signal, cq
 end = time.time()
 print('computation time:',end-start)
 
-mat_results = loadmat('mat_files/mcft.mat')
-
-err_mcft = np.sum(np.abs(mcft_out - mat_results['mcft_out']))
-err_H = np.sum(np.abs(fbank_sr_domain - mat_results['H']))
+# mat_results = loadmat('mat_files/mcft.mat')
+#
+# err_mcft = np.sum(np.abs(mcft_out - mat_results['mcft_out']))
+# err_H = np.sum(np.abs(fbank_sr_domain - mat_results['H']))
 
 plt.pcolormesh(fftshift(np.abs(fbank_sr_domain[0,0,:,:])))
 
@@ -151,9 +151,9 @@ sig_cqt_rec = mcft_to_cqt(mcft_out,fbank_sr_domain)
 end = time.time()
 print('computation time:',end-start)
 
-mat_results = loadmat('mat_files/mcft_to_cqt.mat')
-
-err_Xhat = np.sum(np.abs(sig_cqt_rec - mat_results['X_hat']))
+# mat_results = loadmat('mat_files/mcft_to_cqt.mat')
+#
+# err_Xhat = np.sum(np.abs(sig_cqt_rec - mat_results['X_hat']))
 
 ############################# Test inv_mcft #######################################
 
@@ -162,9 +162,9 @@ signal_rec = inv_mcft(mcft_out, cqt_params_out, fbank_sr_domain)
 end = time.time()
 print('computation time:',end-start)
 
-mat_results = loadmat('mat_files/inv_mcft.mat')
-
-err_xhat = np.sum(np.abs(signal_rec - mat_results['x_hat']))
+# mat_results = loadmat('mat_files/inv_mcft.mat')
+#
+# err_xhat = np.sum(np.abs(signal_rec - mat_results['x_hat']))
 
 
 def norm2(x):
