@@ -173,3 +173,5 @@ def norm2(x):
     return np.sqrt(np.sum(np.square(x)))
 
 rec_err = 20*np.log10(norm2(signal-signal_rec)/norm2(signal))
+
+print('reconstruction error:', rec_err, 'dB')
