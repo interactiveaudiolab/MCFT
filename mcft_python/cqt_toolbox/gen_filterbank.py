@@ -1,7 +1,7 @@
 from __future__ import print_function, division
 
 import numpy as np
-from gen_filter import gen_filter as gfilt
+from cqt_toolbox.gen_filter import gen_filter as gfilt
 
 def gen_filterbank(fmin,fmax,bins_per_octave,samp_rate,sig_len,min_filt_len=4,bw_factor=1,fractional=False,window_name='hann',gamma=0):
     # type: (float, float, int, int, int, int, int, bool, str, int) -> (list, numpy.ndarray, numpy.ndarray)

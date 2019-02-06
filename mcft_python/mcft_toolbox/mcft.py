@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.fftpack import fft2,ifft2
-from cqt import cqt
-from spectro_temporal_fbank import filt_default_centers,gen_fbank_scale_rate
+from cqt_toolbox.cqt import cqt
+from mcft_toolbox.spectro_temporal_fbank import filt_default_centers,gen_fbank_scale_rate
 
 
 def mcft(signal, cqt_params_in, filt_params_in=None,del_cqt_phase=0):

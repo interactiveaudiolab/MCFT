@@ -1,10 +1,6 @@
 from __future__ import print_function, division
 
-import copy
-import csv
-
 import numpy as np 
-
 
 def apply_filterbank(signal,filter_bank,shift,phasemode,bw_bins=None):
     # type: (numpy.ndarray, list, numpy.ndarray, str, numpy.ndarray) -> (list, long)

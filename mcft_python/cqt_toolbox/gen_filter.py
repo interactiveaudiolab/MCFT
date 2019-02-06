@@ -1,8 +1,6 @@
 from __future__ import print_function, division
 
 import numpy as np
-import matplotlib.pyplot as plt
-
 
 def gen_filter(window_name, sample_positions=None, num_samples=None):
     # type: (str, numpy.ndarray, float) -> numpy.ndarray

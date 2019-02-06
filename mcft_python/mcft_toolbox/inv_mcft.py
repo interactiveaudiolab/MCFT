@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.fftpack import fft2,ifft2
-from icqt import icqt
+from cqt_toolbox.icqt import icqt
 
 def inv_mcft(mcft_in, cqt_params, fbank_sr_domain):
     """
