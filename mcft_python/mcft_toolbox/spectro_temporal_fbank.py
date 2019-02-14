@@ -343,7 +343,6 @@ def filt_default_centers(scale_params,rate_params):
     # compute rate filter centers
     rate_ctrs = filt_centers('rate',rate_res, rate_nfft, samprate_temp)
 
-
     return scale_ctrs, rate_ctrs
 
 
@@ -370,7 +369,10 @@ def filt_centers(filt_type,bins_per_oct,nfft,samprate):
 
     # center of the highest bandpass filter
     log2_ctr_band_min = np.ceil(np.log2(ctr_low))
+    # add 1 to power of 2 if the smallest bandpass center is smaller the lowpass center
+    log2_ctr_band_min += float(2**log2_ctr_band_min <= ctr_low)
     log2_ctr_band_max = np.floor(np.log2(samprate/2))
+
 
     # centers of bandpass filters
     ctr_band = 2 ** np.arange(log2_ctr_band_min, log2_ctr_band_max+(1/bins_per_oct), 1/bins_per_oct)
