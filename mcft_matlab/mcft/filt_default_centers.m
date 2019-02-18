@@ -17,8 +17,9 @@ function [scale_ctrs,rate_ctrs] = filt_default_centers(nfft_s,nfft_r,samprate_sp
 %% set filter scales
     s_res = samprate_spec / nfft_s; % resolution of the s grid
     cs_low = s_res / 2; % center of the low-pass filter
+    log2_cs_band_min = 0; %nextpow2(cs_low);
     log2_cs_band_max = nextpow2(samprate_spec / 2) - 1; % center of the highest band-pass filter
-    cs_band = 2.^(0:1:log2_cs_band_max); % centers of band-pass filters
+    cs_band = 2.^(log2_cs_band_min:1:log2_cs_band_max); % centers of band-pass filters
     cs_high = (cs_band(end) + 3*samprate_spec / 2) / 4; % center of the high-pass filter
     
     % move the centers to the nearest frequencies of analysis
@@ -34,8 +35,9 @@ function [scale_ctrs,rate_ctrs] = filt_default_centers(nfft_s,nfft_r,samprate_sp
 %% set filter rates
     r_res = samprate_temp / nfft_r; % resolution of the r grid
     cr_low = r_res / 2; % center of the low-pass filter
+    log2_cr_band_min = 0; %nextpow2(cr_low);
     log2_cr_band_max = nextpow2(samprate_temp / 2) - 1; % center of the highest band-pass filter
-    cr_band = 2.^(0:1:log2_cr_band_max); % centers of band-pass filters
+    cr_band = 2.^(log2_cr_band_min:0.125:log2_cr_band_max); % centers of band-pass filters
     cr_high = (cr_band(end) + 1*samprate_temp / 2) / 2; % center of the high-pass filter
     
     % move the centers to the nearest frequencies of analysis

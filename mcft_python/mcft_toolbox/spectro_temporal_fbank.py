@@ -1,8 +1,9 @@
 import numpy as np
-from scipy.fftpack import fft,ifft,fft2,ifft2, helper
+#from scipy.fftpack import fft,ifft,fft2,ifft2,fftn, helper
+from scipy.fftpack import helper
 
 
-def gen_fbank_scale_rate(scale_ctrs,rate_ctrs,nfft_scale,nfft_rate,filt_params,comp_specgram=None):
+def gen_fbank_scale_rate(scale_ctrs,rate_ctrs,nfft_scale,nfft_rate,filt_params,comp_specgram=None,fbank_out_domain='sr'):
     """
     This function generates a scale-rate domain bank of up-/down-ward,filters.
     The filterbank will be tuned to the passband of a target signal if specified.
@@ -22,11 +23,14 @@ def gen_fbank_scale_rate(scale_ctrs,rate_ctrs,nfft_scale,nfft_rate,filt_params,c
                     phase of the spectrogram. Otherwise, the function will return the original set
                     of filters.
 
+    fbank_out_domain: string indicating the representatio domain of the filter bank
+                     'sr' (default): filter representation in the scale-rate domain
+                     'tf': filter representation in the time-domain, involves an extra 2DIFT computation
+                     'all': return filter represntations in both domains
+
     Output:
-    fbank_tf_domain: numpy array of size [num_scale_ctr, 2*num_ref_ctr, nfft_scale, nfft_rate] containing
-                     the time-frequency-doamin filterbank
-    fbank_sr_domain: numpy array of size [num_scale_ctr, 2*num_ref_ctr, nfft_scale, nfft_rate] containing
-                     the scale-rate-doamin filterbank
+    fbank_2d_out: numpy array containing the 2D filter bank represented in the scale-rate or time-frequency domain
+                 or list of length 2 containing filter representations in both domains
 
     Note: nfft_scale >= num_freq_bin and nfft_rate >= num_time_frame, where
           [num_freq_bin,num_time_frame] = np.shape(spectrogram)
@@ -36,7 +40,7 @@ def gen_fbank_scale_rate(scale_ctrs,rate_ctrs,nfft_scale,nfft_rate,filt_params,c
     Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
     """
 
-    # check comp_specgram
+    # check the 'comp_specgram' parameter
     if comp_specgram is None:
         mod_filter = 0
     else:
@@ -58,69 +62,111 @@ def gen_fbank_scale_rate(scale_ctrs,rate_ctrs,nfft_scale,nfft_rate,filt_params,c
     scale_params = {'scale_filt_len': nfft_scale, 'samprate_spec': samprate_spec}
     rate_params = {'time_const': beta, 'rate_filt_len': nfft_rate, 'samprate_temp': samprate_temp}
 
+    scale_filt_types = ['lowpass'] + (num_scale_ctrs-2) * ['bandpass'] + ['highpass']
+    rate_filt_types = ['lowpass'] + (num_rate_ctrs-2) * ['bandpass'] + ['highpass']
+
     ### Generate the filterbank
 
     # filter modulation factor (pre-filtering stage)
     if mod_filter:
         # adjust the dimensions of the complex spectrogram
-        comp_specgram = ifft2(fft2(comp_specgram, [nfft_scale, nfft_rate]))
+        comp_specgram = np.fft.ifft2(np.fft.fft2(comp_specgram, [nfft_scale, nfft_rate]))
         spec_phase = np.angle(comp_specgram)
         # uncomment this line to compare to the matlab code
         # otherwise fft phase difference results in large error values
         #spec_phase = np.angle(comp_specgram) * (np.abs(comp_specgram)>1e-10)
         filt_mod_factor = np.exp(1j * spec_phase)
-    else:
-        filt_mod_factor = 1
 
 
-    fbank_tf_domain = np.zeros((num_scale_ctrs, 2 * num_rate_ctrs, nfft_scale, nfft_rate),dtype='complex128')
-    fbank_sr_domain = np.zeros((num_scale_ctrs, 2 * num_rate_ctrs, nfft_scale, nfft_rate),dtype='complex128')
+    ### non-modulated filterbank:
+    if not mod_filter:
 
-    for i in range(num_scale_ctrs): # iterate over scale filter centers
+        # return a single output domain
+        if fbank_out_domain is not 'all': # 'tf' or 'sr'
 
-        if i == 0:
-            scale_params['type'] = 'lowpass'
-        elif i == num_scale_ctrs - 1:
-            scale_params['type'] = 'highpass'
-        else:
-            scale_params['type'] = 'bandpass'
+            fbank_2d_out = np.zeros((num_scale_ctrs, 2 * num_rate_ctrs, nfft_scale, nfft_rate),dtype='complex128')
 
-        for j in range(num_rate_ctrs): # iterate over rate filter centers
+            for i in range(num_scale_ctrs): # iterate over scale filter centers
+                scale_params['type'] = scale_filt_types[i]
 
-            if j == 0:
-                rate_params['type'] = 'lowpass'
-            elif j == num_rate_ctrs -1:
-                rate_params['type'] = 'highpass'
-            else:
-                rate_params['type'] = 'bandpass'
+                for j in range(num_rate_ctrs): # iterate over rate filter center
+                    rate_params['type'] = rate_filt_types[j]
+
+                    filt_up = gen_filt_scale_rate(scale_ctrs[i], rate_ctrs[j], scale_params, rate_params, 'up'
+                                                     , filt_out_domain=fbank_out_domain)
+                    filt_down = gen_filt_scale_rate(scale_ctrs[i], rate_ctrs[j], scale_params, rate_params, 'down'
+                                                       , filt_out_domain=fbank_out_domain)
+
+                    fbank_2d_out[i, num_rate_ctrs - j - 1, :, :] = filt_up
+                    fbank_2d_out[i, num_rate_ctrs + j, :, :] = filt_down
+
+        # return both output domains
+        elif fbank_out_domain is 'all':
+
+            fbank_tf_domain = np.zeros((num_scale_ctrs, 2 * num_rate_ctrs, nfft_scale, nfft_rate),dtype='complex128')
+            fbank_sr_domain = np.zeros((num_scale_ctrs, 2 * num_rate_ctrs, nfft_scale, nfft_rate),dtype='complex128')
+
+            for i in range(num_scale_ctrs): # iterate over scale filter centers
+                scale_params['type'] = scale_filt_types[i]
+
+                for j in range(num_rate_ctrs): # iterate over rate filter center
+                    rate_params['type'] = rate_filt_types[j]
+
+                    filt_up = gen_filt_scale_rate(scale_ctrs[i], rate_ctrs[j], scale_params, rate_params, 'up'
+                                                  , filt_out_domain=fbank_out_domain)
+                    filt_down = gen_filt_scale_rate(scale_ctrs[i], rate_ctrs[j], scale_params, rate_params, 'down'
+                                                    , filt_out_domain=fbank_out_domain)
+
+                    fbank_tf_domain[i, num_rate_ctrs - j - 1, :, :] = filt_up[0]
+                    fbank_tf_domain[i, num_rate_ctrs + j, :, :] = filt_down[0]
+
+                    fbank_sr_domain[i, num_rate_ctrs - j - 1, :, :] = filt_up[1]
+                    fbank_sr_domain[i, num_rate_ctrs + j, :, :] = filt_down[1]
+
+            fbank_2d_out = [fbank_tf_domain, fbank_sr_domain]
 
 
-            # generate two analytic filters (one upward and one downward)
-            # for the current (scale_ctr, rate_ctr)
 
-            # upward
-            filt_tf_up, _ = gen_filt_scale_rate(scale_ctrs[i], rate_ctrs[j], scale_params, rate_params, 'up')
-            filt_tf_up_mod = filt_tf_up * filt_mod_factor
-            fbank_tf_domain[i, num_rate_ctrs - j - 1,:,:] = filt_tf_up_mod
-            filt_sr_up = fft2(filt_tf_up_mod)
-            fbank_sr_domain[i, num_rate_ctrs - j - 1,:,:] = filt_sr_up
+    ### modulated filterbank:
+    if mod_filter:
 
-            # downward
-            filt_tf_down, _ = gen_filt_scale_rate(scale_ctrs[i], rate_ctrs[j], scale_params, rate_params, 'down')
-            filt_tf_down_mod = filt_tf_down * filt_mod_factor
-            fbank_tf_domain[i, num_rate_ctrs + j, :, :] = filt_tf_down_mod
-            filt_sr_down = fft2(filt_tf_down_mod)
-            fbank_sr_domain[i, num_rate_ctrs + j, :, :] = filt_sr_down
+        fbank_tf_domain = np.zeros((num_scale_ctrs, 2 * num_rate_ctrs, nfft_scale, nfft_rate), dtype='complex128')
 
+        for i in range(num_scale_ctrs): # iterate over scale filter centers
+            scale_params['type'] = scale_filt_types[i]
 
-    return fbank_tf_domain, fbank_sr_domain
+            for j in range(num_rate_ctrs): # iterate over rate filter center
+                rate_params['type'] = rate_filt_types[j]
 
+                # upward
+                filt_tf_up = gen_filt_scale_rate(scale_ctrs[i], rate_ctrs[j], scale_params, rate_params,'up',
+                                                 filt_out_domain='tf')
+                filt_tf_up_mod = filt_tf_up * filt_mod_factor
+                fbank_tf_domain[i, num_rate_ctrs - j - 1, :, :] = filt_tf_up_mod
+
+                # downward
+                filt_tf_down = gen_filt_scale_rate(scale_ctrs[i], rate_ctrs[j], scale_params, rate_params,'down',
+                                                 filt_out_domain = 'tf')
+                filt_tf_down_mod = filt_tf_down * filt_mod_factor
+                fbank_tf_domain[i, num_rate_ctrs + j, :, :] = filt_tf_down_mod
+
+        if fbank_out_domain is 'tf':
+            fbank_2d_out = fbank_tf_domain
+
+        elif fbank_out_domain is 'sr':
+            fbank_2d_out = np.fft.fftn(fbank_tf_domain,axes=[2,3])
+
+        elif fbank_out_domain is 'all':
+            fbank_sr_domain = np.fft.fftn(fbank_tf_domain, axes=[2, 3])
+            fbank_2d_out = [fbank_tf_domain, fbank_sr_domain]
+
+    return fbank_2d_out
 
 
 
 # MATLAB function: gen_hsr
 
-def gen_filt_scale_rate(scale_ctr, rate_ctr, scale_params, rate_params, filt_dir):
+def gen_filt_scale_rate(scale_ctr, rate_ctr, scale_params, rate_params, filt_dir,filt_out_domain='sr'):
     """
     This function generates a 2D-impulse response in the time-frequency
     domain with dilation factors S and R:
@@ -153,9 +199,14 @@ def gen_filt_scale_rate(scale_ctr, rate_ctr, scale_params, rate_params, filt_dir
               'up' (upward analytic, nonzero over upper left (2nd) and lower right (4th) quadrants)
               'down' (downward analytic, nonzero over upper right (1st) and lower left (3rd) quadrants)
 
-    Outputs
-    filt_tf_domain: impulse response of the 2D filter (in time-frequency domain)
-    filt_sr_domain: 2D-Fourier transform of the filter impulse response
+    filt_out_domain: string indicating the representatio domain of the filter
+                     'sr' (default): filter representation in the scale-rate domain
+                     'tf': filter representation in the time-domain, involves an extra 2DIFT computation
+                     'all': return filter represntations in both domains
+
+    Output:
+    filt_2d_out: numpy array containing the 2D filter represented in scale-rate or time-frequency domain
+                 or list of length 2 containing filter representations in both domains
 
     Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
     """
@@ -203,7 +254,7 @@ def gen_filt_scale_rate(scale_ctr, rate_ctr, scale_params, rate_params, filt_dir
     ### scale response (Fourier transform of the scale impulse response)
 
     # bandpass scale filter
-    scale_filt_fft = np.abs(fft(scale_filt,n=scale_filt_len)).astype('complex128') # discard negligible imaginary parts
+    scale_filt_fft = np.abs(np.fft.fft(scale_filt,n=scale_filt_len)).astype('complex128') # discard negligible imaginary parts
 
     # low/high-pass scale filter
     if scale_filt_type is not 'bandpass':
@@ -232,7 +283,7 @@ def gen_filt_scale_rate(scale_ctr, rate_ctr, scale_params, rate_params, filt_dir
     ### rate response (Fourier transform of the rate impulse response)
 
     # band-pass rate filter
-    rate_filt_fft = fft(rate_filt, n=rate_filt_len) # rate response is complex
+    rate_filt_fft = np.fft.fft(rate_filt, n=rate_filt_len) # rate response is complex
 
     # low/high-pass rate filter
     if rate_filt_type is not 'bandpass':
@@ -299,13 +350,20 @@ def gen_filt_scale_rate(scale_ctr, rate_ctr, scale_params, rate_params, filt_dir
         filt_sr_domain = filt_sr_full
 
 
-    filt_tf_domain = ifft2(filt_sr_domain)
+    if filt_out_domain is 'sr':
+        filt_out = filt_sr_domain
+    else:
+        filt_tf_domain = np.fft.ifft2(filt_sr_domain)
 
-    if np.max(np.imag(filt_tf_domain)) < 1e-8:
-        filt_tf_domain = np.real(filt_tf_domain)
+        if np.max(np.imag(filt_tf_domain)) < 1e-8:
+            filt_tf_domain = np.real(filt_tf_domain)
 
+        filt_out = filt_tf_domain
 
-    return filt_tf_domain, filt_sr_domain
+        if filt_out_domain is 'all':
+            filt_out = [filt_out, filt_sr_domain]
+
+    return filt_out
 
 
 # ToDo add Smin, Smax, Rmin and Rmax to parameters and an option for using them instead of automatically
