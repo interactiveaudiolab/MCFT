@@ -66,7 +66,6 @@ end
 h_out = zeros(num_scale_ctrs, 2*num_rate_ctrs, nfft_s, nfft_r);
 H_out = zeros(num_scale_ctrs, 2*num_rate_ctrs, nfft_s, nfft_r);
 for i = 1:num_scale_ctrs
-    
     if scale_ctrs(i) == scale_ctrs(1) 
         scale_params.type = 'lowpass'; 
         
@@ -77,7 +76,6 @@ for i = 1:num_scale_ctrs
     end
     
     for j = 1:num_rate_ctrs
-    
          if rate_ctrs(j) == rate_ctrs(1)
            rate_params.type = 'lowpass';
          elseif rate_ctrs(j) == rate_ctrs(end)

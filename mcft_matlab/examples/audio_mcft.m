@@ -17,8 +17,9 @@ addpath([cd(cd('..')),'/MCFT']);
 fmin = 27.5*2^(16/12); %C2
 fmax = 27.5*2^(76/12); %C7
 fres = 24; % bins per octave
+gamma = 0;
 
-Xcq = cqt(x, fres, fs, fmin, fmax,'gamma',0,'rasterize','full');
+Xcq = cqt(x, fres, fs, fmin, fmax,'gamma',gamma,'rasterize','full');
 X=Xcq.c;
 fvec=Xcq.fbas;
 tvec=linspace(0,dur_x,size(X,2));
@@ -34,7 +35,7 @@ title('Constant-Q Treansform of the audio signal')
 
 %% Compute the MCFT of the audio signal
 
-cqt_params_in=struct('fs',fs,'fmin',fmin,'fmax',fmax,'fres',fres);
+cqt_params_in=struct('fs',fs,'fmin',fmin,'fmax',fmax,'fres',fres,'gamma',gamma);
 
 [Z,cqt_params_out,H]=mcft(x,cqt_params_in);
 

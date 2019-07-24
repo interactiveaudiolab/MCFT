@@ -5,7 +5,7 @@
 
 addpath([cd(cd('..')),'/MCFT']); 
    
-S=1; R=4;
+S = 1; R = 4;
 
 % parameters
 SRF=24; % spectral ripple frequency, or, # of bins per octave
@@ -17,8 +17,11 @@ beta=3.5; % time constant
 S_params=struct('hslen',Ls,'samprate_spec',SRF,'type','bandpass');
 R_params=struct('time_const',beta,'hrlen',Lr,'samprate_temp',FPS,'type','bandpass');
 
+start = tic;
 [h_up,~]=gen_hsr(S,R,S_params,R_params,'up');
 [h_down,~]=gen_hsr(S,R,S_params,R_params,'down');
+stop = toc(start);
+disp(['computation time: ',num2str(stop)]);
 
 h_up=fftshift(h_up,1);
 h_down=fftshift(h_down,1);
@@ -47,20 +50,17 @@ colormap(parula)
 box off
 title('downward ripple')
 
-path = '/Users/fatemeh/Dropbox/MyDocuments/My MATLAB Toolboxes/mcft_toolbox_git/mcft_python/mcft/';
-save([path,'matlab_results_filt.mat'],'h_up','h_down')
-
 
 %% test the filterbank
 
 % generate a complex signal for phase modulation
-fs = 16000;
-t = (0:1*fs-1)/fs;
+fs = 8000;
+t = (0:2*fs-1)/fs;
 
 fmin = 27.5*2^(0/12);
 fmax = 27.5*2^(87/12);
 fres = 24; % bins per octave
-gamma = 10;
+gamma = 0;
 
 signal = cos(2*pi*220*t)+cos(2*pi*440*t)+cos(2*pi*880*t);
 Xcq = cqt(signal, fres, fs, fmin, fmax, 'gamma',gamma);
@@ -68,28 +68,23 @@ comp_specgram = Xcq.c;
 
 % filterbank parameters
 scale_ctrs = 2.^(-2:3);
-rate_ctrs = 2.^(-2:6);
+rate_ctrs = 2.^(-2:0.125:6);
 [nfft_s,nfft_r] = size(comp_specgram);
+
 params = struct('samprate_spec',fres,'samprate_temp',nfft_r,'time_const',2);
 
 start = tic;
-[h_out,H_out] = gen_fbank_hsr(scale_ctrs,rate_ctrs,nfft_s,nfft_r,params,comp_specgram);
+[h_out,H_out] = gen_fbank_hsr(scale_ctrs,rate_ctrs,nfft_s,nfft_r,params); %,comp_specgram);
 stop = toc(start);
 disp(['computation time:',num2str(stop)]);
-
-path = '/Users/fatemeh/Dropbox/MyDocuments/My MATLAB Toolboxes/mcft_toolbox_git/mcft_python/mcft/';
-save([path,'matlab_results_fbank.mat'],'h_out','H_out','comp_specgram')
 
 
 %% test cqt_to_mcft
 
 start = tic;
-mcft_out=cqt_to_mcft(comp_specgram,H_out);
+mcft_out = cqt_to_mcft(comp_specgram,H_out);
 stop = toc(start);
 disp(['computation time:',num2str(stop)]);
-
-path = '/Users/fatemeh/Dropbox/MyDocuments/My MATLAB Toolboxes/mcft_toolbox_git/mcft_python/mcft/';
-save([path,'cqt_to_mcft.mat'],'mcft_out')
 
 
 %% test mcft
@@ -102,18 +97,12 @@ start = tic;
 stop = toc(start);
 disp(['computation time:',num2str(stop)]);
 
-path = '/Users/fatemeh/Dropbox/MyDocuments/My MATLAB Toolboxes/mcft_toolbox_git/mcft_python/mcft/';
-save([path,'mcft.mat'],'mcft_out','cqt_params_out','H')
-
 %% test mcft to cqt
 
 start = tic;
 X_hat=mcft_to_cqt(mcft_out,H);
 stop = toc(start);
 disp(['computation time:',num2str(stop)]);
-
-path = '/Users/fatemeh/Dropbox/MyDocuments/My MATLAB Toolboxes/mcft_toolbox_git/mcft_python/mcft/';
-save([path,'mcft_to_cqt.mat'],'X_hat')
 
 %% test inv_imcft
 
@@ -122,9 +111,9 @@ x_hat=inv_mcft(mcft_out,cqt_params_out,H);
 stop = toc(start);
 disp(['computation time:',num2str(stop)]);
 
-path = '/Users/fatemeh/Dropbox/MyDocuments/My MATLAB Toolboxes/mcft_toolbox_git/mcft_python/mcft/';
-save([path,'inv_mcft.mat'],'x_hat')
-
 rec_err = 20*log10(norm(x_hat.'-signal)/norm(signal));
+
+
+
 
 
