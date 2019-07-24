@@ -243,7 +243,7 @@ if state==0
     set(handles.play_button,'CData',handles.play_icon);
 end
 
-
+ 
 % update handles structure
 guidata(hObject,handles);
 

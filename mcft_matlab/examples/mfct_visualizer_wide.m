@@ -529,7 +529,7 @@ function handles=filt_output(handles)
 end
 
 
-function handles=plot_filt_output(handles)
+function handles = plot_filt_output(handles)
 
   S_idx=round(handles.Sidx_current); % make sure the index is integer
   R_idx=round(handles.Ridx_current);
