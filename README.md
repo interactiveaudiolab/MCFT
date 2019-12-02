@@ -9,7 +9,7 @@ Audio examples, time-frequency plots, and detailed experimental results are prov
 
 ## Lincense
 
-The MCFT toolbox is under [MIT License](https://opensource.org/licenses/MIT)
+The MCFT toolbox is under an [MIT License](https://opensource.org/licenses/MIT)
 
 MIT License
 
