@@ -408,16 +408,16 @@ def filt_default_centers(scale_params,rate_params):
 
 def filt_centers(filt_type,bins_per_oct,nfft,samprate):
     """
-    This function computes scale filter centers given transform-domain parameters.
+    This function computes scale/rate filter centers given transform-domain parameters.
 
     Inputs:
     filt_type: string, 'scale' or 'rate' (high pass filter is computed differently based on filter type)
-    bins_per_oct: number of scale or rate filters per octave
-    nfft: number of frequencies of analysis in the scale domain
-    samprate: sampling rate in the spectral domain
+    bins_per_oct: number of scale/rate filters per octave
+    nfft: number of frequencies of analysis in the scale/rate domain
+    samprate: sampling rate in the spectral/temporal domain
 
     Outputs:
-    scale_ctrs: numpy array containing filter centers
+    filt_ctrs: numpy array containing filter centers
     """
 
     # spacing between frequencies of analysis
@@ -428,7 +428,7 @@ def filt_centers(filt_type,bins_per_oct,nfft,samprate):
 
     # center of the highest bandpass filter
     log2_ctr_band_min = np.ceil(np.log2(ctr_low))
-    # add 1 to power of 2 if the smallest bandpass center is smaller the lowpass center
+    # add 1 to power of 2 if the smallest bandpass center is smaller than the lowpass center
     log2_ctr_band_min += float(2**log2_ctr_band_min <= ctr_low)
     log2_ctr_band_max = np.floor(np.log2(samprate/2))
 
