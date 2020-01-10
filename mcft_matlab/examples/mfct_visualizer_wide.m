@@ -57,28 +57,28 @@ function mfct_visualizer_wide_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.output = hObject;
 
 % add the path to the toolbox functions
-addpath([cd(cd('..')),'/MCFT']); 
+addpath([cd(cd('..')),'/mcft']); 
 
 % time-domain signal axes
-handles.time_signal=handles.axes1;
+handles.time_signal = handles.axes1;
 set(handles.time_signal,'xtick',[],'ytick',[]);
 handles.axes_color=get(handles.time_signal,'Color');
 
 % cqt axes
-handles.cqt_magft=handles.axes2;
-handles.cqt_magsr=handles.axes3;
+handles.cqt_magft = handles.axes2;
+handles.cqt_magsr = handles.axes3;
 set(handles.cqt_magft,'xtick',[],'ytick',[]);
 set(handles.cqt_magsr,'xtick',[],'ytick',[]);
 
 % filter axes
-handles.h_plot=handles.axes4;
-handles.H_plot=handles.axes5;
+handles.h_plot = handles.axes4;
+handles.H_plot = handles.axes5;
 set(handles.h_plot,'xtick',[],'ytick',[]);
 set(handles.H_plot,'xtick',[],'ytick',[]);
 
 % filtered signal axes
-handles.filtout_ft_plot=handles.axes6;
-handles.filtout_sr_plot=handles.axes7;
+handles.filtout_ft_plot = handles.axes6;
+handles.filtout_sr_plot = handles.axes7;
 set(handles.filtout_ft_plot,'xtick',[],'ytick',[]);
 set(handles.filtout_sr_plot,'xtick',[],'ytick',[]);
 
@@ -86,22 +86,22 @@ set(handles.filtout_sr_plot,'xtick',[],'ytick',[]);
 [open_icon,~,map] = imread(fullfile(matlabroot,'toolbox','matlab','icons','file_open.png'),'PNG');	% Use the hand icon from MATLAB
 open_icon = im2double(open_icon);
 map = im2double(map);
-map(map==0) = NaN;
-open_icon = open_icon.*repmat(map,[1,1,3]);
+map(map == 0) = NaN;
+open_icon = open_icon .* repmat(map,[1,1,3]);
 set(handles.load_audio,'CData',open_icon);
 
 % play button initial image
-handles.play_icon=nan(11,11,3);
-handles.play_icon(:,1:2,:)=0;
-handles.play_icon(2:end-1,3:4,:)=0;
-handles.play_icon(3:end-2,5:6,:)=0;
-handles.play_icon(4:end-3,7:8,:)=0;
-handles.play_icon(5:end-4,9:10,:)=0;
-handles.play_icon(6:end-5,11,:)=0;
+handles.play_icon = nan(11,11,3);
+handles.play_icon(:,1:2,:) = 0;
+handles.play_icon(2:end-1,3:4,:) = 0;
+handles.play_icon(3:end-2,5:6,:) = 0;
+handles.play_icon(4:end-3,7:8,:) = 0;
+handles.play_icon(5:end-4,9:10,:) = 0;
+handles.play_icon(6:end-5,11,:) = 0;
 set(handles.play_button,'CData',handles.play_icon);
 
 % initialize audio player
-handles.sig_play=[];
+handles.sig_play = [];
 
 % Update handles structure
 guidata(hObject, handles);
@@ -139,7 +139,7 @@ end
 % get the audio file name
 [file_name, file_path] = uigetfile({'*.wav'});
 
-if isequal(file_name,0)                                                      % Return if 'cancel'
+if isequal(file_name,0)   % Return if 'cancel'
     return
 end
 
@@ -147,12 +147,12 @@ audfile_name = fullfile(file_path, file_name);
 
 
 % read audio data
-[x,fs]=audioread(audfile_name);
-handles.sig=x;
-handles.fs=fs;
+[x,fs] = audioread(audfile_name);
+handles.sig = x;
+handles.fs = fs;
 
 % plot the time-domain audio signal
-t=(0:length(x)-1)/fs;
+t = (0:length(x)-1)/fs;
 axes(handles.time_signal)
 plot(t,x,'b-')
 axis tight
@@ -226,16 +226,16 @@ function play_button_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % play the audio signal
-sig_norm=handles.sig;
-sig_fs=handles.fs;
+sig_norm = handles.sig;
+sig_fs = handles.fs;
 
-sig_norm=sig_norm/max(abs(sig_norm(:)));
-handles.sig_play=audioplayer(sig_norm,sig_fs);
+sig_norm = sig_norm / max(abs(sig_norm(:)));
+handles.sig_play = audioplayer(sig_norm,sig_fs);
 
-state=get(handles.play_button,'Value');
+state = get(handles.play_button,'Value');
 
-if state==1
-  stop_icon=zeros(11,11,3); 
+if state == 1
+  stop_icon = zeros(11,11,3); 
   set(handles.play_button,'CData',stop_icon);
   play(handles.sig_play);
 end
@@ -244,7 +244,7 @@ if ~isplaying(handles.sig_play)
     disp('not playing')
 end
 
-if state==0
+if state == 0
   pause(handles.sig_play);
   set(handles.play_button,'CData',handles.play_icon);
 end
@@ -264,50 +264,51 @@ function cqt_Callback(hObject, eventdata, handles)
 fmin = 27.5*2^(0/12); %C2
 fmax = 27.5*2^(87/12); %C7
 fres = 24; % bins per octave
-fs=handles.fs;
-dur_x=length(handles.sig)/fs;
+fs = handles.fs;
+dur_x = length(handles.sig)/fs;
 
 Xcq = cqt(handles.sig, fres, fs, fmin, fmax,'gamma',0,'rasterize','full');
-X=Xcq.c;
-[LF,LT]=size(X);
-handles.LF=LF;
-handles.LT=LT;
+X = Xcq.c;
+[LF,LT] = size(X);
+handles.LF = LF;
+handles.LT = LT;
 
 % time and frequency vectors
-fvec=Xcq.fbas; 
-tvec=linspace(0,dur_x,LT);
+fvec = Xcq.fbas; 
+tvec = linspace(0,dur_x,LT);
 
 % unwrap and frequency normalize the phase
-fmat=repmat(fvec,1,LT);
-Xph=unwrap(angle(X),[],2)./fmat;
-X=abs(X).*exp(1j*Xph);
+fmat = repmat(fvec,1,LT);
+Xph = unwrap(angle(X),[],2)./fmat;
+X = abs(X).*exp(1j*Xph);
 
 % adjust X dimensions (to even values)
-LF=LF+mod(LF,2);
-LT=LT+mod(LT,2);
-X=ifft2(fft2(X,LF,LT));
+LF = LF + mod(LF,2);
+LT = LT + mod(LT,2);
+X = ifft2(fft2(X,LF,LT));
 
-Xmag=abs(X);
-Xmag=Xmag/max(Xmag(:)); % normalize for plotting
-Xsr=fftshift(fft2(Xmag));
-Xmag_sr=abs(Xsr)/max(abs(Xsr(:)));
-svec=linspace(-fres/2+fres/LF,fres/2,LF);
-FPS=round(LT/dur_x);
-rvec=linspace(-FPS/2+FPS/LT,FPS/2,LT);
+Xmag = abs(X);
+Xmag = Xmag / max(Xmag(:)); % normalize for plotting
+Xsr = fftshift(fft2(Xmag));
+Xmag_sr = abs(Xsr) / max(abs(Xsr(:)));
+svec = linspace(-fres/2 + fres / LF, fres / 2,LF);
+FPS = round(LT / dur_x);
+rvec = linspace(-FPS / 2 + FPS / LT, FPS / 2, LT);
 
-handles.sig_cqt=X;
-handles.SRF=fres;
-handles.FPS=FPS;
-handles.fvec=fvec;
-handles.tvec=tvec;
-handles.svec=svec;
-handles.rvec=rvec;
+handles.sig_cqt = X;
+handles.SRF = fres;
+handles.FPS = FPS;
+handles.fvec = fvec;
+handles.tvec = tvec;
+handles.svec = svec;
+handles.rvec = rvec;
 
 axes(handles.cqt_magft)
 imagesc(tvec,fvec,Xmag)
 set(gca,'ydir','normal','yscale','log');
 ylabel('Frequency(Hz)')
 xlabel('Time(s)')
+axis tight
 colormap(parula)
 colorbar;
 title('Magnitude CQT in Frequency-Time Domain','fontsize',12)
@@ -327,7 +328,7 @@ set(handles.filt_input,'Enable','on');
 set(handles.filt_2d,'Enable','on');
 
 % get the initial status of the filter input
-handles.filt_input_status=get(handles.filt_input,'Value');
+handles.filt_input_status = get(handles.filt_input,'Value');
 
 % update handles structure
 guidata(hObject,handles);
@@ -345,9 +346,9 @@ function filt_input_Callback(hObject, eventdata, handles)
 %        contents{get(hObject,'Value')} returns selected item from filt_input
 
 % update the status of the filter input
-handles.filt_input_status=get(handles.filt_input,'Value');
+handles.filt_input_status = get(handles.filt_input,'Value');
 
-filt_enable=get(handles.filt_2d,'Enable');
+filt_enable = get(handles.filt_2d,'Enable');
 if strcmp(filt_enable,'off')
     set(handles.filt_2d,'Enable','on');
 end
@@ -386,8 +387,6 @@ end
 % update handles structure
 guidata(hObject,handles);
 
-
-
 end
 
 % --- Executes during object creation, after setting all properties.
@@ -411,17 +410,17 @@ function filt_2d_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of filt_2d
 
-comp_state=get(handles.filt_2d,'Value');
+comp_state = get(handles.filt_2d,'Value');
 
-if comp_state==1
+if comp_state == 1
    set(handles.filt_2d,'String','Computing ...');
    pause(1e-6);
-   handles=filt_output(handles);
+   handles = filt_output(handles);
 end
 
-comp_state=get(handles.filt_2d,'Value');
+comp_state = get(handles.filt_2d,'Value');
 
-if comp_state==0
+if comp_state == 0
    set(handles.filt_2d,'String','2D Filtering');
    
   % activate filter parameter buttons and sliders
@@ -443,64 +442,73 @@ guidata(hObject,handles);
 
 end
 
-function handles=filt_output(handles)
+function handles = filt_output(handles)
 
   % default filter parameters
-  LF=handles.LF;
-  LT=handles.LT;
-  SRF=handles.SRF;
-  FPS=handles.FPS;
-  beta=1;
+  LF = handles.LF;
+  LT = handles.LT;
+  SRF = handles.SRF;
+  FPS = handles.FPS;
+  beta = 1;
   
-  [SV,RV]=filt_default_centers(LF,LT,SRF,FPS);
+  scale_params = struct('filt_type','scale','filt_res',1,'filt_nfft',LF,...
+      'samprate',SRF);
+  rate_params = struct('filt_type','rate','filt_res',1,'filt_nfft',LT,...
+      'samprate',FPS);
   
-  handles.SV=SV;
-  handles.RV=RV;
-
-  H_params=struct('samprate_spec',SRF,'samprate_temp',FPS,'time_const',beta);
+  SV = filt_default_centers(scale_params);
+  RV = filt_default_centers(rate_params);
+    
+  handles.SV = SV;
+  handles.RV = RV;
 
   % filter input status
-  X=handles.sig_cqt;
-  [nfft_s,nfft_r]=size(X);
-  input_status=handles.filt_input_status;
-
+  X = handles.sig_cqt;
+  [nfft_s,nfft_r] = size(X);
+  input_status = handles.filt_input_status;
+  
   % compute the default filter bank
-  if input_status==1
-      [h,H]=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params); 
+  scale_filt_params = struct('scale_ctrs',SV,'nfft_scale',nfft_s,...
+    'spec_samprate',SRF);
+  rate_filt_params = struct('rate_ctrs',RV,'nfft_rate',nfft_r,...
+    'temp_samprate',FPS,'time_const',beta);
+
+  if input_status == 1
+      [h,H] = gen_fbank_scale_rate(scale_filt_params,rate_filt_params); 
       X_input=abs(X);
   elseif input_status==2
-      [h,H]=gen_fbank_hsr(SV,RV,nfft_s,nfft_r,H_params); %,X); %don't need to modulate filters
-      X_input=X;
+      [h,H] = gen_fbank_scale_rate(scale_filt_params,rate_filt_params,X); 
+      X_input = X;
   end    
   
-  handles.h=h;  
-  handles.H=H;
+  handles.h = h;  
+  handles.H = H;
 
   % compute the filter-bank output
-  Z=cqt_to_mcft(X_input,H);
-  Z=Z(:,:,1:size(X,1),1:size(X,2));
-  handles.Z=Z;
+  Z = cqt_to_mcft(X_input,H);
+  Z = Z(:,:,1:size(X,1),1:size(X,2));
+  handles.Z = Z;
   
-  Zsr=zeros(size(Z));
-  for i=1:length(SV)
-      for j=1:2*length(RV)
-          Zsr(i,j,:,:)=fftshift(fft2(squeeze(Z(i,j,:,:))));
+  Zsr = zeros(size(Z));
+  for i = 1:length(SV)
+      for j = 1:2*length(RV)
+          Zsr(i,j,:,:) = fftshift(fft2(squeeze(Z(i,j,:,:))));
       end
   end
-  handles.Zsr=Zsr;
+  handles.Zsr = Zsr;
           
   % activate the 2D filtering button
   set(handles.filt_2d,'Value',0)
   
   % discretize the sliders based on computed scale and rate values
-  LS=length(SV);
-  LR=length(RV);
+  LS = length(SV);
+  LR = length(RV);
   
-  S_step=1/(LS-1); % default rangle of slider values is [0,1]
-  R_step=1/(LR-1);
+  S_step = 1/(LS-1); % default rangle of slider values is [0,1]
+  R_step = 1/(LR-1);
   
-  handles.S_step=S_step;
-  handles.R_step=R_step;
+  handles.S_step = S_step;
+  handles.R_step = R_step;
   
   set(handles.scale_val,'Min',1)
   set(handles.scale_val,'Max',LS)
@@ -515,15 +523,15 @@ function handles=filt_output(handles)
   set(handles.r_text,'String',num2str(RV(1)));
   
   % set the initial scale and rate indices for plotting
-  handles.Sidx_current=1;  
+  handles.Sidx_current = 1;  
   if get(handles.direction_up,'Value')
-   handles.Ridx_current=LR; 
+   handles.Ridx_current = LR; 
   elseif get(handles.direction_down,'Value')
-   handles.Ridx_current=LR+1;
+   handles.Ridx_current = LR+1;
   end
   
   % plot the output for initial parameters: upward,smin,rmin
-  handles=plot_filt_output(handles);
+  handles = plot_filt_output(handles);
    
   
 end
@@ -531,7 +539,7 @@ end
 
 function handles = plot_filt_output(handles)
 
-  S_idx=round(handles.Sidx_current); % make sure the index is integer
+  S_idx = round(handles.Sidx_current); % make sure the index is integer
   R_idx=round(handles.Ridx_current);
     
   % plot the filters in the tf and sr domains  
