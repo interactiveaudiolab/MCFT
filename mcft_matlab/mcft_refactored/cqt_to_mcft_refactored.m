@@ -1,4 +1,4 @@
-function  mcft_out = cqt_to_mcft(sig_cqt,fbank_sr_domain) 
+function  mcft_out = cqt_to_mcft_refactored(sig_cqt,fbank_sr_domain) 
 
 % This function receives the frequency-time representation (CQT) of 
 % an audio signal (complex in general) and generates the 4-dimensional 

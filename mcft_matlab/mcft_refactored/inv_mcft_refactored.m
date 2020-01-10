@@ -1,4 +1,4 @@
-function est_signal = inv_mcft(mcft_in,cqt_params,fbank_sr_domain)
+function est_signal = inv_mcft_refactored(mcft_in,cqt_params,fbank_sr_domain)
 
 % This function reconstructs a time-domain signal given its 
 % Multi-resolution Common Fate Transform (MCFT). 
@@ -30,7 +30,7 @@ function est_signal = inv_mcft(mcft_in,cqt_params,fbank_sr_domain)
 %% MCFT to CQT
 
 disp('Reconstructing the CQT...');
-est_sig_cqt = mcft_to_cqt(mcft_in,fbank_sr_domain); % reconstructed CQT of the signal
+est_sig_cqt = mcft_to_cqt_refactored(mcft_in,fbank_sr_domain); % reconstructed CQT of the signal
 
 
 %% CQT to time-domain signal

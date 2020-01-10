@@ -1,4 +1,4 @@
-function [mcft_out,cqt_params_out,fbank_sr_domain] = mcft(signal,cqt_params_in,varargin)
+function [mcft_out,cqt_params_out,fbank_sr_domain] = mcft_refactored(signal,cqt_params_in,varargin)
 
 % This function receives a time domian audio signal and returns its 
 % Multi-resolution Common Fate Transform (MCFT). 
@@ -160,10 +160,6 @@ if comp_scale_ctrs
     if ~isempty(scale_min), scale_params.ctr_min = scale_min; end
     
     scale_ctrs = filt_default_centers_refactored(scale_params); 
-    
-else
-    scale_ctrs = predef_scale_ctrs;
-    
 end
 
 rate_params = struct();
@@ -176,10 +172,6 @@ if comp_rate_ctrs
     if ~isempty(rate_min), rate_params.ctr_min = rate_min; end
     
     rate_ctrs = filt_default_centers_refactored(rate_params);
-    
-else
-    rate_ctrs = predef_rate_ctrs;
-    
 end
 
 %% Spectro-temporal filter bank
@@ -196,7 +188,6 @@ rate_filt_params = struct('rate_ctrs',rate_ctrs,'nfft_rate',nfft_rate,...
 
 %%% the following line is interesting and worth exploring
 % aa = abs(X).*exp(1j*abs(X).*angle(X));
-
 if del_cqt_phase
    [~,fbank_sr_domain] = gen_fbank_scale_rate(scale_filt_params,rate_filt_params);
 else
@@ -211,7 +202,7 @@ if del_cqt_phase
    sig_cqt = abs(sig_cqt);
 end
 
-mcft_out = cqt_to_mcft(sig_cqt,fbank_sr_domain);
+mcft_out=cqt_to_mcft_refactored(sig_cqt,fbank_sr_domain);
 
 end
 

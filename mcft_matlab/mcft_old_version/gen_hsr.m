@@ -138,28 +138,28 @@ Hsr_full = Hsr_full_mag.*exp(1j*angle(Hsr_full));
 if strcmp(filt_dir,'up')
     
   % compute the upward version of the scale-rate response
-  Hsr_up=Hsr_full;
-  Hsr_up(2:hs_len/2+1,2:hr_len/2+1)=0; 
+  Hsr_up = Hsr_full;
+  Hsr_up(2:hs_len/2+1,2:hr_len/2+1) = 0; 
   %Hsr_up(1:hs_len/2,1:hr_len/2)=0; 
-  Hsr_up(hs_len/2+2:end,hr_len/2+2:end)=0; 
-  Hsr=Hsr_up;
+  Hsr_up(hs_len/2+2:end,hr_len/2+2:end) = 0; 
+  Hsr = Hsr_up;
   
 elseif strcmp(filt_dir,'down') % downward ripple
     
-  Hsr_down=Hsr_full;
+  Hsr_down = Hsr_full;
   %Hsr_down(1:hs_len/2,hr_len/2+2:end)=0;
   %Hsr_down(hs_len/2+2:end,1:hr_len/2)=0;
-  Hsr_down(2:hs_len/2+1,hr_len/2+2:end)=0;
-  Hsr_down(hs_len/2+2:end,2:hr_len/2+1)=0;
-  Hsr=Hsr_down;
+  Hsr_down(2:hs_len/2+1,hr_len/2+2:end) = 0;
+  Hsr_down(hs_len/2+2:end,2:hr_len/2+1) = 0;
+  Hsr = Hsr_down;
   
 else   
-   Hsr=Hsr_full;
+   Hsr = Hsr_full;
 end
 
-hsr=ifft2(Hsr);
+hsr = ifft2(Hsr);
 
-if max(imag(hsr(:)))<1e-8, hsr=real(hsr); end
+if max(imag(hsr(:)))<1e-8, hsr = real(hsr); end
 
 end
 

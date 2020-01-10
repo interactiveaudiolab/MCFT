@@ -35,8 +35,8 @@ end
 
 %% Parameters and dimensions
 
-nfft_s = nfft_s+mod(nfft_s,2); % set nfft to the next even number
-nfft_r = nfft_r+mod(nfft_r,2);
+nfft_s = nfft_s + mod(nfft_s,2); % set nfft to the next even number
+nfft_r = nfft_r + mod(nfft_r,2);
 
 num_scale_ctrs = length(scale_ctrs);
 num_rate_ctrs = length(rate_ctrs);
@@ -47,7 +47,6 @@ samprate_temp = params.samprate_temp;
 
 scale_params=struct('hslen',nfft_s,'samprate_spec',samprate_spec);
 rate_params=struct('time_const',beta,'hrlen',nfft_r,'samprate_temp',samprate_temp);
-
 
 %% Generate the filterbank
 
@@ -74,7 +73,7 @@ for i = 1:num_scale_ctrs
     else
         scale_params.type = 'bandpass';
     end
-    
+        
     for j = 1:num_rate_ctrs
          if rate_ctrs(j) == rate_ctrs(1)
            rate_params.type = 'lowpass';
@@ -83,21 +82,22 @@ for i = 1:num_scale_ctrs
          else
            rate_params.type = 'bandpass';
          end
-         
+                  
          % generate two analytic filters (one upward and one downward)
          % for the current (S,R) values
          
          % upward
-         [hsr_up,~] = gen_hsr(scale_ctrs(i),rate_ctrs(j),scale_params,rate_params,'up');
-         hsr_up_tuned = hsr_up.*h_factor;
-         h_out(i,num_rate_ctrs-j+1,:,:) = hsr_up_tuned;
+         [hsr_up,~] = gen_hsr(scale_ctrs(i),rate_ctrs(j),scale_params,rate_params,'up');         
+         hsr_up_tuned = hsr_up.*h_factor;         
+         h_out(i,num_rate_ctrs-j+1,:,:) = hsr_up_tuned;         
          Hsr_up = fft2(hsr_up_tuned);
          H_out(i,num_rate_ctrs-j+1,:,:) = Hsr_up;
-         
+                  
          % downward
-         [hsr_down,~] = gen_hsr(scale_ctrs(i),rate_ctrs(j),scale_params,rate_params,'down');
-         hsr_down_tuned = hsr_down.*h_factor;
+         [hsr_down,~] = gen_hsr(scale_ctrs(i),rate_ctrs(j),scale_params,rate_params,'down');         
+         hsr_down_tuned = hsr_down.*h_factor;         
          h_out(i,num_rate_ctrs+j,:,:) = hsr_down_tuned;
+                  
          Hsr_down = fft2(hsr_down_tuned);
          H_out(i,num_rate_ctrs+j,:,:) = Hsr_down;
                          

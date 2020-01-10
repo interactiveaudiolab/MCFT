@@ -1,4 +1,4 @@
-function est_signal = inv_mcft(mcft_in,cqt_params,fbank_sr_domain)
+function x_hat=inv_mcft(mcft_in,cqt_params,H)
 
 % This function reconstructs a time-domain signal given its 
 % Multi-resolution Common Fate Transform (MCFT). 
@@ -20,29 +20,29 @@ function est_signal = inv_mcft(mcft_in,cqt_params,fbank_sr_domain)
 % cqt_params: structure array containing cqt parameters including:
 %             Nf: number of frequency bins
 %             Nt: number of time frames
-% fbank_sr_domain: 4d matrix containing the scale-rate filter bank
+% H: 4d matrix containing the scale-rate filter bank
 %
 % Ouput:
-% est_signal: vector containing the reconstructed time-domain signal
+% x_hat: vector containing the reconstructed time-domain signal
 %
 % Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
 
 %% MCFT to CQT
 
 disp('Reconstructing the CQT...');
-est_sig_cqt = mcft_to_cqt(mcft_in,fbank_sr_domain); % reconstructed CQT of the signal
+X_hat=mcft_to_cqt(mcft_in,H); % reconstructed CQT of the signal
 
 
 %% CQT to time-domain signal
 
 disp('Reconstructing the time-domain signal...');
 
-n_freq = cqt_params.n_freq;
-n_time = cqt_params.n_time;
-cqt_params = rmfield(cqt_params,'n_freq');
-cqt_params = rmfield(cqt_params,'n_time');
+Nf=cqt_params.Nf;
+Nt=cqt_params.Nt;
+cqt_params=rmfield(cqt_params,'Nf');
+cqt_params=rmfield(cqt_params,'Nt');
 
-sig_cq_struct = cqt_params;
+Xcq=cqt_params;
 
 % see observation note in the mcft function
 %%%% phase normalization method %%%%
@@ -55,8 +55,8 @@ sig_cq_struct = cqt_params;
 % X_hat=abs(X_hat).*exp(1j*angle(X_hat)./(abs(X_hat)+eps)); %Xph);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-sig_cq_struct.c = est_sig_cqt(1:n_freq,1:n_time);
-est_signal = icqt(sig_cq_struct);
+Xcq.c=X_hat(1:Nf,1:Nt);
+x_hat=icqt(Xcq);
 
 
 end

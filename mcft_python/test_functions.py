@@ -34,8 +34,8 @@ type = 'bandpass'
 
 rate_params = {'time_const':time_const,'rate_filt_len':rate_filt_len,'samprate_temp':samprate_temp,'type':type}
 
-filt_tf_up, filt_sr_up = gen_filt_scale_rate(scale_ctr,rate_ctr,scale_params,rate_params,'up')
-filt_tf_down, filt_sr_down = gen_filt_scale_rate(scale_ctr,rate_ctr,scale_params,rate_params,'down')
+filt_tf_up = gen_filt_scale_rate(scale_ctr,rate_ctr,scale_params,rate_params,'up',filt_out_domain='tf')
+filt_tf_down = gen_filt_scale_rate(scale_ctr,rate_ctr,scale_params,rate_params,'down',filt_out_domain='tf')
 
 
 filt_tf_up = fftshift(filt_tf_up,axes=0)
@@ -92,18 +92,19 @@ nfft_scale,nfft_rate = np.shape(comp_specgram)
 filt_params = {'samprate_spec':fres,'samprate_temp':nfft_rate,'time_const':2}
 
 start = time.time()
-fbank_tf_domain, fbank_sr_domain = gen_fbank_scale_rate(scale_ctrs,rate_ctrs,nfft_scale,nfft_rate,filt_params,comp_specgram=comp_specgram)
+fbank_sr_domain = gen_fbank_scale_rate(scale_ctrs,rate_ctrs,nfft_scale,nfft_rate,filt_params,comp_specgram=None,
+                                                        fbank_out_domain='sr')
 end = time.time()
 print('computation time:',end-start)
 
-plt.subplot(221)
-plt.pcolormesh(fftshift(np.abs(fbank_tf_domain[2,2,:]),axes=0))
-plt.subplot(222)
-plt.pcolormesh(fftshift(np.abs(fbank_tf_domain[2,-3,:]),axes=0))
-plt.subplot(223)
-plt.pcolormesh(fftshift(np.abs(fbank_sr_domain[2,2,:])))
-plt.subplot(224)
-plt.pcolormesh(fftshift(np.abs(fbank_sr_domain[2,-3,:])))
+# plt.subplot(221)
+# plt.pcolormesh(fftshift(np.abs(fbank_out[0][2,2,:]),axes=0))
+# plt.subplot(222)
+# plt.pcolormesh(fftshift(np.abs(fbank_out[0][2,-3,:]),axes=0))
+# plt.subplot(223)
+# plt.pcolormesh(fftshift(np.abs(fbank_out[1][2,2,:])))
+# plt.subplot(224)
+# plt.pcolormesh(fftshift(np.abs(fbank_out[1][2,-3,:])))
 
 # # compare python and matlab results
 # mat_results = loadmat('mat_files/matlab_results_fbank.mat')
@@ -122,7 +123,7 @@ sig_cqt = comp_specgram
 fbank_scale_rate = fbank_sr_domain
 
 start = time.time()
-mcft_out = cqt_to_mcft(sig_cqt,fbank_scale_rate)
+mcft_out = cqt_to_mcft_vec(sig_cqt,fbank_scale_rate)
 end = time.time()
 print('computation time:',end-start)
 
@@ -175,3 +176,7 @@ def norm2(x):
 rec_err = 20*np.log10(norm2(signal-signal_rec)/norm2(signal))
 
 print('reconstruction error:', rec_err, 'dB')
+
+
+aa = np.random.rand(5,10)
+bb = np.tile(aa,(2,3,1,1))

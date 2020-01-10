@@ -1,4 +1,4 @@
-function est_sig_cqt = mcft_to_cqt(mcft_in,fbank_sr_domain)
+function est_sig_cqt = mcft_to_cqt_refactored(mcft_in,fbank_sr_domain)
 
 % This function reconstructs the time-frequency representation (CQT) of 
 % an audio signal through inverse filtering given the 4-dimensioanl

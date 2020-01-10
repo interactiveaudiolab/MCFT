@@ -1,4 +1,4 @@
-function filt_ctrs = filt_default_centers(filt_params)
+function filt_ctrs = filt_default_centers_refactored(filt_params)
 
 % This function computes the default set of filter centers along scale
 % or rate axes. Two cases are considered:

@@ -14,7 +14,7 @@ import cProfile
 ################################## example signal ##################################
 
 fs = 8000
-sig_dur = 2
+sig_dur = 4
 t = np.arange(sig_dur*fs)/fs
 x = np.cos(2*np.pi*440*t + 10*np.cos(2*np.pi*4*t))
 
@@ -61,21 +61,22 @@ fbank_sr_domain = gen_fbank_scale_rate(scale_ctrs,rate_ctrs,nfft_scale,nfft_rate
                                                         fbank_out_domain='sr')
 stop = time.time()
 
-print('computation time: ',stop-start)
+print('fbank computation time: ',stop-start)
 print('fbanck dimensions: ',fbank_sr_domain.shape)
 
 ################################## MCFT ##################################
 
 start = time.time()
-# cp = cProfile.Profile()
-# cp.enable()
+cp = cProfile.Profile()
+cp.enable()
 
 mcft_out = cqt_to_mcft(mag_cqt,fbank_sr_domain,mcft_out_domain='tf')
 
-# cp.disable()
-# cp.print_stats()
+cp.disable()
+cp.print_stats()
+
 stop = time.time()
-print('computation time: ',stop-start)
+print('cqt_to_mcft computation time: ',stop-start)
 print('mcft dimensions: ', mcft_out.shape)
 
 
@@ -132,7 +133,8 @@ print('mcft dimensions: ', mcft_out.shape)
 
 # d0,d1,d2,d3 = np.shape(fbank_sr_domain)
 # #nn = 10000
-# aa = np.random.rand(d0,d1,d2,d3)
+# aa = np.random.rand(d0,d1,d2,d3).astype('float64')
+# print(aa.dtype)
 #
 # nfft2 = helper.next_fast_len(d2)
 # nfft3 = helper.next_fast_len(d3)
@@ -150,14 +152,15 @@ print('mcft dimensions: ', mcft_out.shape)
 # stop = time.time()
 # print('computation time: ',stop-start)
 #
+#
 # bb2 = np.zeros((d0,d1,d2,d3), dtype='complex128')
 # start = time.time()
 # for i in range(d0):
 #     for j in range(d1):
-#         aa_temp = aa[i, j, :, :]
-#         bb2_temp = np.fft.fft(aa_temp, axis=1)
-#         bb2_temp = np.fft.fft(bb2_temp.T, axis=1)
-#         bb2[i, j, :, :] = bb2_temp.T
+#         aa_temp = aa[i,j,:,:]
+#         bb2_temp = np.fft.fft(aa_temp,axis=1)
+#         bb2_temp = np.fft.fft(bb2_temp.T,axis=1)
+#         bb2[i,j,:,:] = bb2_temp.T
 #
 # stop = time.time()
 # print('computation time: ',stop-start)
@@ -165,3 +168,4 @@ print('mcft dimensions: ', mcft_out.shape)
 #
 # err = np.sum(np.abs(bb1-bb2))
 # print('err: ',err)
+
