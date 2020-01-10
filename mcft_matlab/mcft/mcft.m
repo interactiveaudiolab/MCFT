@@ -159,7 +159,7 @@ if comp_scale_ctrs
     if ~isempty(scale_max), scale_params.ctr_max = scale_max; end
     if ~isempty(scale_min), scale_params.ctr_min = scale_min; end
     
-    scale_ctrs = filt_default_centers_refactored(scale_params); 
+    scale_ctrs = filt_default_centers(scale_params); 
     
 else
     scale_ctrs = predef_scale_ctrs;
@@ -175,7 +175,7 @@ if comp_rate_ctrs
     if ~isempty(rate_max), rate_params.ctr_max = rate_max; end
     if ~isempty(rate_min), rate_params.ctr_min = rate_min; end
     
-    rate_ctrs = filt_default_centers_refactored(rate_params);
+    rate_ctrs = filt_default_centers(rate_params);
     
 else
     rate_ctrs = predef_rate_ctrs;
