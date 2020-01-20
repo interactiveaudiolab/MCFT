@@ -126,7 +126,7 @@ ctr_high = round(ctr_high/grid_res) * grid_res;
 % concatenate all centeres into one vector
 ctr_all = [ctr_low, ctr_band, ctr_high];
 
-% remove repeated values (sometimes happens due to rounding
+% remove repeated values (sometimes happens due to rounding)
 filt_ctrs = unique(ctr_all);
 
 end
