@@ -43,7 +43,7 @@ function [mcft_out,cqt_params_out,fbank_sr_domain] = mcft(signal,cqt_params_in,v
 %                                      (along rate axis)
 % 'time_const',time_const: time constant of the temporal filter
 %                          default = 1
-% 'scale_res',scale_res: number of bins per octvave on the scale axis
+% 'scale_res',scale_res: number of bins per octave on the scale axis
 %                        default = 1
 % 'scale_max',scale_max: the center of the highest bandpass filter
 %                        default: 2^(nextpow2(samprate_spec/2)-1) 
