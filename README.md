@@ -8,7 +8,7 @@ The MCFT toolbox uses [the CQT implementation](http://www.cs.tut.fi/sgn/arg/CQT/
 Audio examples, time-frequency plots, and detailed experimental results are provided in [the demo webpage](https://interactiveaudiolab.github.io/MCFT). 
 
 ## Citing
-If you are using the MCFT in your research, please cite it using one of the following bibtex citation:
+If you are using the MCFT for your research, please cite it using one of the following bibtex citation:
 
 ```
 @article{pishdadian2018multi,
