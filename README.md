@@ -7,6 +7,31 @@ The MCFT toolbox uses [the CQT implementation](http://www.cs.tut.fi/sgn/arg/CQT/
 ## Demos
 Audio examples, time-frequency plots, and detailed experimental results are provided in [the demo webpage](https://interactiveaudiolab.github.io/MCFT). 
 
+## Citing
+If you are using the MCFT in your research, please cite it using one of the following bibtex citation:
+
+```
+@article{pishdadian2018multi,
+  title={Multi-resolution common fate transform},
+  author={Pishdadian, Fatemeh and Pardo, Bryan},
+  journal={IEEE/ACM Transactions on Audio, Speech, and Language Processing},
+  volume={27},
+  number={2},
+  pages={342--354},
+  year={2018},
+  publisher={IEEE}
+}
+
+@inproceedings{pishdadian2017multi,
+  title={A multi-resolution approach to common fate-based audio separation},
+  author={Pishdadian, Fatemeh and Pardo, Bryan and Liutkus, Antoine},
+  booktitle={2017 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages={566--570},
+  year={2017},
+  organization={IEEE}
+}
+```
+
 ## Lincense
 
 The MCFT toolbox is under an [MIT License](https://opensource.org/licenses/MIT)
