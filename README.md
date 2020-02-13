@@ -3,8 +3,6 @@ This toolbox provides MATLAB and Python implementations of the Multi-resolution 
 
 MCFT [increases the separability](https://interactiveaudiolab.github.io/assets/papers/pishdadian_pardo_mcft_journal_2018.pdf) of audio mixtures composed of sources with significant time-frequency overlap and different modulation patterns (e.g. two voices singing in unison, each having differernt vibratto). This allows effective source separation for audio scenes where approaches that work on time-frequency representations (e.g. magnitude spectrograms) fail. 
 
-This audio encoding has also [been shown](https://interactiveaudiolab.github.io/assets/papers/pishdadian_kim_seetharaman_pardo_dcase2019.pdf) to be superior for the purpose of query by vocal imitation search through audio databases than embeddings learned by deep nets trained specifically for query by vocal imitation.
-
 ## MATLAB Code Dependencies
 The MCFT toolbox uses [the CQT implementation](http://www.cs.tut.fi/sgn/arg/CQT/) by Schörkhuber et al. to compute the time-frequency representation of the input audio signal. 
 
