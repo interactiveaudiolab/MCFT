@@ -1,4 +1,4 @@
-function [fbank,ctr_shift,filt_size] = gen_scale_rate_fbank_light(scale_filt_params,...
+function [fbank,ctr_posit,ctr_displace,filt_size] = gen_scale_rate_fbank_light(scale_filt_params,...
     rate_filt_params,varargin)
 
 % This function generates a multirate scale-rate (2D) filterbank.
@@ -92,13 +92,13 @@ rate_bw_offset = func_inputs.Results.rate_bw_offset;
 time_const = func_inputs.Results.time_const;
 
 % Compute scale filters
-[scale_fbank,scale_ctrs,scale_ctr_shift,scale_filt_len] = ...
+[scale_fbank,scale_ctrs,scale_ctr_posit,scale_ctr_shift,scale_filt_len] = ...
     gen_scale_fbank_light(scale_ctr_min,scale_ctr_max,scale_filt_res,...
     spec_samprate,scale_nfft,'filt_name',scale_filt_name,...
     'min_filt_len',scale_min_filt_len,'bw_offset',scale_bw_offset,'sigma',sigma);
  
- % Compute rate filters
-[rate_fbank,rate_ctrs,rate_ctr_shift,rate_filt_len] = ...
+% Compute rate filters
+[rate_fbank,rate_ctrs,rate_ctr_posit,rate_ctr_shift,rate_filt_len] = ...
     gen_rate_fbank_light(rate_ctr_min,rate_ctr_max,rate_filt_res,...
     temp_samprate,rate_nfft,'filt_name',rate_filt_name,...
     'min_filt_len',rate_min_filt_len,'bw_offset',rate_bw_offset,'time_const',time_const);
@@ -112,39 +112,45 @@ n_rate_ctrs = length(rate_ctrs);
 
 % Lowpass and highpass lengths
 scale_lowpass_len = scale_filt_len(1);
-scale_highpass_len = scale_filt_len(scale_bpass_max_idx+1);
+scale_highpass_len = scale_filt_len(n_scale_ctrs/2+1);
 
 rate_lowpass_len = rate_filt_len(1);
-rate_highpass_len = rate_filt_len(rate_bpass_max_idx+1);
+rate_highpass_len = rate_filt_len(n_rate_ctrs/2+1);
 
-% % Lengths with zero padding
-% scale_zpad_len = scale_filt_len;
-% scale_zpad_len(2:scale_bpass_max_idx) = scale_bpass_max_len;
-% scale_zpad_len(scale_bpass_max_idx+2:end) = scale_bpass_max_len;
-% 
-% rate_zpad_len = rate_filt_len;
-% rate_zpad_len(2:rate_bpass_max_idx) = rate_bpass_max_len;
-% rate_zpad_len(rate_bpass_max_idx+2:end) = rate_bpass_max_len;
+%%%%%%%%% the aliased case --> wait! this happens for CQT too, so maybe
+%%%%%%%%% it's not actually aliasing?!
+% if the length of banpass or highpass filter is smaller than 
+% make sure that the position and length of bandpass and highpass filters
+% are not equal, because this would result in diaplace = 0 and therefore a
+% false lowpass filter
+% alias_idx = find(scale_ctr_posit(1:scale_bpass_max_idx) >= scale_bpass_max_len); 
+% if ~isempty(alias_idx)
+%     scale_bpass_max_len = scale_ctr_posit(scale_bpass_max_idx) + 1
+% end
+
+
+%%%%%%%%% combine scale_filt and rate_filt lengths into one matrix
 
 % 2D filter sizes with zero padding
 filt_size = zeros(n_scale_ctrs, n_rate_ctrs, 2);
 
 filt_size(:,:,1) = scale_bpass_max_len;
-filt_size(1,1,1) = scale_lowpass_len;
-filt_size(:,rate_bpass_max_idx+1,1) = scale_highpass_len;
-filt_size(scale_bpass_max_idx+1,:,1) = scale_highpass_len;
+% filt_size(1,1,1) = scale_lowpass_len;
+% filt_size(:,rate_bpass_max_idx+1,1) = scale_highpass_len;
+filt_size(n_scale_ctrs/2+1,:,1) = scale_highpass_len;
 
 filt_size(:,:,2) = rate_bpass_max_len;
-filt_size(1,1,2) = rate_lowpass_len;
-filt_size(:,rate_bpass_max_idx+1,2) = rate_highpass_len;
-filt_size(scale_bpass_max_idx+1,:,2) = rate_highpass_len;
+% filt_size(1,1,2) = rate_lowpass_len;
+filt_size(:,n_rate_ctrs/2+1,2) = rate_highpass_len;
+% filt_size(scale_bpass_max_idx+1,:,2) = rate_highpass_len;
 
 %%%%%%%%% generate 2d filters
-scale_ctr_posit = cumsum(scale_ctr_shift)-scale_ctr_shift(1); 
-rate_ctr_posit = cumsum(rate_ctr_shift)-rate_ctr_shift(1); 
+% scale_ctr_posit = cumsum(scale_ctr_shift)-scale_ctr_shift(1); 
+% rate_ctr_posit = cumsum(rate_ctr_shift)-rate_ctr_shift(1); 
 
 fbank = cell(n_scale_ctrs, n_rate_ctrs);
-ctr_shift = zeros(n_scale_ctrs, n_rate_ctrs, 2);
+ctr_posit = zeros(n_scale_ctrs, n_rate_ctrs, 2);
+ctr_displace = zeros(n_scale_ctrs, n_rate_ctrs, 2);
 
 scale_fbank_shift = cell(n_scale_ctrs,1);
 rate_fbank_shift = cell(n_rate_ctrs,1);
@@ -204,8 +210,11 @@ for i = 1:n_scale_ctrs
         
         fbank{i,j} = sr_filt_temp;
         
-        ctr_shift(i,j,1) = scale_ctr_shift(i);
-        ctr_shift(i,j,2) = rate_ctr_shift(j);
+        ctr_posit(i,j,1) = scale_ctr_posit(i);
+        ctr_posit(i,j,2) = rate_ctr_posit(j);
+        
+        ctr_displace(i,j,1) = scale_displace;
+        ctr_displace(i,j,2) = rate_displace;
 
 
     end

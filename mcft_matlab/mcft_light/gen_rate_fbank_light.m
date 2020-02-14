@@ -1,4 +1,4 @@
-function [fbank,filt_ctrs,ctr_shift,filt_len] = gen_rate_fbank_light(ctr_min,ctr_max,...
+function [fbank,filt_ctrs,ctr_posit,ctr_shift,filt_len] = gen_rate_fbank_light(ctr_min,ctr_max,...
     filt_res,samprate,nfft,varargin)
 
 % This function generates a multirate scale/rate filterbank.
@@ -154,12 +154,22 @@ for i = [1,n_bpass+2]
     if len_temp > len_next
         
         filt_mag_temp = ones(len_temp,1);
-        samp_vec_temp = [0:1/len_next:.5-1/len_next,-.5:1/len_next:-1/len_next]';
+        
+        range_temp = (floor(len_temp/2)-floor(len_next/2)+1):(floor(len_temp/2)+...
+        ceil(len_next/2));
+    
+        range_len = length(range_temp);
+        
+        if mod(range_len,2) == 0
+            samp_vec_temp = [0:1/range_len:.5-1/range_len,-.5:1/range_len:-1/range_len]';
+        else
+            samp_vec_temp = [0:1/range_len:.5-.5/range_len,...
+                -.5+.5/range_len:1/range_len:-1/range_len]';
+        end        
         
         hann_temp = .5 + .5 * cos(2 * pi * samp_vec_temp);
         
-        filt_mag_temp((floor(len_temp/2)-floor(len_next/2)+1):(floor(len_temp/2) + ...
-            ceil(len_next/2))) = hann_temp;
+        filt_mag_temp(range_temp) = hann_temp;
         
         fbank{i} = filt_mag_temp .* exp(1j*angle(fbank{i}));
 %         fbank{i} = fbank{i} / sqrt(len_temp);
@@ -168,7 +178,6 @@ end
 
 
 end
-
 
 
 
