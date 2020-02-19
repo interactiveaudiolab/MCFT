@@ -1,5 +1,5 @@
-function [fbank,ctr_posit,ctr_displace,filt_size] = gen_scale_rate_fbank_light(scale_filt_params,...
-    rate_filt_params,varargin)
+function [fbank_org,fbank_zpad,filt_range,filt_ctr_posit] = ...
+    gen_scale_rate_fbank_light(scale_filt_params,rate_filt_params,varargin)
 
 % This function generates a multirate scale-rate (2D) filterbank.
 % Bandpass filters are critically sampled.
@@ -92,13 +92,13 @@ rate_bw_offset = func_inputs.Results.rate_bw_offset;
 time_const = func_inputs.Results.time_const;
 
 % Compute scale filters
-[scale_fbank,scale_ctrs,scale_ctr_posit,scale_ctr_shift,scale_filt_len] = ...
+[scale_fbank,scale_ctrs,scale_ctr_posit,scale_filt_len] = ...
     gen_scale_fbank_light(scale_ctr_min,scale_ctr_max,scale_filt_res,...
     spec_samprate,scale_nfft,'filt_name',scale_filt_name,...
     'min_filt_len',scale_min_filt_len,'bw_offset',scale_bw_offset,'sigma',sigma);
  
 % Compute rate filters
-[rate_fbank,rate_ctrs,rate_ctr_posit,rate_ctr_shift,rate_filt_len] = ...
+[rate_fbank,rate_ctrs,rate_ctr_posit,rate_filt_len] = ...
     gen_rate_fbank_light(rate_ctr_min,rate_ctr_max,rate_filt_res,...
     temp_samprate,rate_nfft,'filt_name',rate_filt_name,...
     'min_filt_len',rate_min_filt_len,'bw_offset',rate_bw_offset,'time_const',time_const);
@@ -107,115 +107,151 @@ n_scale_ctrs = length(scale_ctrs);
 n_rate_ctrs = length(rate_ctrs);
 
 % Maximum length bandpass filter
-[scale_bpass_max_len, scale_bpass_max_idx] = max(scale_filt_len(1:n_scale_ctrs/2));
-[rate_bpass_max_len, rate_bpass_max_idx] = max(rate_filt_len(1:n_rate_ctrs/2));
+[scale_bpass_max_len, ~] = max(scale_filt_len(1:n_scale_ctrs/2));
+[rate_bpass_max_len, ~] = max(rate_filt_len(1:n_rate_ctrs/2));
 
-% Lowpass and highpass lengths
-scale_lowpass_len = scale_filt_len(1);
+% Highpass lengths
 scale_highpass_len = scale_filt_len(n_scale_ctrs/2+1);
-
-rate_lowpass_len = rate_filt_len(1);
 rate_highpass_len = rate_filt_len(n_rate_ctrs/2+1);
-
-%%%%%%%%% the aliased case --> wait! this happens for CQT too, so maybe
-%%%%%%%%% it's not actually aliasing?!
-% if the length of banpass or highpass filter is smaller than 
-% make sure that the position and length of bandpass and highpass filters
-% are not equal, because this would result in diaplace = 0 and therefore a
-% false lowpass filter
-% alias_idx = find(scale_ctr_posit(1:scale_bpass_max_idx) >= scale_bpass_max_len); 
-% if ~isempty(alias_idx)
-%     scale_bpass_max_len = scale_ctr_posit(scale_bpass_max_idx) + 1
-% end
-
 
 %%%%%%%%% combine scale_filt and rate_filt lengths into one matrix
 
 % 2D filter sizes with zero padding
-filt_size = zeros(n_scale_ctrs, n_rate_ctrs, 2);
+filt_zpad_size = zeros(n_scale_ctrs + 1, n_rate_ctrs + 1, 2);
 
-filt_size(:,:,1) = scale_bpass_max_len;
-% filt_size(1,1,1) = scale_lowpass_len;
-% filt_size(:,rate_bpass_max_idx+1,1) = scale_highpass_len;
-filt_size(n_scale_ctrs/2+1,:,1) = scale_highpass_len;
+filt_zpad_size(:,:,1) = scale_bpass_max_len;
+filt_zpad_size(n_scale_ctrs/2 + 1,:,1) = scale_highpass_len; % upward
+filt_zpad_size(n_scale_ctrs/2 + 2,:,1) = scale_highpass_len; % downward
 
-filt_size(:,:,2) = rate_bpass_max_len;
-% filt_size(1,1,2) = rate_lowpass_len;
-filt_size(:,n_rate_ctrs/2+1,2) = rate_highpass_len;
-% filt_size(scale_bpass_max_idx+1,:,2) = rate_highpass_len;
+filt_zpad_size(:,:,2) = rate_bpass_max_len;
+filt_zpad_size(:,n_rate_ctrs/2 + 1,2) = rate_highpass_len; % upward
+filt_zpad_size(:,n_rate_ctrs/2 + 2,2) = rate_highpass_len; % downward
 
 %%%%%%%%% generate 2d filters
-% scale_ctr_posit = cumsum(scale_ctr_shift)-scale_ctr_shift(1); 
-% rate_ctr_posit = cumsum(rate_ctr_shift)-rate_ctr_shift(1); 
+% highpass filters will be split into up-/down-ward filter
+% therefore -> one more set of filters added
+scale_fbank = [scale_fbank(1:n_scale_ctrs/2+1);...
+               scale_fbank(n_scale_ctrs/2+1);...
+               scale_fbank(n_scale_ctrs/2+2:end)];
+           
+rate_fbank = [rate_fbank(1:n_rate_ctrs/2+1);...
+              rate_fbank(n_rate_ctrs/2+1);...
+              rate_fbank(n_rate_ctrs/2+2:end)];
 
-fbank = cell(n_scale_ctrs, n_rate_ctrs);
-ctr_posit = zeros(n_scale_ctrs, n_rate_ctrs, 2);
-ctr_displace = zeros(n_scale_ctrs, n_rate_ctrs, 2);
+scale_filt_len = [scale_filt_len(1:n_scale_ctrs/2+1);...
+                  scale_filt_len(n_scale_ctrs/2+1);...
+                  scale_filt_len(n_scale_ctrs/2+2:end)];
+              
+rate_filt_len = [rate_filt_len(1:n_rate_ctrs/2+1);...
+                 rate_filt_len(n_rate_ctrs/2+1);...
+                 rate_filt_len(n_rate_ctrs/2+2:end)];
+             
+scale_ctr_posit = [scale_ctr_posit(1:n_scale_ctrs/2+1);...
+                   scale_ctr_posit(n_scale_ctrs/2+1);...
+                   scale_ctr_posit(n_scale_ctrs/2+2:end)];
+               
+rate_ctr_posit = [rate_ctr_posit(1:n_rate_ctrs/2+1);...
+                  rate_ctr_posit(n_rate_ctrs/2+1);...
+                  rate_ctr_posit(n_rate_ctrs/2+2:end)];
 
-scale_fbank_shift = cell(n_scale_ctrs,1);
-rate_fbank_shift = cell(n_rate_ctrs,1);
 
-for i = 1:n_scale_ctrs
+fbank_org = cell(n_scale_ctrs + 1, n_rate_ctrs + 1);
+fbank_zpad = cell(n_scale_ctrs + 1, n_rate_ctrs + 1);
+
+filt_range = cell(n_scale_ctrs + 1, n_rate_ctrs + 1);
+filt_ctr_posit = cell(n_scale_ctrs + 1, n_rate_ctrs + 1);
+
+for i = 1:n_scale_ctrs + 1
+    for j = 1:n_rate_ctrs + 1
     
     slen_temp = scale_filt_len(i);
-    if i < n_scale_ctrs/2 + 2
-        sposit_temp = scale_ctr_posit(i);
-    else
-        sposit_temp = scale_nfft - scale_ctr_posit(i);
-    end
-        
+    sposit_temp = scale_ctr_posit(i);
+            
     scale_idx = [ceil(slen_temp/2)+1:slen_temp, 1:ceil(slen_temp/2)];
     scale_filt_range = mod(sposit_temp+(-floor(slen_temp/2):ceil(slen_temp/2)-1),...
         scale_nfft)+1;
-       
-    for j = 1:n_rate_ctrs
+    
+                     
+    rlen_temp = rate_filt_len(j);
+    rposit_temp = rate_ctr_posit(j);       
         
-        rlen_temp = rate_filt_len(j);
-        if j < n_rate_ctrs/2 + 2
-            rposit_temp = rate_ctr_posit(j);
-        else
-            rposit_temp = rate_nfft - rate_ctr_posit(j);
-        end
-        
-        rate_idx = [ceil(rlen_temp/2)+1:rlen_temp, 1:ceil(rlen_temp/2)];
-        rate_filt_range = mod(rposit_temp+(-floor(rlen_temp/2):ceil(rlen_temp/2)-1),...
+    rate_idx = [ceil(rlen_temp/2)+1:rlen_temp, 1:ceil(rlen_temp/2)];
+    rate_filt_range = mod(rposit_temp+(-floor(rlen_temp/2):ceil(rlen_temp/2)-1),...
             rate_nfft)+1;
+        
+    sr_filt_temp =  scale_fbank{i} * rate_fbank{j}.';
+    fbank_org{i,j} = sr_filt_temp;
               
-        scale_zpad_len = filt_size(i,j,1);
-        sfilt_temp = zeros(scale_zpad_len,1);
-        sfilt_temp([end-floor(slen_temp/2)+1:end, 1:ceil(slen_temp/2)],:) = ...
+    scale_zpad_len = filt_zpad_size(i,j,1);
+    sfilt_zpad_temp = zeros(scale_zpad_len,1);
+    sfilt_zpad_temp([end-floor(slen_temp/2)+1:end, 1:ceil(slen_temp/2)],:) = ...
                    scale_fbank{i}(scale_idx);
-                       
-        scale_displace = sposit_temp - floor(sposit_temp/scale_zpad_len) * scale_zpad_len;
-        if i >= n_scale_ctrs/2 + 2
-            scale_displace = scale_zpad_len - scale_displace + 1;
-        end
-        sfilt_temp = circshift(sfilt_temp, scale_displace);       
                
-        rate_zpad_len = filt_size(i,j,2);
-        rfilt_temp = zeros(rate_zpad_len,1);
-        rfilt_temp([end-floor(rlen_temp/2)+1:end, 1:ceil(rlen_temp/2)],:) = ...
+    rate_zpad_len = filt_zpad_size(i,j,2);
+    rfilt_zpad_temp = zeros(rate_zpad_len,1);
+    rfilt_zpad_temp([end-floor(rlen_temp/2)+1:end, 1:ceil(rlen_temp/2)],:) = ...
                    rate_fbank{j}(rate_idx);
                
-        rate_displace = rposit_temp - floor(rposit_temp/rate_zpad_len) * rate_zpad_len;
-        if j >= n_rate_ctrs/2 + 2
-            rate_displace = rate_zpad_len - rate_displace + 1;
-        end
-        rfilt_temp = circshift(rfilt_temp, rate_displace);  
+    sr_filt_zpad_temp = sfilt_zpad_temp * rfilt_zpad_temp.';
+    
+    fbank_zpad{i,j} = sr_filt_zpad_temp;
+    filt_range{i,j} = {scale_filt_range, rate_filt_range};
+    filt_ctr_posit{i,j} = [sposit_temp, rposit_temp];
+       
+    % separate up-/dow-ward highpass components
+    slen = floor(slen_temp/2);
+    rlen = floor(rlen_temp/2);
+    
+    slen_zpad = floor(scale_zpad_len/2);
+    rlen_zpad = floor(rate_zpad_len/2);
+    
+    condition1 = (i == n_scale_ctrs/2 + 1 && j > 1 && j < n_rate_ctrs/2 + 1) || ...
+                 (i == n_scale_ctrs/2 + 2 && j > n_rate_ctrs/2 + 2) || ...
+                 (i == n_scale_ctrs/2 + 1 && j ==  n_rate_ctrs/2 + 2) || ...
+                 (i == n_scale_ctrs/2 + 2 && j ==  n_rate_ctrs/2 + 1) || ...
+                 (j == n_rate_ctrs/2 + 1  && i > 1 && i < n_scale_ctrs/2 + 1) || ...
+                 (j == n_rate_ctrs/2 + 2  && i > n_scale_ctrs/2 + 2);
+             
+    condition2 = (i == n_scale_ctrs/2 + 1 && j > n_rate_ctrs/2 + 2) || ...
+                 (i == n_scale_ctrs/2 + 2 && j > 1 && j < n_rate_ctrs/2 + 1) || ...
+                 (i == n_scale_ctrs/2 + 1 && j ==  n_rate_ctrs/2 + 1) || ...
+                 (i == n_scale_ctrs/2 + 2 && j ==  n_rate_ctrs/2 + 2) || ...
+                 (j == n_rate_ctrs/2 + 1  && i > n_scale_ctrs/2 + 2) || ...
+                 (j == n_rate_ctrs/2 + 2  && i > 1 && i < n_scale_ctrs/2 + 1);
+                 
         
-        scale_fbank_shift{i} = sfilt_temp;
-        rate_fbank_shift{j} = rfilt_temp;
+    if condition1
         
-        sr_filt_temp = sfilt_temp * rfilt_temp.';
+        sr_filt_half1 = sr_filt_temp;
+        sr_filt_half1(2:slen+1, 2:rlen+1) = 0;
+        sr_filt_half1(slen+2:end, rlen+2:end) = 0; 
         
-        fbank{i,j} = sr_filt_temp;
+        fbank_org{i,j} = sr_filt_half1;
         
-        ctr_posit(i,j,1) = scale_ctr_posit(i);
-        ctr_posit(i,j,2) = rate_ctr_posit(j);
+        sr_filt_zpad_half1 = sr_filt_zpad_temp;
+        sr_filt_zpad_half1(2:slen_zpad+1, 2:rlen_zpad+1) = 0;
+        sr_filt_zpad_half1(slen_zpad+2:end, rlen_zpad+2:end) = 0; 
         
-        ctr_displace(i,j,1) = scale_displace;
-        ctr_displace(i,j,2) = rate_displace;
-
+        fbank_zpad{i,j} = sr_filt_zpad_half1;
+        
+    end
+        
+    if condition2
+        
+        sr_filt_half2 = sr_filt_temp;
+        sr_filt_half2(2:slen+1, rlen+2:end) = 0;
+        sr_filt_half2(slen+2:end, 2:rlen+1) = 0;
+        
+        fbank_org{i,j} = sr_filt_half2;
+        
+        sr_filt_zpad_half2 = sr_filt_zpad_temp;
+        sr_filt_zpad_half2(2:slen_zpad+1, rlen_zpad+2:end) = 0;
+        sr_filt_zpad_half2(slen_zpad+2:end, 2:rlen_zpad+1) = 0; 
+        
+        fbank_zpad{i,j} = sr_filt_zpad_half2;
+         
+    end
+    
 
     end
 end

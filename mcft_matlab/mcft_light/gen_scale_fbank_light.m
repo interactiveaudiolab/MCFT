@@ -1,4 +1,4 @@
-function [fbank,filt_ctrs,ctr_posit,ctr_shift,filt_len] = gen_scale_fbank_light(ctr_min,ctr_max,...
+function [fbank,filt_ctrs,ctr_posit,filt_len] = gen_scale_fbank_light(ctr_min,ctr_max,...
     filt_res,samprate,nfft,varargin)
 
 % This function generates a multirate scale filterbank.
@@ -107,7 +107,7 @@ ctr_posit(n_bpass+3:end) = ceil(filt_ctrs_samp(n_bpass+3:end));
 
 % shift in filter centers
 % mod(-ctr_posit(end),nfft) is the distance between the last center freq and 2pi (or 0 to first center freq)
-ctr_shift = [mod(-ctr_posit(end),nfft) ; diff(ctr_posit)];
+% ctr_shift = [mod(-ctr_posit(end),nfft) ; diff(ctr_posit)];
     
 % map the bandwithds and filter lengths to the next even number
 % filt_bws_samp = filt_bws_samp + mod(filt_bt_samp, 2);
