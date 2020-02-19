@@ -1,5 +1,7 @@
 # MCFT
-This toolbox provides MATLAB and Python implementations of the Multi-resolution Common Fate Transform. The MCFT of an audio signal outputs a four-dimensional representation capturing the spectro-temporal modulation patterns of the signal. MCFT increases the separability of audio mixtures composed of sources with significant tieme-frequency overlap and different modulation patterns.
+This toolbox provides MATLAB and Python implementations of the Multi-resolution Common Fate Transform. The MCFT of an audio signal outputs a four-dimensional representation that make the spectro-temporal modulation patterns of the signal explicit in the audio representation. 
+
+By making the modulation patterns explicity represented as additional dimensions, the MCFT increases the separability of audio mixtures composed of sources with significant time-frequency overlap and different modulation patterns (e.g. two voices singing in unison, each having differernt vibrato). This allows effective source separation for audio scenes where approaches that work on time-frequency representations (e.g. magnitude spectrograms) fail, as shown in [this journal article](https://interactiveaudiolab.github.io/assets/papers/pishdadian_pardo_mcft_journal_2018.pdf).
 
 ## MATLAB Code Dependencies
 The MCFT toolbox uses [the CQT implementation](http://www.cs.tut.fi/sgn/arg/CQT/) by Schörkhuber et al. to compute the time-frequency representation of the input audio signal. 
