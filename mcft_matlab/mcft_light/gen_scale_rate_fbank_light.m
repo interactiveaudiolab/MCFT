@@ -1,4 +1,4 @@
-function [fbank_org,fbank_zpad,filt_range,filt_ctr_posit] = ...
+function [fbank_org,fbank_zpad,filt_range,filt_ctr_posit,filt_ctrs] = ...
     gen_scale_rate_fbank_light(scale_filt_params,rate_filt_params,varargin)
 
 % This function generates a multirate scale-rate (2D) filterbank.
@@ -102,6 +102,8 @@ time_const = func_inputs.Results.time_const;
     gen_rate_fbank_light(rate_ctr_min,rate_ctr_max,rate_filt_res,...
     temp_samprate,rate_nfft,'filt_name',rate_filt_name,...
     'min_filt_len',rate_min_filt_len,'bw_offset',rate_bw_offset,'time_const',time_const);
+
+filt_ctrs = {scale_ctrs, rate_ctrs};
 
 n_scale_ctrs = length(scale_ctrs);
 n_rate_ctrs = length(rate_ctrs);
@@ -255,8 +257,6 @@ for i = 1:n_scale_ctrs + 1
 
     end
 end
-
-
 
 
 end

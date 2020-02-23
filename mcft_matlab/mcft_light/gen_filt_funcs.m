@@ -1,4 +1,4 @@
-function filt_out = gen_filt_funcs(filt_name,varargin) 
+function filt_out = gen_filt_funcs(filt_name,samp_vec,varargin) 
 
 % This function generates the value of filter over a specified range.
 % The filter can be a function in the original domain (e.g.,frequency) or
@@ -6,6 +6,7 @@ function filt_out = gen_filt_funcs(filt_name,varargin)
 %
 % Inputs: 
 % filt_name: character string indicating the name of the filter function
+% samp_vec: vector containing the position of samples
 %
 % Optional input arguments can be supplied like this:
 % 
@@ -13,8 +14,6 @@ function filt_out = gen_filt_funcs(filt_name,varargin)
 %
 % The arguments must be character strings followed by the argument value:
 %
-% 'samp_vec',samp_vec: vector containing the position of samples
-% 'filt_len',filt_len: output length (in samples)
 % 'dialation',dialation: filter dialation factor 
 % 'time_const', time_const: time constant of the exponential term
 % 'sigma', sigma: Gabor filter parameter, similar to standard diviation 
@@ -26,15 +25,11 @@ function filt_out = gen_filt_funcs(filt_name,varargin)
 
 % Extract optional input arguments
 func_inputs = inputParser;
-addParameter(func_inputs,'samp_vec',[],@isnumeric);
-addParameter(func_inputs,'filt_len',[],@isnumeric);
 addParameter(func_inputs,'dialation',1,@isnumeric);
 addParameter(func_inputs,'time_const',1,@isnumeric);
 addParameter(func_inputs,'sigma',1,@isnumeric);
 
 parse(func_inputs,varargin{:})
-samp_vec = func_inputs.Results.samp_vec;
-filt_len = func_inputs.Results.filt_len;
 dialation = func_inputs.Results.dialation;
 time_const = func_inputs.Results.time_const;
 sigma = func_inputs.Results.sigma;
@@ -42,29 +37,12 @@ sigma = func_inputs.Results.sigma;
 % Check inputs
 if nargin < 2
     error('Not enough input arguments!');
-elseif isempty(samp_vec) && isempty(filt_len)
-    error(['Not enough input arguments: either the vector of ',...
-        'sample positions or the filter length must be provided!'])
 end
 
-% Generate the sample positions if not provided
-if isempty(samp_vec) && ~isempty(filt_len)
-    
-    % For even filter length the sampling interval is [0:0.5-1/filt_len, -0.5:-1/filt_len]
-    if mod(filt_len,2) == 0
-        samp_vec = [0 : 1/filt_len : 0.5-1/filt_len, ...
-            -0.5 : 1/filt_len : -1/filt_len]';
-    
-    % For even filter length the sampling interval is [0:0.5-1/(2*filt_len), -0.5+1/(2*filt_len):-2/filt_len]
-    else
-        samp_vec = [0 : 1/filt_len : 0.5-0.5/filt_len, ...
-            -0.5+0.5/filt_len : 1/filt_len : -2/filt_len]';
-    end
-end
-
+% Generate filter handle 
 filt_function = gen_func_handle(filt_name);
 
-% Generate filter handles 
+% Compute filter values 
 switch filt_name    
     case 'hann'
         filt_out = filt_function(samp_vec);
@@ -85,17 +63,14 @@ switch filt_name
         % make it even so the transform is real
         filt_len = length(samp_vec);
         filt_out = [filt_out(1:floor(filt_len/2)+1), filt_out(ceil(filt_len/2):-1:2)];
-        
-        
+
         % remove dc ???????? 
-        
-        
+    
     case 'gabor_fourier'
         filt_out = filt_function(samp_vec,dialation,sigma);
         
-                % remove dc ???????? 
+        % remove dc ???????? 
 
-       
     case 'gammatone' % in the original domain (time)
         filt_out = filt_function(samp_vec,dialation,time_const);
         
@@ -108,9 +83,8 @@ switch filt_name
     case 'gammatone_fourier' % in the transform domain (rate)
         filt_out = filt_function(samp_vec,dialation,time_const);
         
-                % remove dc ???????? 
+        % remove dc ???????? 
 
-        
     case 'damped_sine' 
         filt_out = filt_function(samp_vec,dialation,time_const);
         
@@ -120,9 +94,8 @@ switch filt_name
     case 'damped_sine_fourier'
         filt_out = filt_function(samp_vec,dialation,time_const);
         
-                % remove dc ???????? 
+        % remove dc ???????? 
 
-   
     otherwise
         error('Unknown window function: %s.',name);
 end
