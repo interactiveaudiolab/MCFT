@@ -104,14 +104,7 @@ ctr_posit(1:n_bpass+2) = floor(filt_ctrs_samp(1:n_bpass+2));
 
 % ceiling of negative filter centers (round toward zero)
 ctr_posit(n_bpass+3:end) = ceil(filt_ctrs_samp(n_bpass+3:end));
-
-% shift in filter centers
-% mod(-ctr_posit(end),nfft) is the distance between the last center freq and 2pi (or 0 to first center freq)
-% ctr_shift = [mod(-ctr_posit(end),nfft) ; diff(ctr_posit)];
     
-% map the bandwithds and filter lengths to the next even number
-% filt_bws_samp = filt_bws_samp + mod(filt_bt_samp, 2);
-
 % check if filter lengths are shorter than allowed
 filt_bws_samp(filt_bws_samp < min_filt_len) = min_filt_len;
 filt_len = filt_bws_samp;
@@ -135,10 +128,10 @@ for i = 1:2*(n_bpass+1)
     samp_vec_shift = (samp_vec_temp(:) + 1);
     
     % compute the filter 
-    filt_temp = gen_filt_funcs(filt_name,'samp_vec',samp_vec_shift,...
-        'dialation',1,'sigma',sigma);
+    filt_temp = gen_filt_funcs(filt_name,samp_vec_shift,'dialation',1,...
+        'sigma',sigma);
     
-    if i <= n_bpass+3
+    if i < n_bpass+3
         fbank{i} = filt_temp;
     else
         fbank{i} = conj(filt_temp(end:-1:1));
