@@ -1,5 +1,4 @@
-function [fbank,filt_ctr_posit,filt_range] = gen_2d_fbank_light(fbank_params,...
-    varargin)
+function [fbank,filt_ctr_posit,filt_range] = gen_2d_fbank_light(fbank_params,varargin)
 
 % This function generates a multirate scale-rate (2D) filterbank.
 % Bandpass filters are critically sampled by default. If specified, the
@@ -21,7 +20,7 @@ function [fbank,filt_ctr_posit,filt_range] = gen_2d_fbank_light(fbank_params,...
 %
 % Optional input arguments can be provided like this:
 % 
-%    gen_scale_rate_fbank_light(fbank_params,'min_filt_len',min_filt_len)
+%    gen_2d_fbank_light(fbank_params,'min_filt_len',min_filt_len)
 %
 % The optional arguments must be names(character strings) followed by values:
 %
@@ -53,7 +52,7 @@ function [fbank,filt_ctr_posit,filt_range] = gen_2d_fbank_light(fbank_params,...
 %               filter
 % 
 % Outputs: 
-% fbank: n_scale * n_rate cell array of containing constant-Q/variabale-Q 
+% fbank: n_scale * n_rate cell array containing constant-Q/variabale-Q 
 %        scale-rate filters
 % ctr_posit: n_scale * n_rate * 2 matrix containig filter centers (low,band,high)
 %            in sample # in the scale-rate domain (1st element: scale, 2nd: rate) 
@@ -133,9 +132,9 @@ rate_ctr_posit = [rate_ctr_posit(1:n_rate_ctrs/2+1);...
                   rate_ctr_posit(n_rate_ctrs/2+1);...
                   rate_ctr_posit(n_rate_ctrs/2+2:end)];
 
-%%%%%%%%% combine scale_filt and rate_filt lengths into one matrix
+% combine scale_filt and rate_filt lengths into one matrix
 
-% 2D filter sizes with zero padding
+% 2D filter sizes with and without zero padding
 filt_size = zeros(n_scale_ctrs + 1, n_rate_ctrs + 1, 2);
 
 if strcmp(zpadding,'off')    
@@ -161,7 +160,7 @@ else
     
 end
 
-%%%%%%%%% generate 2d filters
+% generate 2d filters
 % highpass filters will be split into up-/down-ward filter
 
 fbank = cell(n_scale_ctrs + 1, n_rate_ctrs + 1);
