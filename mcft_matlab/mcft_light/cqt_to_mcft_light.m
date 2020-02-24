@@ -1,5 +1,4 @@
-function  [mcft_out,fbank_displace] = ...
-    cqt_to_mcft_light(sig_cqt,fbank,filt_range,filt_ctr_posit,varargin) 
+function  mcft_out = cqt_to_mcft_light(sig_cqt,fbank,filt_range,filt_ctr_posit,varargin) 
 
 % This function computes the coefficients of the subsampled version of 
 % the MCFT. It receives the frequency-time representation (CQT) of 
@@ -33,14 +32,14 @@ function  [mcft_out,fbank_displace] = ...
 %
 % Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
 
-% extract optional parameter values
+%% Extract optional parameter values
 func_inputs = inputParser;
 addParameter(func_inputs,'zpadding', 'off', @ischar);
 
 parse(func_inputs,varargin{:})
 zpadding = func_inputs.Results.zpadding;
 
-% dimensions
+% Dimensions
 [scale_nfft,rate_nfft] = size(sig_cqt);
 [n_scale_ctrs, n_rate_ctrs] = size(fbank);
 
@@ -74,67 +73,66 @@ if strcmp(zpadding,'on')
     
 end
 
-% 2D-Fourier transform of the time-frequency representation
+%% 2D-Fourier transform of the time-frequency representation
 sig_sr_domain = fft2(sig_cqt,scale_nfft,rate_nfft);
 
+%% Compute mcft coefficient
 mcft_out = cell(n_scale_ctrs, n_rate_ctrs);
 fbank_displace = cell(n_scale_ctrs, n_rate_ctrs);
   
 for i = 1:n_scale_ctrs
     for j = 1:n_rate_ctrs
         
-        % lengths of critically sampled filters
+        % Lengths of critically sampled filters
         scale_len_temp = filt_org_size{i,j}(1);
         rate_len_temp = filt_org_size{i,j}(2);
         
-        % length of the mcft (critically sampled or zero-padded)
-        if strcmp(zpadding,'off')
-            scale_new_len = scale_len_temp;
-            rate_new_len = rate_len_temp;
-        else
-            scale_new_len = filt_zpad_size(i,j,1);
-            rate_new_len = filt_zpad_size(i,j,2);
-        end
-        
-        % filter center position (in sample #)
+        % Filter center position (in sample #)
         scale_posit_temp = filt_ctr_posit{i,j}(1);
         rate_posit_temp = filt_ctr_posit{i,j}(2);
         
-        % support of filters on the original grid (original sample rate)
+        % Support of filters on the original grid (original sample rate)
         scale_filt_range = filt_range{i,j}{1};
         rate_filt_range = filt_range{i,j}{2};
         
-        % critically sampled filter
-        sr_filt_temp = fbank{i,j};
-        
-        % indices of the filter samples (-pi,pi]
+        % Indices of the filter samples (-pi,pi]
         scale_idx = [ceil(scale_len_temp/2)+1:scale_len_temp, ...
             1:ceil(scale_len_temp/2)];
         rate_idx = [ceil(rate_len_temp/2)+1:rate_len_temp, ...
             1:ceil(rate_len_temp/2)];
         
-        % compute mcft coefficients
-        mcft_temp = zeros(scale_new_len,rate_new_len);
+        % Lengths of the mcft (critically sampled or zero-padded)
+        if strcmp(zpadding,'off')
+            mcft_scale_len = scale_len_temp;
+            mcft_rate_len = rate_len_temp;
+        else
+            mcft_scale_len = filt_zpad_size(i,j,1);
+            mcft_rate_len = filt_zpad_size(i,j,2);
+        end
+        
+        % Critically sampled filter
+        sr_filt_temp = fbank{i,j};
+        
+        % Compute mcft coefficients
+        mcft_temp = zeros(mcft_scale_len,mcft_rate_len);
         mcft_temp([end-floor(scale_len_temp/2)+1:end, 1:ceil(scale_len_temp/2)],...
             [end-floor(rate_len_temp/2)+1:end, 1:ceil(rate_len_temp/2)]) = ...
             sig_sr_domain(scale_filt_range, rate_filt_range) .* ...
             sr_filt_temp(scale_idx,rate_idx); 
-        % Note: this is the original filter not the zero-padded version
-                
+        
+        % Frequency mapping
         scale_displace = scale_posit_temp - ...
-            floor(scale_posit_temp/scale_new_len) * scale_new_len;        
+            floor(scale_posit_temp/mcft_scale_len) * mcft_scale_len;        
         rate_displace = rate_posit_temp - ...
-            floor(rate_posit_temp/rate_new_len) * rate_new_len;
+            floor(rate_posit_temp/mcft_rate_len) * mcft_rate_len;
         
         mcft_temp = circshift(mcft_temp, scale_displace, 1);
         mcft_temp = circshift(mcft_temp, rate_displace, 2);
         
+        % Outputs
         mcft_out{i,j} = ifft2(mcft_temp);
-        
         fbank_displace{i,j} = [scale_displace,rate_displace];
 
-        
-         
     end
 end
 

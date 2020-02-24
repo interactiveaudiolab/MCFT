@@ -23,7 +23,7 @@ function filt_out = gen_filt_funcs(filt_name,samp_vec,varargin)
 %
 % Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
 
-% Extract optional input arguments
+%% Extract optional input arguments
 func_inputs = inputParser;
 addParameter(func_inputs,'dialation',1,@isnumeric);
 addParameter(func_inputs,'time_const',1,@isnumeric);
@@ -39,7 +39,7 @@ if nargin < 2
     error('Not enough input arguments!');
 end
 
-% Generate filter handle 
+%% Generate filter handle 
 filt_function = gen_func_handle(filt_name);
 
 % Compute filter values 

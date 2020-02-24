@@ -25,15 +25,7 @@ function [fbank,filt_ctr_posit,filt_range] = gen_2d_fbank_light(fbank_params,var
 % The optional arguments must be names(character strings) followed by values:
 %
 % 'zpadding': 'on' or 'off' (off means critically sampled), default = 'off'
-% 'fbank_format': character string, specifies the data structure in which
-%                  the output filterbank is stored. The format can be:
-%                  - 'cell': for critically sampled and zeropadded cases
-%                  - 'matrix': concatenates all cell elements, for critically
-%                            sampled and zeropadded cases
-%                  - 'struct': containing 4d matrices of same-size bandpass 
-%                              or highpass sections of the transform, only 
-%                              for the zeropadded case
-% 
+%
 % 'scale_filt_name': character string specifying the name of the scale filter 
 %                    function, default: 'gabor_fourier'
 % 'rate_filt_name': character string specifying the name of the scale filter 
@@ -54,7 +46,7 @@ function [fbank,filt_ctr_posit,filt_range] = gen_2d_fbank_light(fbank_params,var
 % Outputs: 
 % fbank: n_scale * n_rate cell array containing constant-Q/variabale-Q 
 %        scale-rate filters
-% ctr_posit: n_scale * n_rate * 2 matrix containig filter centers (low,band,high)
+% filt_ctr_posit: n_scale * n_rate * 2 matrix containig filter centers (low,band,high)
 %            in sample # in the scale-rate domain (1st element: scale, 2nd: rate) 
 % filt_range: n_scale * n_rate cell array containing the support of the
 %             filter along scale and rate axes in the original sampling
@@ -62,17 +54,16 @@ function [fbank,filt_ctr_posit,filt_range] = gen_2d_fbank_light(fbank_params,var
 %
 % Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
 
-% extract filter parameters
+%% Extract filter parameters
 ctr_min = fbank_params.ctr_min;
 ctr_max = fbank_params.ctr_max;
 filt_res = fbank_params.filt_res;
 nfft = fbank_params.nfft;
 samprate = fbank_params.samprate;
 
-% extract optional parameter values
+% Extract optional parameter values
 func_inputs = inputParser;
 addParameter(func_inputs,'zpadding', 'off', @ischar);
-% addParameter(func_inputs,'fbank_format','cell', @isnumeric);
 addParameter(func_inputs,'scale_filt_name','gabor_fourier',@ischar);
 addParameter(func_inputs,'rate_filt_name','gammatone_fourier',@ischar);
 addParameter(func_inputs,'min_filt_len',[4,4],@isnumeric);
@@ -82,7 +73,6 @@ addParameter(func_inputs,'time_const',1,@isnumeric);
 
 parse(func_inputs,varargin{:})
 zpadding = func_inputs.Results.zpadding;
-% fbank_format = func_inputs.Results.fbank_format;
 scale_filt_name = func_inputs.Results.scale_filt_name;
 rate_filt_name = func_inputs.Results.rate_filt_name;
 min_filt_len = func_inputs.Results.min_filt_len;
@@ -90,23 +80,25 @@ bw_offset = func_inputs.Results.bw_offset;
 sigma = func_inputs.Results.sigma;
 time_const = func_inputs.Results.time_const;
 
-% compute scale filters
+%% Generate 1d filters
+
+% Compute scale filters
 [scale_fbank,scale_ctrs,scale_ctr_posit,scale_filt_len] = ...
     gen_1d_fbank_light(scale_filt_name,ctr_min(1),ctr_max(1),filt_res(1),...
     samprate(1),nfft(1),'min_filt_len',min_filt_len(1),'bw_offset',...
     bw_offset(1),'sigma',sigma);
 
-% compute rate filters
+% Compute rate filters
 [rate_fbank,rate_ctrs,rate_ctr_posit,rate_filt_len] = ...
     gen_1d_fbank_light(rate_filt_name,ctr_min(2),ctr_max(2),filt_res(2),...
     samprate(2),nfft(2),'min_filt_len',min_filt_len(2),'bw_offset',...
     bw_offset(2),'time_const',time_const);
 
-% total number of filters
+% Total number of filters
 n_scale_ctrs = length(scale_ctrs);
 n_rate_ctrs = length(rate_ctrs);
 
-% add one more high pass filter so that highpass filters can be split into
+% Add one more high pass filter so that highpass filters can be split into
 % up-ward and down-ward later on 
 scale_fbank = [scale_fbank(1:n_scale_ctrs/2+1);...
                scale_fbank(n_scale_ctrs/2+1);...
@@ -132,7 +124,7 @@ rate_ctr_posit = [rate_ctr_posit(1:n_rate_ctrs/2+1);...
                   rate_ctr_posit(n_rate_ctrs/2+1);...
                   rate_ctr_posit(n_rate_ctrs/2+2:end)];
 
-% combine scale_filt and rate_filt lengths into one matrix
+% Combine scale_filt and rate_filt lengths into one matrix
 
 % 2D filter sizes with and without zero padding
 filt_size = zeros(n_scale_ctrs + 1, n_rate_ctrs + 1, 2);
@@ -142,11 +134,11 @@ if strcmp(zpadding,'off')
     filt_size(:,:,2) = repmat(rate_filt_len.',n_scale_ctrs+1,1);
     
 else
-    % maximum length bandpass filter
+    % Maximum length bandpass filter
     [scale_bpass_max_len, ~] = max(scale_filt_len(1:n_scale_ctrs/2));
     [rate_bpass_max_len, ~] = max(rate_filt_len(1:n_rate_ctrs/2));
 
-    % highpass lengths
+    % Highpass lengths
     scale_highpass_len = scale_filt_len(n_scale_ctrs/2+1);
     rate_highpass_len = rate_filt_len(n_rate_ctrs/2+1);
     
@@ -160,8 +152,8 @@ else
     
 end
 
-% generate 2d filters
-% highpass filters will be split into up-/down-ward filter
+%% Generate 2d filters
+% Note: highpass filters will be split into up-/down-ward filter
 
 fbank = cell(n_scale_ctrs + 1, n_rate_ctrs + 1);
 
@@ -218,7 +210,6 @@ for i = 1:n_scale_ctrs + 1
                  (i == n_scale_ctrs/2 + 2 && j ==  n_rate_ctrs/2 + 2) || ...
                  (j == n_rate_ctrs/2 + 1  && i > n_scale_ctrs/2 + 2) || ...
                  (j == n_rate_ctrs/2 + 2  && i > 1 && i < n_scale_ctrs/2 + 1);
-                 
         
     if condition1
         

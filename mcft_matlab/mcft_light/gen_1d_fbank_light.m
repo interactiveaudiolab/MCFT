@@ -39,7 +39,7 @@ function [fbank,filt_ctrs,ctr_posit,filt_len] = ...
 %
 % Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
 
-%%% Extract optional input arguments
+%% Extract optional input arguments
 func_inputs = inputParser;
 addParameter(func_inputs,'min_filt_len',4,@isnumeric);
 addParameter(func_inputs,'bw_offset',0,@isnumeric);
@@ -53,32 +53,32 @@ bw_offset = func_inputs.Results.bw_offset;
 sigma = func_inputs.Results.sigma;
 time_const = func_inputs.Results.time_const;
 
-%%% Compute filter centers and bandwidths
+%% Compute filter centers and bandwidths
 nyq_rate = samprate / 2; % Nyquiest rate
 
 if ctr_max > nyq_rate, ctr_max = nyq_rate; end
 
 fft_res = samprate / nfft;
 
-% index of the highest filter center in log2 scale (strating at 2^0)
+% Index of the highest filter center in log2 scale (strating at 2^0)
 ctr_max_idx = floor(filt_res * log2(ctr_max / ctr_min));
 
-% center frequencies of bandpass filters
+% Center frequencies of bandpass filters
 filt_ctrs = ctr_min .* 2.^((0:ctr_max_idx).' ./ filt_res);
 
 Q_factor = 2^(1/filt_res) - 2^(-1/filt_res);
 
-% bandwidths of bandpass filters
+% Bandwidths of bandpass filters
 filt_bws = Q_factor * filt_ctrs + bw_offset;
 
-% make sure the support of the highest filter will not exceed nyq_rate
+% Make sure the support of the highest filter will not exceed nyq_rate
 temp_idx = find(filt_ctrs + filt_bws/2 > nyq_rate, 1, 'first');
 if ~isempty(temp_idx)
     filt_ctrs = filt_ctrs(1:temp_idx - 1);
     filt_bws = filt_bws(1:temp_idx - 1);
 end
 
-% make sure the support of the lowest filter will not exceed DC
+% Make sure the support of the lowest filter will not exceed DC
 temp_idx = find(filt_ctrs - filt_bws/2 < 0, 1, 'last');
 if ~isempty(temp_idx)
     filt_ctrs = filt_ctrs(temp_idx + 1 : end);
@@ -86,38 +86,40 @@ if ~isempty(temp_idx)
     warning(['ctr_min set to ',num2str(fft_res * floor(filt_ctrs(1)/fft_res),6),'!']);
 end
     
-% total number of bandpass filters
+% Total number of bandpass filters
 n_bpass = length(filt_ctrs);
 
-% include lowpass (centered at 0)
+% Include lowpass (centered at 0)
 % filt_ctrs = [0; filt_ctrs];             ?????? check which one's better
 filt_ctrs = [fft_res/2; filt_ctrs];
 
-% iclude highpass (centered at Nyquist)
+% Include highpass (centered at Nyquist)
 filt_ctrs = [filt_ctrs; nyq_rate];
 
-% include mirrored centers and bandwidths in (pi,2pi)
+% Include mirrored centers and bandwidths in (pi,2pi)
 filt_ctrs(n_bpass+3 : 2*(n_bpass+1)) = samprate - filt_ctrs(n_bpass+1 : -1 : 2);
 filt_bws = [2*ctr_min ; filt_bws ; filt_ctrs(n_bpass+3)-filt_ctrs(n_bpass+1); filt_bws(end:-1:1)];
 
-% filter centers and bandwidths in terms of sample number
+% Filter centers and bandwidths in terms of sample number
 filt_ctrs_samp = filt_ctrs / fft_res;
 filt_bws_samp = round(filt_bws / fft_res);
 
-% position of filter centers in terms of sample number
+%% Generate filters
+
+% Position of filter centers in terms of sample number
 ctr_posit = zeros(size(filt_ctrs_samp));
 
-% floor of positive filter centers (round toward zero)
+% Floor of positive filter centers (round toward zero)
 ctr_posit(1:n_bpass+2) = floor(filt_ctrs_samp(1:n_bpass+2));
 
-% ceiling of negative filter centers (round toward zero)
+% Ceiling of negative filter centers (round toward zero)
 ctr_posit(n_bpass+3:end) = ceil(filt_ctrs_samp(n_bpass+3:end));
     
-% check if filter lengths are above a minimum allowed length
+% Check if filter lengths are above a minimum allowed length
 filt_bws_samp(filt_bws_samp < min_filt_len) = min_filt_len;
 filt_len = filt_bws_samp;
 
-% make an array of filter functions
+% Make a cell array of filter functions
 fbank = cell(2*(n_bpass+1), 1);
 for i = 1:2*(n_bpass+1)
     len_temp = filt_len(i);
