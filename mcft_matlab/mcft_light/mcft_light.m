@@ -64,6 +64,8 @@ function [mcft_out,inv_bundle] = mcft_light(signal,cqt_params_in,fbank_params,va
 %       filt_range: n_scale * n_rate cell array containing the support of the
 %             filter along scale and rate axes in the original sampling
 %             grid (transform domain sampled at the actual rate)
+%       mcft_scale_len (if output_format = 'matrix'): to be used in mat2cell()
+%       mcft_rate_len (if output_format = 'matrix'): to be used in mat2cell()
 %       
 %
 % Author: Fatemeh Pishdadian (fpishdadian@u.northwestern.edu)
@@ -108,10 +110,9 @@ sig_cqt = sig_cq_struct.c;
 
 cqt_params_out = sig_cq_struct;
 cqt_params_out = rmfield(cqt_params_out,'c');
-cqt_params_out.n_freq = n_freq;
-cqt_params_out.n_time = n_time;
 
 inv_bundle = struct('cqt_params',cqt_params_out);
+inv_bundle.sig_cqt_size = [n_freq, n_time];
 
 %% Parameters of spectro-temporal filters:
 
@@ -169,10 +170,26 @@ switch output_format
     case 'cell' % critically sampled or zero-padded
         mcft_out = mcft_cell;
         
-    case 'matrix' % critically sampled or zero-padded
+    case 'matrix' % critically sampled or zero-padded   
+        
         mcft_out = cell2mat(mcft_cell);
+
+        mcft_size = cellfun(@size,mcft_cell,'UniformOutput',0);
+        
+        mcft_scale_len = cell2mat(mcft_size(:,1));
+        mcft_scale_len = mcft_scale_len(:,1);
+        
+        mcft_rate_len = cell2mat(mcft_size(1,:).');
+        mcft_rate_len = mcft_rate_len(:,2);
+        
+        inv_bundle.mcft_scale_len = mcft_scale_len;
+        inv_bundle.mcft_rate_len = mcft_rate_len;
         
     case 'struct' % only zero-padded
+        if strcmp(zpadding,'off')
+            error('Structure output format can only be used when zero-padding is on!');
+        end
+        
         mcft_out = cell_to_struct(mcft_cell,fbank);  
 end
 
@@ -223,9 +240,9 @@ mcft_shigh_rband_cell = [mcft_cell(scale_high_idx:scale_high_idx+1,1:rate_high_i
                   
 mcft_shigh_rband = zeros(2, n_rate_ctrs-2, shigh_rband_size(1),shigh_rband_size(2));
 
-for j = 1:n_rate_ctrs-2
-    mcft_shigh_rband(1,j,:,:) = mcft_shigh_rband_cell{1,j};
-    mcft_shigh_rband(2,j,:,:) = mcft_shigh_rband_cell{2,j};
+for i = 1:n_rate_ctrs-2
+    mcft_shigh_rband(1,i,:,:) = mcft_shigh_rband_cell{1,i};
+    mcft_shigh_rband(2,i,:,:) = mcft_shigh_rband_cell{2,i};
 end    
 
 % All bandpass-scale-/highpass-rate-filtered slices
@@ -249,7 +266,7 @@ for i = 1:2
 end
 
 % Output structure array
-mcft_struct = struct('sband_rband',mcft_band,'shight_rband',mcft_shigh_rband,...
+mcft_struct = struct('sband_rband',mcft_band,'shigh_rband',mcft_shigh_rband,...
                          'sband_rhigh',mcft_sband_rhigh,'shigh_rhigh',mcft_shigh_rhigh);
                     
 end
